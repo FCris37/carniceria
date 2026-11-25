@@ -69,12 +69,30 @@ textarea{min-height:76px;resize:vertical}
 .chip{background:#fff;white-space:nowrap;padding:8px 14px;min-height:40px;flex-shrink:0}
 .chip[aria-pressed="true"]{background:#9b1c2e;color:#fff;border-color:#9b1c2e}
 
-.sell>section{margin-bottom:16px}
-.sell>aside{margin-bottom:0}
-@media (min-width:860px){
-  .sell{display:flex;align-items:flex-start}
-  .sell>section{flex:1.6 1 0%;min-width:0;margin-bottom:0;margin-right:16px}
-  .sell>aside{flex:1 1 0%;min-width:300px;position:-webkit-sticky;position:sticky;top:0}
+/* Mostrador: productos a la izquierda (con su scroll) y ticket fijo y estrecho a la derecha */
+main#view>.sell{flex:1 1 auto;flex-shrink:1;min-height:0}
+.sell{display:flex;align-items:stretch}
+.sell>section{flex:1 1 0%;min-width:0;overflow-y:auto;-webkit-overflow-scrolling:touch;margin-right:12px}
+.sell>aside{flex:0 0 240px;width:240px;min-width:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.ticket .lines{flex:1 1 0%;flex-shrink:1;min-height:70px;overflow-y:auto}
+.ticket .line{flex-wrap:wrap}
+.ticket .line>*+*{margin-left:0}
+.ticket .line .t{flex:1 1 100%}
+.ticket .line>button{margin-left:auto}
+.ticket .total{font-size:1.15rem}
+.ticket .total strong{font-size:1.6rem}
+.ticket .seg{display:block}
+.ticket .seg button{display:block;width:100%;min-height:42px}
+.ticket .seg button+button{margin:8px 0 0}
+.ticket .primary.big{min-height:50px}
+.ticket>.ghost,.ticket>.link{text-align:center}
+@media (max-width:899px){.sell .grid>*{width:calc(50% - 10px)}}
+@media (max-width:599px){
+  main#view>.sell{flex:0 0 auto}
+  .sell{display:block}
+  .sell>section{overflow:visible;margin:0 0 16px}
+  .sell>aside{width:auto;overflow:visible}
+  .ticket .lines{overflow:visible}
 }
 .grid{display:flex;flex-wrap:wrap;margin:-5px}
 .grid>*{margin:5px;width:calc(50% - 10px)}
