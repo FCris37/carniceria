@@ -195,7 +195,7 @@ td input{min-width:90px;text-align:right}
 .kp button:disabled{opacity:.35}
 .kp-r button+button{margin-top:8px}
 .kp button.ok{background:#9b1c2e;border-color:#9b1c2e;color:#fff}
-body.kp-open .sheet{bottom:270px}
+
 body.kp-open main#view{padding-bottom:290px}
 input.kp-on{border-color:#9b1c2e;box-shadow:0 0 0 3px rgba(155,28,46,.25)}
 
@@ -206,10 +206,49 @@ input.kp-on{border-color:#9b1c2e;box-shadow:0 0 0 3px rgba(155,28,46,.25)}
 .change.low{background:#fdecea;border-color:#f0a8a0;color:#9b1c2e}
 .sb{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column}
 .sb>*{-webkit-flex-shrink:0;flex-shrink:0}
-body.kp-open .sheet{padding:8px 16px}
-body.kp-open .sheet-card{max-height:100%;padding:12px 16px}
-body.kp-open .sheet-card>*+*{margin-top:8px}
-body.kp-open .sb>*+*{margin-top:8px}
+.sheet.kp-room{bottom:270px;padding:8px 16px}
+.sheet.kp-room .sheet-card{max-height:100%;padding:12px 16px}
+.sheet.kp-room .sheet-card>*+*{margin-top:8px}
+.sheet.kp-room .sb>*+*{margin-top:8px}
+.bigin{font-size:2rem;min-height:68px;text-align:center}
+@media (max-height:760px){
+  .kp{height:220px;padding:8px}
+  .kp-row{margin-bottom:6px}.kp-row button+button{margin-left:6px}.kp-r{margin-left:6px}.kp-r button+button{margin-top:6px}
+  .kp button{font-size:1.6rem}
+  .sheet.kp-room{bottom:220px;padding:6px 16px}
+  .sheet.kp-room .sheet-card{padding:10px 16px}
+  .sheet.kp-room .sheet-card>*+*,.sheet.kp-room .sb>*+*{margin-top:6px}
+  .sheet.kp-room h3{font-size:1.1rem}
+  .sheet.kp-room .icon{min-height:36px}
+  .sheet.kp-room .bigin,.sheet.kp-room .qtyrow input{font-size:1.7rem;min-height:54px}
+  .sheet.kp-room .chip{min-height:40px;padding:6px 14px}
+  .sheet.kp-room .change{padding:8px 12px}.sheet.kp-room .change strong,.sheet.kp-room .linetotal strong{font-size:1.4rem}
+  .sheet.kp-room .primary.big{min-height:48px}
+  .sheet.kp-room label{font-size:.8rem}
+  body.kp-open main#view{padding-bottom:240px}
+}
+@media (max-height:620px){
+  .kp{height:190px}
+  .sheet.kp-room{bottom:190px}
+  .sheet.kp-room .sheet-card{padding:8px 14px}
+  .sheet.kp-room .bigin,.sheet.kp-room .qtyrow input{min-height:46px;font-size:1.5rem}
+  .sheet.kp-room .chip{min-height:36px}
+  .sheet.kp-room .primary.big{min-height:44px}
+  .sheet.kp-room .sheet-card header{margin-bottom:-4px}
+}
+.kp button{line-height:1}
+.kp-row,.kp-l,.kp-r,.kp-in{min-height:0}
+@media (max-height:620px){.kp button{font-size:1.4rem}}
+@media (max-height:560px){
+  .kp{height:170px;padding:6px}
+  .sheet.kp-room{bottom:170px;padding:4px 16px}
+  .sheet.kp-room .sheet-card{padding:6px 14px}
+  .sheet.kp-room .sheet-card>*+*,.sheet.kp-room .sb>*+*{margin-top:4px}
+  .sheet.kp-room .bigin,.sheet.kp-room .qtyrow input{min-height:40px;font-size:1.4rem}
+  .sheet.kp-room .chip{min-height:32px}
+  .sheet.kp-room .primary.big{min-height:40px}
+  .sheet.kp-room .change{padding:4px 12px}
+}
 </style>
 </head>
 <body>
@@ -1464,7 +1503,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
           var tot = round2(S.cart.reduce(function (a, l) {
             return a + l.total;
           }, 0));
-          var b = openSheet('Cobro en efectivo', '<div class="linetotal"><span>Total a cobrar</span><strong class="num">' + eur(tot) + '</strong></div><div><label for="given">Entregado por el cliente (€)</label><input id="given" inputmode="decimal" autocomplete="off" placeholder="0,00" style="font-size:2rem;min-height:68px;text-align:center"></div><div class="chips" id="bills"><button class="chip" data-b="5">5</button><button class="chip" data-b="10">10</button><button class="chip" data-b="20">20</button><button class="chip" data-b="50">50</button><button class="chip" data-b="j">Justo</button></div><div class="change" id="chg"><span id="chl">Devolver</span><strong class="num" id="chv">—</strong></div><button class="primary big" id="cgo">Cobrar</button>');
+          var b = openSheet('Cobro en efectivo', '<div class="linetotal"><span>Total a cobrar</span><strong class="num">' + eur(tot) + '</strong></div><div><label for="given">Entregado por el cliente (€)</label><input id="given" inputmode="decimal" autocomplete="off" placeholder="0,00" class="bigin"></div><div class="chips" id="bills"><button class="chip" data-b="5">5</button><button class="chip" data-b="10">10</button><button class="chip" data-b="20">20</button><button class="chip" data-b="50">50</button><button class="chip" data-b="j">Justo</button></div><div class="change" id="chg"><span id="chl">Devolver</span><strong class="num" id="chv">—</strong></div><button class="primary big" id="cgo">Cobrar</button>');
           var g = $('#given', b);
           function calc() {
             var raw = g.value.trim(),
@@ -1666,6 +1705,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
           el.innerHTML = '<div class="sheet-card" role="dialog" aria-modal="true" aria-label="' + esc(title) + '"><header><h3>' + esc(title) + '</h3><button class="icon" data-close aria-label="Cerrar">×</button></header><div class="sb">' + body + '</div></div>';
           el.hidden = false;
           if (typeof Keypad !== "undefined" && Keypad) Keypad.prep(el);
+          el.className = 'sheet' + (el.querySelector('input[inputmode="numeric"],input[inputmode="decimal"],input[inputmode="tel"]') ? ' kp-room' : '');
           $('[data-close]', el).onclick = closeSheet;
           el.onclick = function (e) {
             if (e.target === el) closeSheet();
@@ -2886,7 +2926,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
               var v = $('#view');
               if (v && v.contains(i)) {
                 var r = i.getBoundingClientRect(),
-                  lim = window.innerHeight - KH - 12;
+                  lim = window.innerHeight - el.offsetHeight - 12;
                 if (r.bottom > lim) v.scrollTop += r.bottom - lim;
               }
             }, 350);
