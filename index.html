@@ -17,8 +17,10 @@
 <style>
 /* Compatible con navegadores antiguos (Chrome 38+): sin variables CSS, sin grid y sin gap. */
 *{box-sizing:border-box}
+html{font-size:18px}
+@media (min-width:1100px){html{font-size:20px}}
 html,body{height:100%;margin:0}
-body{background:#f3f4f6;color:#1c2127;font-family:'Barlow',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.4;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-text-size-adjust:100%}
+body{background:#f3f4f6;color:#1c2127;font-family:'Barlow',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:1rem;line-height:1.4;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-text-size-adjust:100%}
 [hidden]{display:none!important}
 h1,h2,h3{font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif;margin:0;letter-spacing:.01em}
 h2{font-size:1.25rem}
@@ -36,11 +38,11 @@ header.top h1{font-size:1.35rem;flex:1;min-width:0;white-space:nowrap;overflow:h
 .banner{padding:8px 16px;font-size:.9rem;background:#fbeed6;color:#a85f00;border-bottom:1px solid #dde1e6}
 .banner.bad{background:#f9dedc;color:#b3261e}
 
-main#view{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px;width:100%;max-width:1120px;margin:0 auto;display:flex;flex-direction:column}
+main#view{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px;width:100%;max-width:none;margin:0;display:flex;flex-direction:column}
 main#view>*{flex-shrink:0}
 main#view>*+*{margin-top:16px}
 nav.tabs{display:flex;background:#fff;border-top:1px solid #dde1e6}
-nav.tabs button{flex:1;min-width:0;border:0;background:none;padding:14px 4px;font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif;font-weight:600;font-size:1.02rem;color:#5d6975;border-top:3px solid transparent}
+nav.tabs button{flex:1;min-width:0;border:0;background:none;padding:18px 4px;font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif;font-weight:600;font-size:1.02rem;color:#5d6975;border-top:3px solid transparent}
 nav.tabs button[aria-current="page"]{color:#9b1c2e;border-top-color:#9b1c2e}
 @media (max-width:520px){nav.tabs button{font-size:.88rem;padding:12px 2px}}
 
@@ -50,12 +52,12 @@ nav.tabs button[aria-current="page"]{color:#9b1c2e;border-top-color:#9b1c2e}
 .panel>h2{display:flex;justify-content:space-between;align-items:baseline}
 .panel>h2 span{margin-left:8px}
 .row{display:flex;flex-wrap:wrap;margin:-6px}
-.row>*{flex:1 1 140px;min-width:0;margin:6px}
+.row>*{flex:1 1 180px;min-width:0;margin:6px}
 label{display:block;font-size:.85rem;font-weight:600;color:#5d6975;margin-bottom:4px}
-input,select,textarea{width:100%;padding:11px 12px;background:#f3f4f6;border:1px solid #dde1e6;border-radius:8px;min-height:44px}
+input,select,textarea{width:100%;padding:12px 14px;background:#f3f4f6;border:1px solid #dde1e6;border-radius:8px;min-height:50px}
 textarea{min-height:76px;resize:vertical}
 .field{min-width:0}
-.primary,.ghost,.danger,.step,.chip{border-radius:8px;border:1px solid #dde1e6;padding:10px 16px;min-height:44px;font-weight:600}
+.primary,.ghost,.danger,.step,.chip{border-radius:8px;border:1px solid #dde1e6;padding:12px 18px;min-height:50px;font-weight:600}
 .primary{background:#9b1c2e;color:#fff;border-color:#9b1c2e}
 .primary:disabled{opacity:.45;cursor:not-allowed}
 .primary.big{min-height:54px;font-size:1.1rem;font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif;letter-spacing:.02em}
@@ -66,14 +68,15 @@ textarea{min-height:76px;resize:vertical}
 .swap{min-height:38px;padding:6px 12px;font-size:.85rem}
 .chips{display:flex;overflow-x:auto;padding-bottom:2px}
 .chips>*+*{margin-left:8px}
-.chip{background:#fff;white-space:nowrap;padding:8px 14px;min-height:40px;flex-shrink:0}
+.chip{background:#fff;white-space:nowrap;padding:10px 18px;min-height:48px;flex-shrink:0}
 .chip[aria-pressed="true"]{background:#9b1c2e;color:#fff;border-color:#9b1c2e}
 
 /* Mostrador: productos a la izquierda (con su scroll) y ticket fijo y estrecho a la derecha */
 main#view>.sell{flex:1 1 auto;flex-shrink:1;min-height:0}
 .sell{display:flex;align-items:stretch}
-.sell>section{flex:1 1 0%;min-width:0;overflow-y:auto;-webkit-overflow-scrolling:touch;margin-right:12px}
-.sell>aside{flex:0 0 240px;width:240px;min-width:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.sell>section{flex:1 1 0%;min-width:0;overflow:hidden;margin-right:12px}
+.sell>section>.grid{margin:6px -6px -6px;flex:1 1 0%;flex-shrink:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;align-content:flex-start}
+.sell>aside{flex:0 0 280px;width:280px;min-width:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .ticket .lines{flex:1 1 0%;flex-shrink:1;min-height:70px;overflow-y:auto}
 .ticket .line{flex-wrap:wrap}
 .ticket .line>*+*{margin-left:0}
@@ -82,28 +85,29 @@ main#view>.sell{flex:1 1 auto;flex-shrink:1;min-height:0}
 .ticket .total{font-size:1.15rem}
 .ticket .total strong{font-size:1.6rem}
 .ticket .seg{display:block}
-.ticket .seg button{display:block;width:100%;min-height:42px}
+.ticket .seg button{display:block;width:100%;min-height:48px}
 .ticket .seg button+button{margin:8px 0 0}
-.ticket .primary.big{min-height:50px}
+.ticket .primary.big{min-height:60px}
 .ticket>.ghost,.ticket>.link{text-align:center}
-@media (max-width:899px){.sell .grid>*{width:calc(50% - 10px)}}
+@media (max-width:899px){.sell .grid>*{width:calc(50% - 12px)}}
 @media (max-width:599px){
   main#view>.sell{flex:0 0 auto}
   .sell{display:block}
   .sell>section{overflow:visible;margin:0 0 16px}
+  .sell>section>.grid{overflow:visible;flex:0 0 auto;margin:-6px}
   .sell>aside{width:auto;overflow:visible}
   .ticket .lines{overflow:visible}
 }
-.grid{display:flex;flex-wrap:wrap;margin:-5px}
-.grid>*{margin:5px;width:calc(50% - 10px)}
-@media (min-width:600px){.grid>*{width:calc(33.333% - 10px)}}
-.grid>.empty{width:calc(100% - 10px)}
-.prod{display:block;text-align:left;padding:12px;min-height:84px;background:#f3f4f6;border:1px solid #dde1e6;border-radius:10px;border-left:5px solid #9b1c2e}
+.grid{display:flex;flex-wrap:wrap;margin:-6px}
+.grid>*{margin:6px;width:calc(50% - 12px)}
+@media (min-width:600px){.grid>*{width:calc(33.333% - 12px)}}
+.grid>.empty{width:calc(100% - 12px)}
+.prod{display:block;text-align:left;padding:16px 14px;min-height:112px;background:#f3f4f6;border:1px solid #dde1e6;border-radius:10px;border-left:5px solid #9b1c2e}
 .prod.ud{border-left-color:#1f7a4d}
-.prod b{display:block;font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif;font-size:1.1rem;line-height:1.15;margin-bottom:2px}
-.prod span{display:block;color:#5d6975;font-size:.85rem}
+.prod b{display:block;font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif;font-size:1.3rem;line-height:1.15;margin-bottom:6px}
+.prod span{display:block;color:#5d6975;font-size:1rem}
 .lines{min-height:48px}
-.line{display:flex;align-items:center;padding:8px 0;border-bottom:1px dashed #dde1e6}
+.line{display:flex;align-items:center;padding:10px 0;border-bottom:1px dashed #dde1e6}
 .line>*+*{margin-left:8px}
 .line .t{flex:1;min-width:0}
 .line .t small{display:block;color:#5d6975}
@@ -115,7 +119,7 @@ main#view>.sell{flex:1 1 auto;flex-shrink:1;min-height:0}
 .seg button[aria-pressed="true"]{background:#f6e4e7;border-color:#9b1c2e;color:#9b1c2e}
 .empty{padding:20px;text-align:center;color:#5d6975;border:1px dashed #dde1e6;border-radius:10px}
 
-.item{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid #dde1e6}
+.item{display:flex;align-items:center;padding:14px 0;border-bottom:1px solid #dde1e6}
 .item>*+*{margin-left:10px}
 .item:last-child{border-bottom:0}
 .item .t{flex:1;min-width:0}
@@ -128,15 +132,15 @@ main#view>.sell{flex:1 1 auto;flex-shrink:1;min-height:0}
 .tag.bad{background:#f9dedc;color:#b3261e}
 
 .tablewrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:.95rem}
-th,td{padding:9px 8px;border-bottom:1px solid #dde1e6;text-align:left;vertical-align:middle}
+table{width:100%;border-collapse:collapse;font-size:1rem}
+th,td{padding:12px 10px;border-bottom:1px solid #dde1e6;text-align:left;vertical-align:middle}
 th{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:#5d6975;font-weight:600}
 td.n,th.n{text-align:right}
 td input{min-width:90px;text-align:right}
 .pos{color:#1f7a4d}.neg{color:#b3261e}.warnc{color:#a85f00}
 
 .tiles{display:flex;flex-wrap:wrap;margin:-5px}
-.tile{flex:1 1 150px;min-width:140px;margin:5px;background:#f3f4f6;border:1px solid #dde1e6;border-radius:10px;padding:12px}
+.tile{flex:1 1 200px;min-width:160px;margin:5px;background:#f3f4f6;border:1px solid #dde1e6;border-radius:10px;padding:12px}
 .tile small{color:#5d6975;display:block}
 .tile strong{font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif;font-size:1.6rem;display:block;line-height:1.15}
 .tile.alert{border-color:#b3261e;background:#f9dedc}
@@ -149,7 +153,7 @@ td input{min-width:90px;text-align:right}
 
 .sheet{position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(10,12,14,.55);display:flex;align-items:flex-end;justify-content:center;z-index:20}
 @media (min-width:640px){.sheet{align-items:center;padding:16px}}
-.sheet-card{background:#fff;width:100%;max-width:460px;border-radius:16px 16px 0 0;padding:16px;display:flex;flex-direction:column;max-height:92%;overflow-y:auto}
+.sheet-card{background:#fff;width:100%;max-width:560px;border-radius:16px 16px 0 0;padding:16px;display:flex;flex-direction:column;max-height:92%;overflow-y:auto}
 .sheet-card>*{flex-shrink:0}
 .sheet-card>*+*{margin-top:12px}
 @media (min-width:640px){.sheet-card{border-radius:16px}}
@@ -159,8 +163,8 @@ td input{min-width:90px;text-align:right}
 .icon{border:0;background:none;font-size:1.8rem;line-height:1;padding:4px 10px;color:#5d6975}
 .qtyrow{display:flex}
 .qtyrow>*+*{margin-left:8px}
-.qtyrow input{font-size:1.8rem;text-align:center;min-height:60px;flex:1;font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif}
-.step{background:#fff;min-width:60px;font-size:1.6rem}
+.qtyrow input{font-size:2.2rem;text-align:center;min-height:76px;flex:1;font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif}
+.step{background:#fff;min-width:76px;font-size:1.8rem}
 .linetotal{display:flex;justify-content:space-between;align-items:baseline;font-size:1.1rem}
 .linetotal strong{font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif;font-size:1.8rem}
 .toast{position:fixed;left:50%;bottom:84px;-webkit-transform:translateX(-50%);transform:translateX(-50%);background:#1c2127;color:#fff;padding:12px 18px;border-radius:10px;z-index:30;max-width:90%;font-weight:500}
