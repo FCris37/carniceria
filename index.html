@@ -165,6 +165,21 @@ td input{min-width:90px;text-align:right}
 <div id="toast" class="toast" hidden role="status"></div>
 
 <script>
+(function(){
+  function show(msg){
+    var v=document.getElementById('view'),t=document.getElementById('roletxt');
+    if(t)t.textContent='Error';
+    if(!v)return;
+    v.textContent='';
+    var p=document.createElement('div');p.className='panel';
+    var h=document.createElement('h2');h.textContent='La app no ha podido arrancar';
+    var m=document.createElement('p');m.className='muted';m.textContent='Haz una foto de este mensaje y envíamela:';
+    var pre=document.createElement('pre');pre.style.whiteSpace='pre-wrap';pre.style.wordBreak='break-word';pre.textContent=msg+'\n'+navigator.userAgent;
+    p.appendChild(h);p.appendChild(m);p.appendChild(pre);v.appendChild(p);
+  }
+  window.addEventListener('error',function(e){show(String(e.message)+' ('+(e.lineno||'?')+':'+(e.colno||'?')+')')});
+  window.addEventListener('unhandledrejection',function(e){show('Promesa: '+String(e.reason&&e.reason.message||e.reason))});
+})();
 (async function(){
 "use strict";
 var $ = function(s,r){return (r||document).querySelector(s)};
@@ -194,8 +209,8 @@ var S = {products:[],sales:[],closings:[],moves:[],orders:[],names:{},cart:[],me
 var SEED=[['Chuletón de ternera','kg',24.9,'Vacuno'],['Entrecot de ternera','kg',22.5,'Vacuno'],['Carne picada mixta','kg',8.9,'Vacuno'],['Filetes de ternera','kg',16.5,'Vacuno'],['Lomo de cerdo','kg',9.5,'Cerdo'],['Costilla de cerdo','kg',6.9,'Cerdo'],['Panceta','kg',7.5,'Cerdo'],['Pechuga de pollo','kg',8.5,'Aves'],['Muslos de pollo','kg',4.9,'Aves'],['Pollo entero','ud',7.9,'Aves'],['Chorizo fresco','ud',3.2,'Embutidos'],['Morcilla','ud',2.8,'Embutidos'],['Jamón cocido','kg',14.9,'Embutidos'],['Huevos docena','ud',3.5,'Otros']];
 var db = (function(){
   var KEY='carniceria.datos.v1', store={}, ls=[];
-  try{store=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){store={}}
-  function persist(){try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){throw {code:'quota_exceeded'}}}
+  try{store=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){store={};window.__noStore=true}
+  function persist(){try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){window.__noStore=true}}
   function notify(){ls.slice().forEach(function(l){l()})}
   function newId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
   function clone(o){return JSON.parse(JSON.stringify(o))}
@@ -232,6 +247,7 @@ var db = (function(){
 })();
 var user = null;
 S.boss = true;
+if(window.__noStore){var bn0=$('#banner');bn0.hidden=false;bn0.className='banner bad';bn0.textContent='Este navegador no deja guardar datos: lo que registres se perderá al cerrar la página.'}
 Object.defineProperty(S,'uid',{get:function(){return S.mode}});
 if(!S.canWrite){ var bn=$('#banner'); bn.hidden=false; bn.textContent='Tienes acceso solo de lectura: puedes ver los datos pero no registrar ventas.'; }
 
@@ -614,10 +630,10 @@ async function resolveNames(){
 }
 
 /* ---------- Datos en vivo ---------- */
-var loadTimer=setTimeout(function(){var b=$('#banner');b.hidden=false;b.className='banner';b.textContent='No se puede conectar con los datos todavía. Lo que ves puede estar desactualizado.'},10000);
+var loadTimer=0;
 function markLoaded(k){
   S.loaded[k]=true;
-  if(Object.keys(S.loaded).length>=5){clearTimeout(loadTimer);$('#dot').classList.add('ok');if(S.canWrite){$('#banner').hidden=true}}
+  if(Object.keys(S.loaded).length>=5){clearTimeout(loadTimer);$('#dot').classList.add('ok');if(S.canWrite&&!window.__noStore){$('#banner').hidden=true}}
 }
 function sub(key,q){
   q.onSnapshot(function(snap){
