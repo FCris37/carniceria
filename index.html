@@ -1224,7 +1224,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
             try {
               saved = localStorage.getItem('carniceria.pin');
             } catch (e) {}
-            var b = openSheet(saved ? 'PIN de jefe' : 'Crea tu PIN de jefe', '<p class="muted">' + (saved ? 'Escribe el PIN para entrar.' : 'Elige 4 cifras. Se pedirán cada vez que alguien quiera entrar como jefe.') + '</p><div><label for="pin">PIN</label><input id="pin" type="password" inputmode="numeric" maxlength="4" autocomplete="off"></div><p class="neg small" id="pe" hidden></p><button class="primary big" id="pok">' + (saved ? 'Entrar' : 'Guardar PIN') + '</button>');
+            var b = openSheet(saved ? 'PIN de administrador' : 'Crea tu PIN de administrador', '<p class="muted">' + (saved ? 'Escribe el PIN para entrar.' : 'Elige 4 cifras. Se pedirán cada vez que alguien quiera entrar como administrador.') + '</p><div><label for="pin">PIN</label><input id="pin" type="password" inputmode="numeric" maxlength="4" autocomplete="off"></div><p class="neg small" id="pe" hidden></p><button class="primary big" id="pok">' + (saved ? 'Entrar' : 'Guardar PIN') + '</button>');
             var inp = $('#pin', b),
               err = $('#pe', b);
             function ok() {
@@ -1266,10 +1266,10 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
           $('#nav').innerHTML = tabList().map(function (t) {
             return '<button data-t="' + t + '"' + (t === S.tab ? ' aria-current="page"' : '') + '>' + L[t] + '</button>';
           }).join('');
-          $('#roletxt').textContent = bv() ? 'Jefe' : 'Mostrador';
+          $('#roletxt').textContent = bv() ? 'Administrador' : 'Mostrador';
           var sw = $('#swap');
           sw.hidden = !S.boss;
-          sw.textContent = bv() ? 'Pasar a mostrador' : 'Entrar como jefe';
+          sw.textContent = bv() ? 'Pasar a mostrador' : 'Modo administrador';
           updateBadge();
         };
         tabList = function _tabList() {
@@ -1412,7 +1412,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
             return x.id === id;
           });
           if (!s) return;
-          var b = openSheet('Anular venta', '<p class="muted">' + hhmm(s.ts) + ' · ' + eur(s.total) + '. La venta queda marcada como anulada y el jefe la verá en los informes.</p><div><label for="why">Motivo (obligatorio)</label><input id="why" autocomplete="off" maxlength="120"></div><div class="row"><button class="ghost" id="cn">Cancelar</button><button class="danger" id="cy" disabled>Anular venta</button></div>');
+          var b = openSheet('Anular venta', '<p class="muted">' + hhmm(s.ts) + ' · ' + eur(s.total) + '. La venta queda marcada como anulada y el administrador la verá en los informes.</p><div><label for="why">Motivo (obligatorio)</label><input id="why" autocomplete="off" maxlength="120"></div><div class="row"><button class="ghost" id="cn">Cancelar</button><button class="danger" id="cy" disabled>Anular venta</button></div>');
           var w = $('#why', b);
           w.oninput = function () {
             $('#cy', b).disabled = w.value.trim().length < 3;
@@ -2004,7 +2004,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
           return S.boss && S.mode === 'jefe';
         };
         nm = function nm(id) {
-          return id === 'jefe' ? 'Jefe' : 'Mostrador';
+          return id === 'jefe' ? 'Administrador' : 'Mostrador';
         };
         prodById = function prodById(id) {
           return S.products.find(function (p) {
@@ -2078,7 +2078,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
             });
             $('#grid').innerHTML = list.length ? list.map(function (p) {
               return '<button class="prod ' + (p.kind === 'kg' ? '' : 'ud') + '" data-id="' + esc(p.id) + '"><b>' + esc(p.name) + '</b><span class="num">' + eur(p.price) + ' / ' + (p.kind === 'kg' ? 'kg' : 'ud') + '</span></button>';
-            }).join('') : '<div class="empty" style="grid-column:1/-1">' + (S.products.length ? 'Ningún producto coincide.' : S.boss ? 'Aún no hay productos. Añádelos desde la pantalla de jefe, en Productos.' : 'El jefe todavía no ha añadido productos.') + '</div>';
+            }).join('') : '<div class="empty" style="grid-column:1/-1">' + (S.products.length ? 'Ningún producto coincide.' : S.boss ? 'Aún no hay productos. Añádelos desde el modo administrador, en Productos.' : 'El administrador todavía no ha añadido productos.') + '</div>';
             var tot = round2(S.cart.reduce(function (a, l) {
               return a + l.total;
             }, 0));
