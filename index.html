@@ -15,141 +15,138 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@600;700&display=swap" rel="stylesheet">
 <style>
-/* Layout: cabecera fija, contenido con scroll, pestañas abajo. En pantalla ancha, catálogo a la izquierda y ticket a la derecha. */
-:root{
-  --bg:#f3f4f6; --surface:#ffffff; --ink:#1c2127; --muted:#5d6975; --line:#dde1e6;
-  --accent:#9b1c2e; --accent-ink:#ffffff; --accent-soft:#f6e4e7;
-  --ok:#1f7a4d; --ok-soft:#dff1e7; --warn:#a85f00; --warn-soft:#fbeed6; --bad:#b3261e; --bad-soft:#f9dedc;
-  --font-display:'Barlow Semi Condensed','Arial Narrow',sans-serif;
-  --font-body:'Barlow',system-ui,-apple-system,'Segoe UI',sans-serif;
-  color-scheme:light;
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#14171a; --surface:#1d2226; --ink:#eceff2; --muted:#9aa6b2; --line:#2e353b;
-    --accent:#d65a6c; --accent-ink:#1a0b0e; --accent-soft:#3a1a20;
-    --ok:#52c48a; --ok-soft:#173326; --warn:#e3a54a; --warn-soft:#3a2b10; --bad:#f08a82; --bad-soft:#3d1c19;
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#14171a; --surface:#1d2226; --ink:#eceff2; --muted:#9aa6b2; --line:#2e353b;
-  --accent:#d65a6c; --accent-ink:#1a0b0e; --accent-soft:#3a1a20;
-  --ok:#52c48a; --ok-soft:#173326; --warn:#e3a54a; --warn-soft:#3a2b10; --bad:#f08a82; --bad-soft:#3d1c19;
-  color-scheme:dark;
-}
+/* Compatible con navegadores antiguos (Chrome 38+): sin variables CSS, sin grid y sin gap. */
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
-body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.4;display:flex;flex-direction:column;-webkit-text-size-adjust:100%}
+body{background:#f3f4f6;color:#1c2127;font-family:'Barlow',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.4;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-text-size-adjust:100%}
 [hidden]{display:none!important}
-h1,h2,h3{font-family:var(--font-display);margin:0;text-wrap:balance;letter-spacing:.01em}
+h1,h2,h3{font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif;margin:0;letter-spacing:.01em}
 h2{font-size:1.25rem}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
-:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.num,td.n,th.n{font-variant-numeric:tabular-nums}
-
-header.top{display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--line)}
-header.top h1{font-size:1.35rem;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:.8rem;font-weight:600;background:var(--accent-soft);color:var(--accent)}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--warn)}
-.dot.ok{background:var(--ok)}
-.banner{padding:8px 16px;font-size:.9rem;background:var(--warn-soft);color:var(--warn);border-bottom:1px solid var(--line)}
-.banner.bad{background:var(--bad-soft);color:var(--bad)}
-
-main#view{flex:1;overflow-y:auto;padding:16px;width:100%;max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
-nav.tabs{display:flex;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
-nav.tabs button{flex:1;min-width:0;border:0;background:none;padding:14px 4px;font-family:var(--font-display);font-weight:600;font-size:1.02rem;color:var(--muted);border-top:3px solid transparent}
-nav.tabs button[aria-current="page"]{color:var(--accent);border-top-color:var(--accent)}
-
-@media (max-width:520px){nav.tabs button{font-size:.88rem;padding:12px 2px}}
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
-.panel>h2{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-.muted{color:var(--muted)}
 .small{font-size:.85rem}
-.row{display:flex;gap:12px;flex-wrap:wrap}
-.row>*{flex:1 1 140px;min-width:0}
-label{display:block;font-size:.85rem;font-weight:600;color:var(--muted);margin-bottom:4px}
-input,select,textarea{width:100%;padding:11px 12px;background:var(--bg);border:1px solid var(--line);border-radius:8px;min-height:44px}
+.muted{color:#5d6975}
+
+header.top{display:flex;align-items:center;padding:10px 16px;background:#fff;border-bottom:1px solid #dde1e6}
+header.top>*+*{margin-left:12px}
+header.top h1{font-size:1.35rem;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;font-size:.8rem;font-weight:600;background:#f6e4e7;color:#9b1c2e}
+.dot{width:8px;height:8px;border-radius:50%;background:#a85f00;margin-right:6px}
+.dot.ok{background:#1f7a4d}
+.banner{padding:8px 16px;font-size:.9rem;background:#fbeed6;color:#a85f00;border-bottom:1px solid #dde1e6}
+.banner.bad{background:#f9dedc;color:#b3261e}
+
+main#view{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px;width:100%;max-width:1120px;margin:0 auto;display:flex;flex-direction:column}
+main#view>*{flex-shrink:0}
+main#view>*+*{margin-top:16px}
+nav.tabs{display:flex;background:#fff;border-top:1px solid #dde1e6}
+nav.tabs button{flex:1;min-width:0;border:0;background:none;padding:14px 4px;font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif;font-weight:600;font-size:1.02rem;color:#5d6975;border-top:3px solid transparent}
+nav.tabs button[aria-current="page"]{color:#9b1c2e;border-top-color:#9b1c2e}
+@media (max-width:520px){nav.tabs button{font-size:.88rem;padding:12px 2px}}
+
+.panel{background:#fff;border:1px solid #dde1e6;border-radius:12px;padding:16px;display:flex;flex-direction:column;min-width:0}
+.panel>*{flex-shrink:0}
+.panel>*+*{margin-top:12px}
+.panel>h2{display:flex;justify-content:space-between;align-items:baseline}
+.panel>h2 span{margin-left:8px}
+.row{display:flex;flex-wrap:wrap;margin:-6px}
+.row>*{flex:1 1 140px;min-width:0;margin:6px}
+label{display:block;font-size:.85rem;font-weight:600;color:#5d6975;margin-bottom:4px}
+input,select,textarea{width:100%;padding:11px 12px;background:#f3f4f6;border:1px solid #dde1e6;border-radius:8px;min-height:44px}
 textarea{min-height:76px;resize:vertical}
 .field{min-width:0}
-.primary,.ghost,.danger,.step,.chip{border-radius:8px;border:1px solid var(--line);padding:10px 16px;min-height:44px;font-weight:600}
-.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.primary,.ghost,.danger,.step,.chip{border-radius:8px;border:1px solid #dde1e6;padding:10px 16px;min-height:44px;font-weight:600}
+.primary{background:#9b1c2e;color:#fff;border-color:#9b1c2e}
 .primary:disabled{opacity:.45;cursor:not-allowed}
-.primary.big{min-height:54px;font-size:1.1rem;font-family:var(--font-display);letter-spacing:.02em}
-.ghost{background:var(--surface)}
-.danger{background:var(--surface);color:var(--bad);border-color:var(--bad)}
-.link{background:none;border:0;color:var(--accent);padding:6px 8px;font-weight:600;min-height:36px}
-.link.bad{color:var(--bad)}
+.primary.big{min-height:54px;font-size:1.1rem;font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif;letter-spacing:.02em}
+.ghost{background:#fff}
+.danger{background:#fff;color:#b3261e;border-color:#b3261e}
+.link{background:none;border:0;color:#9b1c2e;padding:6px 8px;font-weight:600;min-height:36px}
+.link.bad{color:#b3261e}
 .swap{min-height:38px;padding:6px 12px;font-size:.85rem}
-.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}
-.chip{background:var(--surface);white-space:nowrap;padding:8px 14px;min-height:40px}
-.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.chips{display:flex;overflow-x:auto;padding-bottom:2px}
+.chips>*+*{margin-left:8px}
+.chip{background:#fff;white-space:nowrap;padding:8px 14px;min-height:40px;flex-shrink:0}
+.chip[aria-pressed="true"]{background:#9b1c2e;color:#fff;border-color:#9b1c2e}
 
-.sell{display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
-@media (min-width:860px){.sell{grid-template-columns:minmax(0,1.6fr) minmax(300px,1fr)}.ticket{position:sticky;top:0}}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
-.prod{display:flex;flex-direction:column;gap:2px;text-align:left;padding:12px;min-height:84px;background:var(--bg);border:1px solid var(--line);border-radius:10px;border-left:5px solid var(--accent)}
-.prod.ud{border-left-color:var(--ok)}
-.prod b{font-family:var(--font-display);font-size:1.1rem;line-height:1.15}
-.prod span{color:var(--muted);font-size:.85rem}
-.lines{display:flex;flex-direction:column;gap:6px;min-height:48px}
-.line{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.sell>section{margin-bottom:16px}
+.sell>aside{margin-bottom:0}
+@media (min-width:860px){
+  .sell{display:flex;align-items:flex-start}
+  .sell>section{flex:1.6 1 0%;min-width:0;margin-bottom:0;margin-right:16px}
+  .sell>aside{flex:1 1 0%;min-width:300px;position:-webkit-sticky;position:sticky;top:0}
+}
+.grid{display:flex;flex-wrap:wrap;margin:-5px}
+.grid>*{margin:5px;width:calc(50% - 10px)}
+@media (min-width:600px){.grid>*{width:calc(33.333% - 10px)}}
+.grid>.empty{width:calc(100% - 10px)}
+.prod{display:block;text-align:left;padding:12px;min-height:84px;background:#f3f4f6;border:1px solid #dde1e6;border-radius:10px;border-left:5px solid #9b1c2e}
+.prod.ud{border-left-color:#1f7a4d}
+.prod b{display:block;font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif;font-size:1.1rem;line-height:1.15;margin-bottom:2px}
+.prod span{display:block;color:#5d6975;font-size:.85rem}
+.lines{min-height:48px}
+.line{display:flex;align-items:center;padding:8px 0;border-bottom:1px dashed #dde1e6}
+.line>*+*{margin-left:8px}
 .line .t{flex:1;min-width:0}
-.line .t small{display:block;color:var(--muted)}
-.total{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--font-display);font-size:1.5rem}
+.line .t small{display:block;color:#5d6975}
+.total{display:flex;justify-content:space-between;align-items:baseline;font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif;font-size:1.5rem}
 .total strong{font-size:2rem}
-.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.seg button{background:var(--surface);border:1px solid var(--line);border-radius:8px;min-height:46px;font-weight:600}
-.seg button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
-.empty{padding:20px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:10px}
+.seg{display:flex}
+.seg button{flex:1;background:#fff;border:1px solid #dde1e6;border-radius:8px;min-height:46px;font-weight:600}
+.seg button+button{margin-left:8px}
+.seg button[aria-pressed="true"]{background:#f6e4e7;border-color:#9b1c2e;color:#9b1c2e}
+.empty{padding:20px;text-align:center;color:#5d6975;border:1px dashed #dde1e6;border-radius:10px}
 
-.list{display:flex;flex-direction:column}
-.item{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.item{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid #dde1e6}
+.item>*+*{margin-left:10px}
 .item:last-child{border-bottom:0}
 .item .t{flex:1;min-width:0}
-.item .t small{display:block;color:var(--muted)}
+.item .t small{display:block;color:#5d6975}
 .item.void{opacity:.6}
 .item.void .amt{text-decoration:line-through}
-.tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.75rem;font-weight:600;background:var(--line);color:var(--muted)}
-.tag.ok{background:var(--ok-soft);color:var(--ok)}
-.tag.warn{background:var(--warn-soft);color:var(--warn)}
-.tag.bad{background:var(--bad-soft);color:var(--bad)}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.75rem;font-weight:600;background:#dde1e6;color:#5d6975}
+.tag.ok{background:#dff1e7;color:#1f7a4d}
+.tag.warn{background:#fbeed6;color:#a85f00}
+.tag.bad{background:#f9dedc;color:#b3261e}
 
 .tablewrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:.95rem}
-th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
-th{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+th,td{padding:9px 8px;border-bottom:1px solid #dde1e6;text-align:left;vertical-align:middle}
+th{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:#5d6975;font-weight:600}
 td.n,th.n{text-align:right}
 td input{min-width:90px;text-align:right}
-.pos{color:var(--ok)} .neg{color:var(--bad)} .warnc{color:var(--warn)}
+.pos{color:#1f7a4d}.neg{color:#b3261e}.warnc{color:#a85f00}
 
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
-.tile{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px}
-.tile small{color:var(--muted);display:block}
-.tile strong{font-family:var(--font-display);font-size:1.6rem;display:block;line-height:1.15}
-.tile.alert{border-color:var(--bad);background:var(--bad-soft)}
-.bars{display:flex;flex-direction:column;gap:6px}
-.bar{display:grid;grid-template-columns:76px 1fr 84px;gap:8px;align-items:center;font-size:.9rem}
-.bar .track{height:18px;background:var(--bg);border-radius:4px;overflow:hidden}
-.bar .fill{height:100%;background:var(--accent);border-radius:4px}
-.bar .v{text-align:right}
+.tiles{display:flex;flex-wrap:wrap;margin:-5px}
+.tile{flex:1 1 150px;min-width:140px;margin:5px;background:#f3f4f6;border:1px solid #dde1e6;border-radius:10px;padding:12px}
+.tile small{color:#5d6975;display:block}
+.tile strong{font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif;font-size:1.6rem;display:block;line-height:1.15}
+.tile.alert{border-color:#b3261e;background:#f9dedc}
+.bar{display:flex;align-items:center;font-size:.9rem}
+.bar+.bar{margin-top:6px}
+.bar>span:first-child{width:56px;flex-shrink:0}
+.bar .track{flex:1;height:18px;background:#f3f4f6;border-radius:4px;overflow:hidden;margin:0 8px}
+.bar .fill{height:100%;background:#9b1c2e;border-radius:4px}
+.bar .v{width:84px;flex-shrink:0;text-align:right}
 
-.sheet{position:fixed;inset:0;background:rgba(10,12,14,.55);display:flex;align-items:flex-end;justify-content:center;z-index:20;padding:0}
+.sheet{position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(10,12,14,.55);display:flex;align-items:flex-end;justify-content:center;z-index:20}
 @media (min-width:640px){.sheet{align-items:center;padding:16px}}
-.sheet-card{background:var(--surface);width:100%;max-width:460px;border-radius:16px 16px 0 0;padding:16px;display:flex;flex-direction:column;gap:12px;max-height:92%;overflow-y:auto}
+.sheet-card{background:#fff;width:100%;max-width:460px;border-radius:16px 16px 0 0;padding:16px;display:flex;flex-direction:column;max-height:92%;overflow-y:auto}
+.sheet-card>*{flex-shrink:0}
+.sheet-card>*+*{margin-top:12px}
 @media (min-width:640px){.sheet-card{border-radius:16px}}
 .sheet-card header{display:flex;justify-content:space-between;align-items:center}
 .sheet-card h3{font-size:1.3rem}
-.icon{border:0;background:none;font-size:1.8rem;line-height:1;padding:4px 10px;color:var(--muted)}
-.qtyrow{display:flex;gap:8px}
-.qtyrow input{font-size:1.8rem;text-align:center;min-height:60px;font-family:var(--font-display)}
-.step{background:var(--surface);min-width:60px;font-size:1.6rem}
+.sb>*+*{margin-top:12px}
+.icon{border:0;background:none;font-size:1.8rem;line-height:1;padding:4px 10px;color:#5d6975}
+.qtyrow{display:flex}
+.qtyrow>*+*{margin-left:8px}
+.qtyrow input{font-size:1.8rem;text-align:center;min-height:60px;flex:1;font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif}
+.step{background:#fff;min-width:60px;font-size:1.6rem}
 .linetotal{display:flex;justify-content:space-between;align-items:baseline;font-size:1.1rem}
-.linetotal strong{font-family:var(--font-display);font-size:1.8rem}
-.toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:10px;z-index:30;max-width:90%;font-weight:500}
-.toast.bad{background:var(--bad);color:#fff}
-@media (prefers-reduced-motion:no-preference){.toast{animation:in .18s ease-out}@keyframes in{from{opacity:0;transform:translate(-50%,8px)}}}
+.linetotal strong{font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif;font-size:1.8rem}
+.toast{position:fixed;left:50%;bottom:84px;-webkit-transform:translateX(-50%);transform:translateX(-50%);background:#1c2127;color:#fff;padding:12px 18px;border-radius:10px;z-index:30;max-width:90%;font-weight:500}
+.toast.bad{background:#b3261e;color:#fff}
 </style>
 </head>
 <body>
@@ -165,491 +162,2447 @@ td input{min-width:90px;text-align:right}
 <div id="toast" class="toast" hidden role="status"></div>
 
 <script>
-(function(){
-  function show(msg){
-    var v=document.getElementById('view'),t=document.getElementById('roletxt');
-    if(t)t.textContent='Error';
-    if(!v)return;
-    v.textContent='';
-    var p=document.createElement('div');p.className='panel';
-    var h=document.createElement('h2');h.textContent='La app no ha podido arrancar';
-    var m=document.createElement('p');m.className='muted';m.textContent='Haz una foto de este mensaje y envíamela:';
-    var pre=document.createElement('pre');pre.style.whiteSpace='pre-wrap';pre.style.wordBreak='break-word';pre.textContent=msg+'\n'+navigator.userAgent;
-    p.appendChild(h);p.appendChild(m);p.appendChild(pre);v.appendChild(p);
-  }
-  window.addEventListener('error',function(e){show(String(e.message)+' ('+(e.lineno||'?')+':'+(e.colno||'?')+')')});
-  window.addEventListener('unhandledrejection',function(e){show('Promesa: '+String(e.reason&&e.reason.message||e.reason))});
-})();
-(async function(){
-"use strict";
-var $ = function(s,r){return (r||document).querySelector(s)};
-var esc = function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
-var fmtEur = new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'});
-var eur = function(n){return fmtEur.format(n||0)};
-var qfmt = function(n,kind){
-  n=n||0;
-  if(kind==='kg'){return Math.abs(n)<1?new Intl.NumberFormat('es-ES',{maximumFractionDigits:0}).format(Math.round(n*1000))+' g':new Intl.NumberFormat('es-ES',{maximumFractionDigits:3}).format(n)+' kg'}
-  return new Intl.NumberFormat('es-ES',{maximumFractionDigits:0}).format(n)+' ud';
-};
-var round2 = function(n){return Math.round((n+Number.EPSILON)*100)/100};
-var dayOf = function(t){return new Date(t).toLocaleDateString('sv-SE')};
-var today = function(){return dayOf(Date.now())};
-var hhmm = function(t){return new Date(t).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})};
-var dmy = function(d){var p=d.split('-');return p[2]+'/'+p[1]+'/'+p[0]};
-var parseNum = function(s){var v=parseFloat(String(s).replace(',','.'));return isFinite(v)?v:NaN};
-var METHODS = {efectivo:'Efectivo',tarjeta:'Tarjeta',bizum:'Bizum'};
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 
-/* BALANZA: punto único de conexión. Hoy el peso se escribe a mano (modo 'manual').
-   Cuando se conozca el modelo, aquí se cambia leerPeso() para devolver el peso real en kg
-   y el botón "Leer balanza" aparece solo. Ninguna otra parte de la app cambia. */
-var Balanza = { modo:'manual', leerPeso:function(){return Promise.resolve(null)} };
+var runtime = (function (exports) {
+  "use strict";
 
-var S = {products:[],sales:[],closings:[],moves:[],orders:[],names:{},cart:[],method:'efectivo',cat:'Todos',range:7,boss:false,uid:null,canWrite:true,tab:'vender',loaded:{}};
-/* Datos locales: se guardan en esta tablet (localStorage). Más adelante se cambiará por una base de datos en la nube sin tocar el resto de la app. */
-var SEED=[['Chuletón de ternera','kg',24.9,'Vacuno'],['Entrecot de ternera','kg',22.5,'Vacuno'],['Carne picada mixta','kg',8.9,'Vacuno'],['Filetes de ternera','kg',16.5,'Vacuno'],['Lomo de cerdo','kg',9.5,'Cerdo'],['Costilla de cerdo','kg',6.9,'Cerdo'],['Panceta','kg',7.5,'Cerdo'],['Pechuga de pollo','kg',8.5,'Aves'],['Muslos de pollo','kg',4.9,'Aves'],['Pollo entero','ud',7.9,'Aves'],['Chorizo fresco','ud',3.2,'Embutidos'],['Morcilla','ud',2.8,'Embutidos'],['Jamón cocido','kg',14.9,'Embutidos'],['Huevos docena','ud',3.5,'Otros']];
-var db = (function(){
-  var KEY='carniceria.datos.v1', store={}, ls=[];
-  try{store=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){store={};window.__noStore=true}
-  function persist(){try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){window.__noStore=true}}
-  function notify(){ls.slice().forEach(function(l){l()})}
-  function newId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
-  function clone(o){return JSON.parse(JSON.stringify(o))}
-  function snap(name,q){
-    var c=store[name]||{};
-    var arr=Object.keys(c).map(function(id){return {id:id,d:c[id]}});
-    if(q.f){arr.sort(function(a,b){var x=a.d[q.f],y=b.d[q.f],r=x<y?-1:(x>y?1:0);if(typeof x==='string'&&typeof y==='string')r=x.localeCompare(y,'es');return q.d==='desc'?-r:r})}
-    if(q.n)arr=arr.slice(0,q.n);
-    return {docs:arr.map(function(i){return {id:i.id,exists:true,data:function(){return i.d},metadata:{fromCache:false}}}),metadata:{fromCache:false}};
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
+  var defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; };
+  var undefined; // More compressible than void 0.
+  var $Symbol = typeof Symbol === "function" ? Symbol : {};
+  var iteratorSymbol = $Symbol.iterator || "@@iterator";
+  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+  function define(obj, key, value) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+    return obj[key];
   }
-  function col(name,q){q=q||{};return {
-    orderBy:function(f,d){return col(name,{f:f,d:d,n:q.n})},
-    limit:function(n){return col(name,{f:q.f,d:q.d,n:n})},
-    doc:function(id){return dref(name+'/'+(id||newId()))},
-    onSnapshot:function(next){var l=function(){next(snap(name,q))};ls.push(l);setTimeout(l,0);return function(){ls=ls.filter(function(x){return x!==l})}}
-  }}
-  function dref(path){
-    var p=path.split('/'),c=p[0],id=p[1];
-    return {
-      set:function(d){store[c]=store[c]||{};store[c][id]=clone(d);persist();notify();return Promise.resolve()},
-      update:function(d){if(!store[c]||!store[c][id])return Promise.reject({code:'invalid_argument'});Object.assign(store[c][id],clone(d));persist();notify();return Promise.resolve()},
-      delete:function(){if(store[c])delete store[c][id];persist();notify();return Promise.resolve()}
+  try {
+    // IE 8 has a broken Object.defineProperty that only works on DOM objects.
+    define({}, "");
+  } catch (err) {
+    define = function(obj, key, value) {
+      return obj[key] = value;
     };
   }
-  if(!store._seeded){
-    store.products={};
-    SEED.forEach(function(p,i){store.products['p'+(i+1<10?'0':'')+(i+1)]={name:p[0],kind:p[1],price:p[2],cat:p[3],ts:i+1}});
-    store._seeded=true;persist();
+
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+
+    // The ._invoke method unifies the implementations of the .next,
+    // .throw, and .return methods.
+    defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) });
+
+    return generator;
   }
-  return {collection:function(n){return col(n)},doc:dref,
-    _export:function(){return clone(store)},
-    _import:function(o){if(!o||typeof o!=='object'||Array.isArray(o))throw new Error('x');store=clone(o);persist();notify()},
-    _clear:function(names){names.forEach(function(n){delete store[n]});persist();notify()}};
-})();
-var user = null;
-S.boss = true;
-if(window.__noStore){var bn0=$('#banner');bn0.hidden=false;bn0.className='banner bad';bn0.textContent='Este navegador no deja guardar datos: lo que registres se perderá al cerrar la página.'}
-Object.defineProperty(S,'uid',{get:function(){return S.mode}});
-if(!S.canWrite){ var bn=$('#banner'); bn.hidden=false; bn.textContent='Tienes acceso solo de lectura: puedes ver los datos pero no registrar ventas.'; }
+  exports.wrap = wrap;
 
-/* Dos pantallas: 'mostrador' (trabajador, rápida y a ciegas en caja e inventario) y 'jefe' (informes, stock, caja, productos). El jefe puede cambiar de una a otra. */
-S.mode = 'mostrador';
-var bv = function(){return S.boss && S.mode==='jefe'};
-var nm = function(id){return id==='jefe'?'Jefe':'Mostrador'};
-var prodById = function(id){return S.products.find(function(p){return p.id===id})};
-var okSales = function(){return S.sales.filter(function(s){return !s.voided})};
-
-/* ---------- Aviso, toasts, hojas ---------- */
-var toastT;
-function toast(msg,bad){var t=$('#toast');t.textContent=msg;t.className='toast'+(bad?' bad':'');t.hidden=false;clearTimeout(toastT);toastT=setTimeout(function(){t.hidden=true},bad?4200:2400)}
-function openSheet(title,body){
-  var el=$('#sheet');
-  el.innerHTML='<div class="sheet-card" role="dialog" aria-modal="true" aria-label="'+esc(title)+'"><header><h3>'+esc(title)+'</h3><button class="icon" data-close aria-label="Cerrar">×</button></header><div class="sb">'+body+'</div></div>';
-  el.hidden=false;
-  $('[data-close]',el).onclick=closeSheet;
-  el.onclick=function(e){if(e.target===el)closeSheet()};
-  return $('.sb',el);
-}
-function closeSheet(){var el=$('#sheet');el.hidden=true;el.innerHTML=''}
-function confirmSheet(title,text,okLabel){
-  return new Promise(function(res){
-    var b=openSheet(title,'<p>'+esc(text)+'</p><div class="row"><button class="ghost" id="cn">Cancelar</button><button class="danger" id="cy">'+esc(okLabel||'Confirmar')+'</button></div>');
-    $('#cn',b).onclick=function(){closeSheet();res(false)};
-    $('#cy',b).onclick=function(){closeSheet();res(true)};
-  });
-}
-async function save(fn,okMsg){
-  try{ await fn(); if(okMsg) toast(okMsg); return true; }
-  catch(e){ toast('No se pudo guardar'+(e&&e.code==='invalid_argument'?' (sin permiso de escritura)':'. Inténtalo otra vez')+'.',true); return false; }
-}
-
-/* ---------- Stock ---------- */
-function stockOf(p){
-  var mv=S.moves.filter(function(m){return m.pid===p.id}).sort(function(a,b){return a.ts-b.ts});
-  var base=0,since=0,last=null;
-  mv.forEach(function(m){if(m.type==='inventario'){base=m.qty;since=m.ts;last=m}});
-  var q=base;
-  mv.forEach(function(m){if(m.ts>since){if(m.type==='entrada')q+=m.qty;else if(m.type==='merma')q-=m.qty}});
-  okSales().forEach(function(s){if(s.ts>since)(s.items||[]).forEach(function(it){if(it.pid===p.id)q-=it.qty})});
-  return {q:round2(q*1000)/1000,last:last};
-}
-
-/* ---------- Pestañas ---------- */
-var tabs = {};
-
-tabs.vender = {label:'Vender',
-mount:function(v){
-  v.innerHTML='<div class="sell"><section class="panel"><h2>Productos</h2><input id="q" type="search" placeholder="Buscar producto" aria-label="Buscar producto" autocomplete="off"><div class="chips" id="cats"></div><div class="grid" id="grid"></div></section>'+
-  '<aside class="panel ticket"><h2>Venta actual</h2><div class="lines" id="lines"></div><div class="total"><span>Total</span><strong class="num" id="tot"></strong></div>'+
-  '<div class="seg" id="meth"></div><button class="primary big" id="cobrar">Cobrar</button><button class="ghost" id="vaciar">Vaciar venta</button><button class="link bad" id="anulult">Anular última venta</button></aside></div>';
-  $('#q').oninput=function(){tabs.vender.update()};
-  $('#cats').onclick=function(e){var b=e.target.closest('button');if(!b)return;S.cat=b.dataset.c;tabs.vender.update()};
-  $('#grid').onclick=function(e){var b=e.target.closest('button[data-id]');if(!b)return;var p=prodById(b.dataset.id);if(p)pickQty(p)};
-  $('#lines').onclick=function(e){var b=e.target.closest('button[data-i]');if(!b)return;S.cart.splice(+b.dataset.i,1);tabs.vender.update()};
-  $('#meth').onclick=function(e){var b=e.target.closest('button');if(!b)return;S.method=b.dataset.m;tabs.vender.update()};
-  $('#vaciar').onclick=function(){S.cart=[];tabs.vender.update()};
-  $('#cobrar').onclick=cobrar;
-  $('#anulult').onclick=function(){var l=lastSale();if(l)anular(l.id)};
-},
-update:function(){
-  if(!$('#grid'))return;
-  var cats=['Todos'].concat(Array.from(new Set(S.products.map(function(p){return p.cat||'Otros'}))).sort());
-  if(cats.indexOf(S.cat)<0)S.cat='Todos';
-  $('#cats').innerHTML=cats.map(function(c){return '<button class="chip" data-c="'+esc(c)+'" aria-pressed="'+(c===S.cat)+'">'+esc(c)+'</button>'}).join('');
-  var q=$('#q').value.trim().toLowerCase();
-  var list=S.products.filter(function(p){return (S.cat==='Todos'||(p.cat||'Otros')===S.cat)&&(!q||p.name.toLowerCase().indexOf(q)>=0)}).sort(function(a,b){return a.name.localeCompare(b.name,'es')});
-  $('#grid').innerHTML=list.length?list.map(function(p){return '<button class="prod '+(p.kind==='kg'?'':'ud')+'" data-id="'+esc(p.id)+'"><b>'+esc(p.name)+'</b><span class="num">'+eur(p.price)+' / '+(p.kind==='kg'?'kg':'ud')+'</span></button>'}).join(''):
-    '<div class="empty" style="grid-column:1/-1">'+(S.products.length?'Ningún producto coincide.':(S.boss?'Aún no hay productos. Añádelos desde la pantalla de jefe, en Productos.':'El jefe todavía no ha añadido productos.'))+'</div>';
-  var tot=round2(S.cart.reduce(function(a,l){return a+l.total},0));
-  $('#lines').innerHTML=S.cart.length?S.cart.map(function(l,i){return '<div class="line"><div class="t"><b>'+esc(l.name)+'</b><small class="num">'+qfmt(l.qty,l.kind)+' × '+eur(l.price)+'</small></div><b class="num">'+eur(l.total)+'</b><button class="link bad" data-i="'+i+'" aria-label="Quitar '+esc(l.name)+'">Quitar</button></div>'}).join(''):'<div class="empty">Toca un producto para añadirlo.</div>';
-  $('#tot').textContent=eur(tot);
-  $('#meth').innerHTML=Object.keys(METHODS).map(function(m){return '<button data-m="'+m+'" aria-pressed="'+(S.method===m)+'">'+METHODS[m]+'</button>'}).join('');
-  $('#cobrar').disabled=!S.cart.length||!S.canWrite;
-  $('#vaciar').hidden=!S.cart.length;
-  $('#anulult').hidden=!lastSale()||!S.canWrite;
-}};
-function lastSale(){return S.sales.filter(function(s){return s.day===today()&&!s.voided}).sort(function(a,b){return b.ts-a.ts})[0]}
-
-function pickQty(p){
-  var kg=p.kind==='kg';
-  var b=openSheet(p.name,'<p class="muted num">'+eur(p.price)+' / '+(kg?'kg':'ud')+'</p><div><label for="qty">'+(kg?'Peso en gramos':'Unidades')+'</label><div class="qtyrow">'+
-    (kg?'':'<button class="step" data-d="-1" aria-label="Menos">−</button>')+
-    '<input id="qty" inputmode="numeric" autocomplete="off" value="'+(kg?'':'1')+'" placeholder="'+(kg?'0':'1')+'">'+
-    (kg?'':'<button class="step" data-d="1" aria-label="Más">+</button>')+'</div>'+
-    (kg?'<div class="chips" style="margin-top:8px">'+[100,200,250,500,1000].map(function(g){return '<button class="chip qk" data-g="'+g+'">'+(g>=1000?'1 kg':g+' g')+'</button>'}).join('')+'</div>':'')+'</div>'+
-    (kg&&Balanza.modo!=='manual'?'<button class="ghost" id="leer">Leer balanza</button>':'')+
-    '<div class="linetotal"><span>Importe</span><strong class="num" id="lt">'+eur(0)+'</strong></div><button class="primary big" id="add">Añadir a la venta</button>');
-  var inp=$('#qty',b);
-  /* En kg se escribe en gramos enteros; se guarda en kg (200 g = 0,2). */
-  function val(){var n=parseNum(inp.value);if(!isFinite(n)||n<=0||n%1!==0)return NaN;if(n>(kg?60000:999))return NaN;return kg?n/1000:n}
-  function upd(){var n=val();$('#lt',b).textContent=eur(isNaN(n)?0:round2(n*p.price));$('#add',b).disabled=isNaN(n)}
-  inp.oninput=upd;
-  b.onclick=function(e){var k=e.target.closest('.qk');if(k){inp.value=k.dataset.g;upd();return}var s=e.target.closest('.step');if(!s)return;var n=parseNum(inp.value);n=(isFinite(n)?n:0)+(+s.dataset.d);if(n<1)n=1;inp.value=n;upd()};
-  var leer=$('#leer',b); if(leer)leer.onclick=async function(){var w=await Balanza.leerPeso();if(w){inp.value=String(Math.round(w*1000));upd()}};
-  function add(){var n=val();if(isNaN(n))return;S.cart.push({pid:p.id,name:p.name,kind:p.kind,qty:n,price:p.price,total:round2(n*p.price)});closeSheet();tabs.vender.update()}
-  $('#add',b).onclick=add;
-  inp.onkeydown=function(e){if(e.key==='Enter')add()};
-  upd(); inp.focus();
-}
-
-var busy=false;
-async function cobrar(){
-  if(busy||!S.cart.length)return; busy=true;
-  var now=Date.now(), items=S.cart.map(function(l){return {pid:l.pid,name:l.name,kind:l.kind,qty:l.qty,price:l.price,total:l.total}});
-  var total=round2(items.reduce(function(a,i){return a+i.total},0));
-  var ok=await save(function(){return db.collection('sales').doc().set({ts:now,day:dayOf(now),items:items,total:total,method:S.method,by:S.uid,voided:false})},'Venta registrada: '+eur(total));
-  if(ok)S.cart=[];
-  busy=false; tabs.vender.update();
-}
-function anular(id){
-  var s=S.sales.find(function(x){return x.id===id});if(!s)return;
-  var b=openSheet('Anular venta','<p class="muted">'+hhmm(s.ts)+' · '+eur(s.total)+'. La venta queda marcada como anulada y el jefe la verá en los informes.</p><div><label for="why">Motivo (obligatorio)</label><input id="why" autocomplete="off" maxlength="120"></div><div class="row"><button class="ghost" id="cn">Cancelar</button><button class="danger" id="cy" disabled>Anular venta</button></div>');
-  var w=$('#why',b);w.oninput=function(){$('#cy',b).disabled=w.value.trim().length<3};
-  $('#cn',b).onclick=closeSheet;
-  $('#cy',b).onclick=async function(){var why=w.value.trim();closeSheet();await save(function(){return db.doc('sales/'+id).update({voided:true,voidReason:why,voidBy:S.uid,voidTs:Date.now()})},'Venta anulada')};
-  w.focus();
-}
-
-/* ---- Caja ---- */
-tabs.caja = {label:'Caja',
-mount:function(v){
-  v.innerHTML='<section class="panel"><h2>Cierre de caja <span class="small muted" id="cdate"></span></h2><p class="muted small" id="cnote"></p>'+
-  '<div class="row"><div class="field"><label for="fondo">Fondo de caja inicial (€)</label><input id="fondo" inputmode="decimal" autocomplete="off" placeholder="0,00"></div><div class="field"><label for="gastos">Gastos pagados de caja (€)</label><input id="gastos" inputmode="decimal" autocomplete="off" placeholder="0,00"></div></div>'+
-  '<div class="tablewrap"><table><thead><tr><th>Método</th>'+(bv()?'<th class="n">Ventas app</th><th class="n">Debería haber</th>':'')+'<th class="n">Contado</th>'+(bv()?'<th class="n">Diferencia</th>':'')+'</tr></thead><tbody id="cbody"></tbody></table></div>'+
-  (bv()?'<div class="total"><span>Diferencia total</span><strong class="num" id="cdiff">—</strong></div>':'')+'<button class="primary big" id="csave">Guardar cierre</button></section>'+
-  '<section class="panel" id="hist" hidden><h2>Cierres anteriores</h2><div class="list" id="hlist"></div></section>';
-  var calc=function(){tabs.caja.calc()};
-  ['fondo','gastos'].forEach(function(i){$('#'+i).oninput=calc});
-  $('#cbody').oninput=calc;
-  $('#csave').onclick=tabs.caja.guardar;
-},
-sys:function(){
-  var d=today(),r={efectivo:0,tarjeta:0,bizum:0,n:0,voids:0};
-  S.sales.forEach(function(s){if(s.day!==d)return;if(s.voided){r.voids++;return}r[s.method]=round2((r[s.method]||0)+s.total);r.n++});
-  return r;
-},
-read:function(){
-  var sys=tabs.caja.sys(),f=parseNum($('#fondo').value),g=parseNum($('#gastos').value);
-  f=isNaN(f)?0:f;g=isNaN(g)?0:g;
-  var exp={efectivo:round2(f+sys.efectivo-g),tarjeta:sys.tarjeta,bizum:sys.bizum},cnt={},diff={},all=true,tot=0;
-  Object.keys(METHODS).forEach(function(m){var c=parseNum($('#c_'+m).value);if(isNaN(c)){all=false;cnt[m]=null;diff[m]=null}else{cnt[m]=c;diff[m]=round2(c-exp[m]);tot+=diff[m]}});
-  return {sys:sys,fondo:f,gastos:g,exp:exp,cnt:cnt,diff:diff,all:all,tot:round2(tot)};
-},
-calc:function(){
-  var r=tabs.caja.read();
-  Object.keys(METHODS).forEach(function(m){
-    if(!$('#e_'+m))return;
-    $('#e_'+m).textContent=eur(r.exp[m]);
-    var d=r.diff[m],el=$('#d_'+m);el.textContent=d==null?'—':(d>0?'+':'')+eur(d);el.className='n num '+(d==null||Math.abs(d)<0.005?'':(d<0?'neg':'warnc'));
-  });
-  var el=$('#cdiff');if(el){el.textContent=r.all?((r.tot>0?'+':'')+eur(r.tot)):'—';el.className='num '+(!r.all||Math.abs(r.tot)<0.005?'':(r.tot<0?'neg':'warnc'))}
-  $('#csave').disabled=!r.all||!S.canWrite;
-},
-guardar:async function(){
-  var r=tabs.caja.read();if(!r.all)return;
-  var d=today();
-  await save(function(){return db.doc('closings/'+d).set({day:d,ts:Date.now(),by:S.uid,fondo:r.fondo,gastos:r.gastos,sys:{efectivo:r.sys.efectivo,tarjeta:r.sys.tarjeta,bizum:r.sys.bizum},esperado:r.exp,contado:r.cnt,diff:r.diff,difTotal:r.tot,tickets:r.sys.n,anuladas:r.sys.voids})},'Cierre guardado');
-},
-update:function(){
-  if(!$('#cbody'))return;
-  var d=today(),sys=tabs.caja.sys();
-  $('#cdate').textContent=dmy(d)+' · '+sys.n+' tickets';
-  var ex=S.closings.find(function(c){return c.day===d});
-  $('#cnote').textContent=(ex?('Hoy ya hay un cierre guardado a las '+hhmm(ex.ts)+'. Si guardas otro, lo sustituye. '):'')+'Cuenta el dinero al cerrar e introduce lo que hay en caja, en el datáfono y en Bizum.';
-  var cur={};Object.keys(METHODS).forEach(function(m){var i=$('#c_'+m);if(i)cur[m]=i.value});
-  $('#cbody').innerHTML=Object.keys(METHODS).map(function(m){return '<tr><td>'+METHODS[m]+'</td>'+(bv()?'<td class="n num">'+eur(sys[m])+'</td><td class="n num" id="e_'+m+'"></td>':'')+'<td class="n"><input id="c_'+m+'" inputmode="decimal" autocomplete="off" placeholder="0,00" aria-label="Contado en '+METHODS[m]+'" value="'+esc(cur[m]||'')+'"></td>'+(bv()?'<td class="n num" id="d_'+m+'">—</td>':'')+'</tr>'}).join('');
-  tabs.caja.calc();
-  $('#hist').hidden=!bv();
-  if(bv()){
-    var cl=S.closings.slice().sort(function(a,b){return b.ts-a.ts}).slice(0,14);
-    $('#hlist').innerHTML=cl.length?cl.map(function(c){var dt=c.difTotal||0;return '<div class="item"><div class="t"><b>'+dmy(c.day)+'</b> <span class="small muted">'+c.tickets+' tickets · cerrado por '+esc(nm(c.by))+'</span><small>Efectivo '+eur(c.sys&&c.sys.efectivo)+' · Tarjeta '+eur(c.sys&&c.sys.tarjeta)+' · Bizum '+eur(c.sys&&c.sys.bizum)+'</small></div><span class="tag '+(Math.abs(dt)<0.005?'ok':(dt<0?'bad':'warn'))+' num">'+(Math.abs(dt)<0.005?'Cuadra':(dt>0?'+':'')+eur(dt))+'</span></div>'}).join(''):'<div class="empty">Aún no hay cierres.</div>';
-  }
-}};
-
-/* ---- Stock ---- */
-var MOVE_LBL={entrada:'Entrada de mercancía',merma:'Merma / desperdicio',inventario:'Inventario real (contado)'};
-tabs.stock = {label:'Stock',
-mount:function(v){
-  v.innerHTML='<section class="panel"><h2>Registrar movimiento</h2><div class="row"><div class="field"><label for="mp">Producto</label><select id="mp"></select></div><div class="field"><label for="mt">Tipo</label><select id="mt">'+Object.keys(MOVE_LBL).map(function(k){return '<option value="'+k+'">'+MOVE_LBL[k]+'</option>'}).join('')+'</select></div></div>'+
-  '<div class="row"><div class="field"><label for="mq" id="mql">Cantidad</label><input id="mq" inputmode="decimal" autocomplete="off"></div><div class="field"><label for="mn">Nota (proveedor, motivo)</label><input id="mn" autocomplete="off" maxlength="80"></div></div><button class="primary" id="mgo">Registrar</button><p class="muted small">Inventario real: cuenta lo que hay y apúntalo. La app lo compara con lo que debería haber y guarda la diferencia.</p></section>'+
-  (bv()?'<section class="panel"><h2>Stock teórico</h2><div class="tablewrap"><table><thead><tr><th>Producto</th><th class="n">Debería haber</th><th>Último inventario</th></tr></thead><tbody id="sbody"></tbody></table></div></section>':'')+
-  '<section class="panel"><h2>'+(bv()?'Últimos movimientos':'Apuntado hoy')+'</h2><div class="list" id="mlist"></div></section>';
-  $('#mp').onchange=$('#mt').onchange=function(){tabs.stock.lbl()};
-  $('#mgo').onclick=tabs.stock.registrar;
-  $('#mlist').onclick=async function(e){var b=e.target.closest('button[data-del]');if(!b)return;if(await confirmSheet('Borrar movimiento','¿Seguro que quieres borrar este movimiento?','Borrar'))save(function(){return db.doc('moves/'+b.dataset.del).delete()},'Movimiento borrado')};
-},
-lbl:function(){var p=prodById($('#mp').value);$('#mql').textContent='Cantidad'+(p?(p.kind==='kg'?' (kg)':' (unidades)'):'')},
-registrar:async function(){
-  var p=prodById($('#mp').value),t=$('#mt').value,q=parseNum($('#mq').value);
-  if(!p){toast('Elige un producto.',true);return}
-  if(isNaN(q)||q<0||(t!=='inventario'&&q===0)){toast('Escribe una cantidad válida.',true);return}
-  if(p.kind==='ud'&&q%1!==0){toast('Este producto va por unidades enteras.',true);return}
-  var now=Date.now(),rec={ts:now,day:dayOf(now),pid:p.id,pname:p.name,kind:p.kind,type:t,qty:Math.round(q*1000)/1000,note:$('#mn').value.trim(),by:S.uid};
-  if(t==='inventario'){var st=stockOf(p).q;rec.expected=st;rec.diff=Math.round((rec.qty-st)*1000)/1000}
-  var ok=await save(function(){return db.collection('moves').doc().set(rec)},'Movimiento registrado');
-  if(ok){$('#mq').value='';$('#mn').value=''}
-},
-update:function(){
-  if(!$('#mp'))return;
-  var ps=S.products.slice().sort(function(a,b){return a.name.localeCompare(b.name,'es')});
-  var sel=$('#mp'),cur=sel.value;
-  sel.innerHTML=ps.map(function(p){return '<option value="'+esc(p.id)+'">'+esc(p.name)+'</option>'}).join('');
-  if(cur&&ps.some(function(p){return p.id===cur}))sel.value=cur;
-  tabs.stock.lbl();
-  if($('#sbody'))$('#sbody').innerHTML=ps.length?ps.map(function(p){
-    var s=stockOf(p),l=s.last,d=l?l.diff:null;
-    return '<tr><td>'+esc(p.name)+'</td><td class="n num '+(s.q<0?'neg':'')+'">'+qfmt(s.q,p.kind)+'</td><td>'+(l?(dmy(l.day)+' <span class="tag '+(Math.abs(d)<0.0005?'ok':(d<0?'bad':'warn'))+' num">'+(Math.abs(d)<0.0005?'Cuadró':(d>0?'+':'')+qfmt(d,p.kind))+'</span>'):'<span class="muted">Sin inventario</span>')+'</td></tr>';
-  }).join(''):'<tr><td colspan="3"><div class="empty">Primero añade productos.</div></td></tr>';
-  var mv=S.moves.filter(function(m){return bv()||m.day===today()}).sort(function(a,b){return b.ts-a.ts}).slice(0,15);
-  $('#mlist').innerHTML=mv.length?mv.map(function(m){return '<div class="item"><div class="t"><b>'+esc(m.pname||'')+'</b> <span class="tag '+(m.type==='merma'?'warn':(m.type==='inventario'?'':'ok'))+'">'+esc(MOVE_LBL[m.type]||m.type)+'</span><small>'+dmy(m.day)+' '+hhmm(m.ts)+' · '+esc(nm(m.by))+(m.note?' · '+esc(m.note):'')+'</small></div><b class="num">'+qfmt(m.qty,m.kind)+'</b>'+(bv()?'<button class="link bad" data-del="'+esc(m.id)+'">Borrar</button>':'')+'</div>'}).join(''):'<div class="empty">Sin movimientos todavía.</div>';
-}};
-
-/* ---- Ventas del día (jefe) ---- */
-tabs.ventas = {label:'Ventas',
-mount:function(v){
-  S.vday=today();
-  v.innerHTML='<section class="panel"><h2>Ventas del día <span class="small muted" id="vsum"></span></h2><div class="row"><div class="field"><label for="vd">Día</label><input id="vd" type="date"></div></div><div class="list" id="vlist"></div></section>';
-  $('#vd').value=S.vday;
-  $('#vd').onchange=function(){S.vday=$('#vd').value||today();tabs.ventas.update()};
-},
-update:function(){
-  if(!$('#vlist'))return;
-  var d=S.vday||today();
-  var td=S.sales.filter(function(s){return s.day===d}).sort(function(a,b){return b.ts-a.ts});
-  var ok=td.filter(function(s){return !s.voided});
-  $('#vsum').textContent=ok.length+' tickets · '+eur(round2(ok.reduce(function(a,s){return a+s.total},0)))+(td.length-ok.length?' · '+(td.length-ok.length)+' anuladas':'');
-  $('#vlist').innerHTML=td.length?td.map(function(s){
-    var det=(s.items||[]).map(function(i){return esc(i.name)+' '+qfmt(i.qty,i.kind)}).join(', ');
-    return '<div class="item '+(s.voided?'void':'')+'"><div class="t"><b>'+hhmm(s.ts)+'</b> <span class="tag">'+esc(METHODS[s.method]||s.method)+'</span>'+(s.voided?' <span class="tag bad">Anulada</span>':'')+' <span class="small muted">'+esc(nm(s.by))+'</span><small>'+det+'</small>'+(s.voided?'<small>Motivo: '+esc(s.voidReason||'—')+' · por '+esc(nm(s.voidBy||s.by))+'</small>':'')+'</div><b class="num amt">'+eur(s.total)+'</b></div>';
-  }).join(''):'<div class="empty">No hay ventas este día.</div>';
-}};
-
-/* ---- Pedidos ---- */
-var ST={pendiente:'Pendiente',listo:'Listo para recoger',entregado:'Entregado'};
-tabs.pedidos = {label:'Pedidos',
-mount:function(v){
-  v.innerHTML='<section class="panel"><h2>Nuevo pedido de cliente</h2><div class="row"><div class="field"><label for="oc">Cliente</label><input id="oc" autocomplete="off" maxlength="60"></div><div class="field"><label for="ot">Teléfono</label><input id="ot" inputmode="tel" autocomplete="off" maxlength="20"></div><div class="field"><label for="od">Recoge el</label><input id="od" type="date"></div></div><div class="field"><label for="ox">Qué quiere</label><textarea id="ox" maxlength="400" placeholder="2 kg de chuletón, 1 pollo entero..."></textarea></div><button class="primary" id="ogo">Guardar pedido</button></section>'+
-  '<section class="panel"><h2>Pedidos <span class="small muted" id="osum"></span></h2><div class="list" id="olist"></div></section>';
-  $('#od').value=today();
-  $('#ogo').onclick=async function(){
-    var c=$('#oc').value.trim(),x=$('#ox').value.trim();
-    if(!c||!x){toast('Pon el cliente y lo que quiere.',true);return}
-    var ok=await save(function(){return db.collection('orders').doc().set({ts:Date.now(),customer:c,phone:$('#ot').value.trim(),text:x,due:$('#od').value||today(),status:'pendiente',by:S.uid})},'Pedido guardado');
-    if(ok){$('#oc').value='';$('#ot').value='';$('#ox').value=''}
-  };
-  $('#olist').onclick=async function(e){
-    var b=e.target.closest('button');if(!b)return;
-    if(b.dataset.st){save(function(){return db.doc('orders/'+b.dataset.id).update({status:b.dataset.st})})}
-    else if(b.dataset.del&&await confirmSheet('Borrar pedido','¿Seguro que quieres borrar este pedido?','Borrar'))save(function(){return db.doc('orders/'+b.dataset.del).delete()},'Pedido borrado');
-  };
-},
-update:function(){
-  if(!$('#olist'))return;
-  var rank={pendiente:0,listo:1,entregado:2};
-  var os=S.orders.slice().sort(function(a,b){return (rank[a.status]-rank[b.status])||String(a.due).localeCompare(String(b.due))||a.ts-b.ts}).filter(function(o){return o.status!=='entregado'||o.due>=dayOf(Date.now()-7*864e5)});
-  var pend=S.orders.filter(function(o){return o.status==='pendiente'}).length;
-  $('#osum').textContent=pend?pend+' pendientes':'';
-  $('#olist').innerHTML=os.length?os.map(function(o){
-    var late=o.status==='pendiente'&&o.due<today();
-    var nx=o.status==='pendiente'?['listo','Marcar listo']:(o.status==='listo'?['entregado','Marcar entregado']:null);
-    return '<div class="item"><div class="t"><b>'+esc(o.customer)+'</b> <span class="tag '+(o.status==='entregado'?'ok':(late?'bad':'warn'))+'">'+(late?'Retrasado':ST[o.status])+'</span><small>Recoge '+dmy(o.due)+(o.phone?' · '+esc(o.phone):'')+'</small><small>'+esc(o.text)+'</small></div>'+(nx?'<button class="ghost" data-id="'+esc(o.id)+'" data-st="'+nx[0]+'">'+nx[1]+'</button>':'')+(bv()?'<button class="link bad" data-del="'+esc(o.id)+'">Borrar</button>':'')+'</div>';
-  }).join(''):'<div class="empty">No hay pedidos.</div>';
-}};
-
-/* ---- Informes (jefe) ---- */
-tabs.informes = {label:'Informes',
-mount:function(v){
-  v.innerHTML='<section class="panel"><h2>Informes de ventas</h2><div class="chips" id="rng"></div><div class="tiles" id="tiles"></div></section>'+
-  '<section class="panel"><h2>Ventas por día</h2><div class="bars" id="bars"></div></section>'+
-  '<section class="panel"><h2>Para revisar</h2><div class="list" id="alerts"></div></section>'+
-  '<div class="row" style="align-items:start"><section class="panel" style="flex:1 1 320px"><h2>Por método de pago</h2><div class="list" id="bymeth"></div></section><section class="panel" style="flex:2 1 420px"><h2>Productos más vendidos</h2><div class="tablewrap"><table><thead><tr><th>Producto</th><th class="n">Cantidad</th><th class="n">Importe</th></tr></thead><tbody id="top"></tbody></table></div></section></div>';
-  $('#rng').onclick=function(e){var b=e.target.closest('button');if(!b)return;S.range=+b.dataset.r;tabs.informes.update()};
-},
-update:function(){
-  if(!$('#tiles'))return;
-  var R=[[1,'Hoy'],[7,'7 días'],[30,'30 días']];
-  $('#rng').innerHTML=R.map(function(r){return '<button class="chip" data-r="'+r[0]+'" aria-pressed="'+(S.range===r[0])+'">'+r[1]+'</button>'}).join('');
-  var start=dayOf(Date.now()-(S.range-1)*864e5);
-  var inR=S.sales.filter(function(s){return s.day>=start});
-  var ok=inR.filter(function(s){return !s.voided}),vd=inR.filter(function(s){return s.voided});
-  var tot=round2(ok.reduce(function(a,s){return a+s.total},0)),vtot=round2(vd.reduce(function(a,s){return a+s.total},0));
-  $('#tiles').innerHTML='<div class="tile"><small>Ventas</small><strong class="num">'+eur(tot)+'</strong></div><div class="tile"><small>Tickets</small><strong class="num">'+ok.length+'</strong></div><div class="tile"><small>Ticket medio</small><strong class="num">'+eur(ok.length?tot/ok.length:0)+'</strong></div><div class="tile '+(vd.length?'alert':'')+'"><small>Ventas anuladas</small><strong class="num">'+vd.length+' · '+eur(vtot)+'</strong></div>';
-  var days=[];for(var i=S.range-1;i>=0;i--)days.push(dayOf(Date.now()-i*864e5));
-  var per={};days.forEach(function(d){per[d]=0});ok.forEach(function(s){if(per[s.day]!=null)per[s.day]=round2(per[s.day]+s.total)});
-  var mx=Math.max.apply(null,days.map(function(d){return per[d]}).concat([1]));
-  $('#bars').innerHTML=days.map(function(d){return '<div class="bar"><span class="num">'+dmy(d).slice(0,5)+'</span><div class="track"><div class="fill" style="width:'+Math.round(per[d]/mx*100)+'%"></div></div><span class="v num">'+eur(per[d])+'</span></div>'}).join('');
-  var al=[];
-  S.closings.filter(function(c){return c.day>=start&&Math.abs(c.difTotal||0)>=0.5}).forEach(function(c){al.push({t:c.ts,h:'<b>Caja del '+dmy(c.day)+'</b> <span class="tag '+((c.difTotal||0)<0?'bad':'warn')+' num">'+((c.difTotal||0)>0?'+':'')+eur(c.difTotal)+'</span><small>Cierre de '+esc(nm(c.by))+'. Falta o sobra dinero respecto a las ventas registradas.</small>'})});
-  vd.forEach(function(s){al.push({t:s.voidTs||s.ts,h:'<b>Venta anulada '+dmy(s.day)+' '+hhmm(s.ts)+'</b> <span class="tag bad num">'+eur(s.total)+'</span><small>Motivo: '+esc(s.voidReason||'—')+' · por '+esc(nm(s.voidBy||s.by))+'</small>'})});
-  S.moves.filter(function(m){return m.type==='inventario'&&m.day>=start&&m.diff<0}).forEach(function(m){al.push({t:m.ts,h:'<b>Faltan '+esc(qfmt(-m.diff,m.kind))+' de '+esc(m.pname)+'</b> <span class="tag bad">Inventario '+dmy(m.day)+'</span><small>Debería haber '+esc(qfmt(m.expected,m.kind))+' y se contó '+esc(qfmt(m.qty,m.kind))+'.</small>'})});
-  al.sort(function(a,b){return b.t-a.t});
-  $('#alerts').innerHTML=al.length?al.map(function(a){return '<div class="item"><div class="t">'+a.h+'</div></div>'}).join(''):'<div class="empty">Nada raro en este periodo: cajas cuadradas, sin anulaciones ni faltas de stock.</div>';
-  var bm={};ok.forEach(function(s){bm[s.method]=round2((bm[s.method]||0)+s.total)});
-  $('#bymeth').innerHTML=Object.keys(METHODS).map(function(m){return '<div class="item"><div class="t">'+METHODS[m]+'</div><b class="num">'+eur(bm[m]||0)+'</b></div>'}).join('');
-  var tp={};ok.forEach(function(s){(s.items||[]).forEach(function(it){var k=it.pid;tp[k]=tp[k]||{name:it.name,kind:it.kind,q:0,t:0};tp[k].q+=it.qty;tp[k].t=round2(tp[k].t+it.total)})});
-  var tl=Object.keys(tp).map(function(k){return tp[k]}).sort(function(a,b){return b.t-a.t}).slice(0,10);
-  $('#top').innerHTML=tl.length?tl.map(function(t){return '<tr><td>'+esc(t.name)+'</td><td class="n num">'+qfmt(t.q,t.kind)+'</td><td class="n num">'+eur(t.t)+'</td></tr>'}).join(''):'<tr><td colspan="3"><div class="empty">Sin ventas en este periodo.</div></td></tr>';
-}};
-
-/* ---- Productos (jefe) ---- */
-tabs.productos = {label:'Productos',
-mount:function(v){
-  v.innerHTML='<section class="panel"><h2>Añadir producto</h2><div class="row"><div class="field" style="flex:2 1 200px"><label for="pn">Nombre</label><input id="pn" autocomplete="off" maxlength="50"></div><div class="field"><label for="pk">Se vende por</label><select id="pk"><option value="kg">Peso (kg)</option><option value="ud">Unidades</option></select></div><div class="field"><label for="pp">Precio (€)</label><input id="pp" inputmode="decimal" autocomplete="off" placeholder="0,00"></div><div class="field"><label for="pc">Categoría</label><input id="pc" list="cl" autocomplete="off" maxlength="30" placeholder="Vacuno, Cerdo..."><datalist id="cl"></datalist></div></div><button class="primary" id="pgo">Añadir producto</button></section>'+
-  '<section class="panel"><h2>Precios <span class="small muted">Edita el precio y sale del campo para guardar</span></h2><div class="tablewrap"><table><thead><tr><th>Producto</th><th>Categoría</th><th>Por</th><th class="n">Precio</th><th></th></tr></thead><tbody id="plist"></tbody></table></div></section>'+
-  '<section class="panel"><h2>Copia de seguridad</h2><p class="muted small">Los datos están guardados solo en esta tablet. Descarga una copia de vez en cuando.</p><div class="row"><button class="ghost" id="dl">Descargar copia</button><label class="ghost" style="display:flex;align-items:center;justify-content:center;cursor:pointer;margin:0;color:var(--ink);font-size:1rem">Cargar copia<input id="ul" type="file" accept="application/json,.json" hidden></label><button class="danger" id="clr">Borrar datos de prueba</button></div></section>';
-  $('#dl').onclick=function(){var blob=new Blob([JSON.stringify(db._export())],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='carniceria-copia-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},2000)};
-  $('#ul').onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{db._import(JSON.parse(r.result));toast('Copia cargada')}catch(x){toast('Archivo no válido',true)}};r.readAsText(f)};
-  $('#clr').onclick=async function(){if(await confirmSheet('Borrar datos de prueba','Se borran ventas, cierres, movimientos y pedidos. Los productos se quedan.','Borrar')){db._clear(['sales','closings','moves','orders']);toast('Datos de prueba borrados')}};
-  $('#pgo').onclick=async function(){
-    var n=$('#pn').value.trim(),p=parseNum($('#pp').value);
-    if(!n||isNaN(p)||p<0){toast('Pon nombre y precio.',true);return}
-    var ok=await save(function(){return db.collection('products').doc().set({name:n,kind:$('#pk').value,price:round2(p),cat:$('#pc').value.trim()||'Otros',ts:Date.now()})},'Producto añadido');
-    if(ok){$('#pn').value='';$('#pp').value=''}
-  };
-  $('#plist').onchange=function(e){var i=e.target.closest('input[data-id]');if(!i)return;var p=parseNum(i.value);if(isNaN(p)||p<0){toast('Precio no válido.',true);tabs.productos.update();return}save(function(){return db.doc('products/'+i.dataset.id).update({price:round2(p)})},'Precio actualizado')};
-  $('#plist').onclick=async function(e){var b=e.target.closest('button[data-del]');if(!b)return;var p=prodById(b.dataset.del);if(await confirmSheet('Borrar producto','¿Borrar "'+(p?p.name:'')+'"? Las ventas ya hechas se conservan.','Borrar'))save(function(){return db.doc('products/'+b.dataset.del).delete()},'Producto borrado')};
-},
-update:function(){
-  if(!$('#plist'))return;
-  $('#cl').innerHTML=Array.from(new Set(S.products.map(function(p){return p.cat}))).map(function(c){return '<option value="'+esc(c)+'">'}).join('');
-  if(document.activeElement&&document.activeElement.closest&&document.activeElement.closest('#plist'))return;
-  var ps=S.products.slice().sort(function(a,b){return (a.cat||'').localeCompare(b.cat||'','es')||a.name.localeCompare(b.name,'es')});
-  $('#plist').innerHTML=ps.length?ps.map(function(p){return '<tr><td>'+esc(p.name)+'</td><td>'+esc(p.cat||'')+'</td><td>'+(p.kind==='kg'?'kg':'ud')+'</td><td class="n"><input data-id="'+esc(p.id)+'" inputmode="decimal" value="'+String(p.price).replace('.',',')+'" aria-label="Precio de '+esc(p.name)+'"></td><td class="n"><button class="link bad" data-del="'+esc(p.id)+'">Borrar</button></td></tr>'}).join(''):'<tr><td colspan="5"><div class="empty">Sin productos todavía.</div></td></tr>';
-}};
-
-/* ---------- Navegación ---------- */
-function tabList(){return bv()?['informes','ventas','stock','pedidos','caja','productos']:['vender','pedidos','stock','caja']}
-var LBL_B={informes:'Informes',ventas:'Ventas',stock:'Stock',pedidos:'Pedidos',caja:'Caja',productos:'Productos'};
-var LBL_W={vender:'Vender',pedidos:'Pedidos',stock:'Mercancía',caja:'Cerrar caja'};
-function renderNav(){
-  var L=bv()?LBL_B:LBL_W;
-  $('#nav').innerHTML=tabList().map(function(t){return '<button data-t="'+t+'"'+(t===S.tab?' aria-current="page"':'')+'>'+L[t]+'</button>'}).join('');
-  $('#roletxt').textContent=bv()?'Jefe':'Mostrador';
-  var sw=$('#swap');sw.hidden=!S.boss;sw.textContent=bv()?'Pasar a mostrador':'Entrar como jefe';
-}
-function pinHash(p){var h=5381;for(var i=0;i<p.length;i++)h=((h<<5)+h+p.charCodeAt(i))|0;return 'h'+h}
-function askPin(){
-  return new Promise(function(res){
-    var saved=null;try{saved=localStorage.getItem('carniceria.pin')}catch(e){}
-    var b=openSheet(saved?'PIN de jefe':'Crea tu PIN de jefe','<p class="muted">'+(saved?'Escribe el PIN para entrar.':'Elige 4 cifras. Se pedirán cada vez que alguien quiera entrar como jefe.')+'</p><div><label for="pin">PIN</label><input id="pin" type="password" inputmode="numeric" maxlength="4" autocomplete="off"></div><p class="neg small" id="pe" hidden></p><button class="primary big" id="pok">'+(saved?'Entrar':'Guardar PIN')+'</button>');
-    var inp=$('#pin',b),err=$('#pe',b);
-    function ok(){
-      var v=inp.value.trim();
-      if(!/^\d{4}$/.test(v)){err.textContent='Son 4 cifras.';err.hidden=false;return}
-      if(saved){if(pinHash(v)!==saved){err.textContent='PIN incorrecto.';err.hidden=false;inp.value='';return}}
-      else{try{localStorage.setItem('carniceria.pin',pinHash(v))}catch(e){}}
-      closeSheet();res(true);
+  // Try/catch helper to minimize deoptimizations. Returns a completion
+  // record like context.tryEntries[i].completion. This interface could
+  // have been (and was previously) designed to take a closure to be
+  // invoked without arguments, but in all the cases we care about we
+  // already have an existing method we want to call, so there's no need
+  // to create a new function object. We can even get away with assuming
+  // the method takes exactly one argument, since that happens to be true
+  // in every case, so we don't have to touch the arguments object. The
+  // only additional allocation required is the completion record, which
+  // has a stable shape and so hopefully should be cheap to allocate.
+  function tryCatch(fn, obj, arg) {
+    try {
+      return { type: "normal", arg: fn.call(obj, arg) };
+    } catch (err) {
+      return { type: "throw", arg: err };
     }
-    $('#pok',b).onclick=ok;inp.onkeydown=function(e){if(e.key==='Enter')ok()};inp.focus();
+  }
+
+  var GenStateSuspendedStart = "suspendedStart";
+  var GenStateSuspendedYield = "suspendedYield";
+  var GenStateExecuting = "executing";
+  var GenStateCompleted = "completed";
+
+  // Returning this object from the innerFn has the same effect as
+  // breaking out of the dispatch switch statement.
+  var ContinueSentinel = {};
+
+  // Dummy constructor functions that we use as the .constructor and
+  // .constructor.prototype properties for functions that return Generator
+  // objects. For full spec compliance, you may wish to configure your
+  // minifier not to mangle the names of these two functions.
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  define(IteratorPrototype, iteratorSymbol, function () {
+    return this;
   });
-}
-$('#swap').onclick=async function(){
-  if(bv()){S.mode='mostrador';S.cart=[];go(tabList()[0]);return}
-  if(await askPin()){S.mode='jefe';go(tabList()[0])}
-};
-function go(t){
-  if(tabList().indexOf(t)<0)t=tabList()[0];
-  S.tab=t;renderNav();
-  var v=$('#view');v.innerHTML='';v.scrollTop=0;
-  tabs[t].mount(v);tabs[t].update();
-}
-$('#nav').onclick=function(e){var b=e.target.closest('button[data-t]');if(b)go(b.dataset.t)};
 
-var raf=0;
-function scheduleUpdate(){
-  if(raf)return;
-  raf=requestAnimationFrame(function(){raf=0;if(tabs[S.tab]&&$('#view').firstChild)tabs[S.tab].update();resolveNames()});
-}
-async function resolveNames(){
-  if(!user||!user.profiles)return;
-  var ids=new Set();
-  ['sales','closings','moves','orders'].forEach(function(k){S[k].forEach(function(r){if(r.by)ids.add(r.by);if(r.voidBy)ids.add(r.voidBy)})});
-  var need=Array.from(ids).filter(function(i){return !(i in S.names)});
-  if(!need.length)return;
-  need.forEach(function(i){S.names[i]=''});
-  try{var ps=await user.profiles(need);need.forEach(function(i){S.names[i]=(ps&&ps[i]&&ps[i].name)||''});scheduleUpdate()}catch(e){}
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
+  GeneratorFunction.prototype = GeneratorFunctionPrototype;
+  defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: true });
+  defineProperty(
+    GeneratorFunctionPrototype,
+    "constructor",
+    { value: GeneratorFunction, configurable: true }
+  );
+  GeneratorFunction.displayName = define(
+    GeneratorFunctionPrototype,
+    toStringTagSymbol,
+    "GeneratorFunction"
+  );
+
+  // Helper for defining the .next, .throw, and .return methods of the
+  // Iterator interface in terms of a single ._invoke method.
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function(method) {
+      define(prototype, method, function(arg) {
+        return this._invoke(method, arg);
+      });
+    });
+  }
+
+  exports.isGeneratorFunction = function(genFun) {
+    var ctor = typeof genFun === "function" && genFun.constructor;
+    return ctor
+      ? ctor === GeneratorFunction ||
+        // For the native GeneratorFunction constructor, the best we can
+        // do is to check its .name property.
+        (ctor.displayName || ctor.name) === "GeneratorFunction"
+      : false;
+  };
+
+  exports.mark = function(genFun) {
+    if (Object.setPrototypeOf) {
+      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+    } else {
+      genFun.__proto__ = GeneratorFunctionPrototype;
+      define(genFun, toStringTagSymbol, "GeneratorFunction");
+    }
+    genFun.prototype = Object.create(Gp);
+    return genFun;
+  };
+
+  // Within the body of any async function, `await x` is transformed to
+  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
+  exports.awrap = function(arg) {
+    return { __await: arg };
+  };
+
+  function AsyncIterator(generator, PromiseImpl) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if (record.type === "throw") {
+        reject(record.arg);
+      } else {
+        var result = record.arg;
+        var value = result.value;
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return PromiseImpl.resolve(value.__await).then(function(value) {
+            invoke("next", value, resolve, reject);
+          }, function(err) {
+            invoke("throw", err, resolve, reject);
+          });
+        }
+
+        return PromiseImpl.resolve(value).then(function(unwrapped) {
+          // When a yielded Promise is resolved, its final value becomes
+          // the .value of the Promise<{value,done}> result for the
+          // current iteration.
+          result.value = unwrapped;
+          resolve(result);
+        }, function(error) {
+          // If a rejected Promise was yielded, throw the rejection back
+          // into the async generator function so it can be handled there.
+          return invoke("throw", error, resolve, reject);
+        });
+      }
+    }
+
+    var previousPromise;
+
+    function enqueue(method, arg) {
+      function callInvokeWithMethodAndArg() {
+        return new PromiseImpl(function(resolve, reject) {
+          invoke(method, arg, resolve, reject);
+        });
+      }
+
+      return previousPromise =
+        // If enqueue has been called before, then we want to wait until
+        // all previous Promises have been resolved before calling invoke,
+        // so that results are always delivered in the correct order. If
+        // enqueue has not been called before, then it is important to
+        // call invoke immediately, without waiting on a callback to fire,
+        // so that the async generator function has the opportunity to do
+        // any necessary setup in a predictable way. This predictability
+        // is why the Promise constructor synchronously invokes its
+        // executor callback, and why async functions synchronously
+        // execute code before the first await. Since we implement simple
+        // async functions in terms of async generators, it is especially
+        // important to get this right, even though it requires care.
+        previousPromise ? previousPromise.then(
+          callInvokeWithMethodAndArg,
+          // Avoid propagating failures to Promises returned by later
+          // invocations of the iterator.
+          callInvokeWithMethodAndArg
+        ) : callInvokeWithMethodAndArg();
+    }
+
+    // Define the unified helper method that is used to implement .next,
+    // .throw, and .return (see defineIteratorMethods).
+    defineProperty(this, "_invoke", { value: enqueue });
+  }
+
+  defineIteratorMethods(AsyncIterator.prototype);
+  define(AsyncIterator.prototype, asyncIteratorSymbol, function () {
+    return this;
+  });
+  exports.AsyncIterator = AsyncIterator;
+
+  // Note that simple async functions are implemented on top of
+  // AsyncIterator objects; they just return a Promise for the value of
+  // the final result produced by the iterator.
+  exports.async = function(innerFn, outerFn, self, tryLocsList, PromiseImpl) {
+    if (PromiseImpl === void 0) PromiseImpl = Promise;
+
+    var iter = new AsyncIterator(
+      wrap(innerFn, outerFn, self, tryLocsList),
+      PromiseImpl
+    );
+
+    return exports.isGeneratorFunction(outerFn)
+      ? iter // If outerFn is a generator, return the full iterator.
+      : iter.next().then(function(result) {
+          return result.done ? result.value : iter.next();
+        });
+  };
+
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = GenStateSuspendedStart;
+
+    return function invoke(method, arg) {
+      if (state === GenStateExecuting) {
+        throw new Error("Generator is already running");
+      }
+
+      if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
+        // Be forgiving, per GeneratorResume behavior specified since ES2015:
+        // ES2015 spec, step 3: https://262.ecma-international.org/6.0/#sec-generatorresume
+        // Latest spec, step 2: https://tc39.es/ecma262/#sec-generatorresume
+        return doneResult();
+      }
+
+      context.method = method;
+      context.arg = arg;
+
+      while (true) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+
+        if (context.method === "next") {
+          // Setting context._sent for legacy support of Babel's
+          // function.sent implementation.
+          context.sent = context._sent = context.arg;
+
+        } else if (context.method === "throw") {
+          if (state === GenStateSuspendedStart) {
+            state = GenStateCompleted;
+            throw context.arg;
+          }
+
+          context.dispatchException(context.arg);
+
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
+        }
+
+        state = GenStateExecuting;
+
+        var record = tryCatch(innerFn, self, context);
+        if (record.type === "normal") {
+          // If an exception is thrown from innerFn, we leave state ===
+          // GenStateExecuting and loop back for another invocation.
+          state = context.done
+            ? GenStateCompleted
+            : GenStateSuspendedYield;
+
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
+            value: record.arg,
+            done: context.done
+          };
+
+        } else if (record.type === "throw") {
+          state = GenStateCompleted;
+          // Dispatch the exception by looping back around to the
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
+        }
+      }
+    };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var methodName = context.method;
+    var method = delegate.iterator[methodName];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method, or a missing .next method, always terminate the
+      // yield* loop.
+      context.delegate = null;
+
+      // Note: ["return"] must be used for ES3 parsing compatibility.
+      if (methodName === "throw" && delegate.iterator["return"]) {
+        // If the delegate iterator has a return method, give it a
+        // chance to clean up.
+        context.method = "return";
+        context.arg = undefined;
+        maybeInvokeDelegate(delegate, context);
+
+        if (context.method === "throw") {
+          // If maybeInvokeDelegate(context) changed context.method from
+          // "return" to "throw", let that override the TypeError below.
+          return ContinueSentinel;
+        }
+      }
+      if (methodName !== "return") {
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a '" + methodName + "' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
+  }
+
+  // Define Generator.prototype.{next,throw,return} in terms of the
+  // unified ._invoke helper method.
+  defineIteratorMethods(Gp);
+
+  define(Gp, toStringTagSymbol, "Generator");
+
+  // A Generator should always return itself as the iterator object when the
+  // @@iterator function is called on it. Some browsers' implementations of the
+  // iterator prototype chain incorrectly implement this, causing the Generator
+  // object to not be returned from this call. This ensures that doesn't happen.
+  // See https://github.com/facebook/regenerator/issues/274 for more details.
+  define(Gp, iteratorSymbol, function() {
+    return this;
+  });
+
+  define(Gp, "toString", function() {
+    return "[object Generator]";
+  });
+
+  function pushTryEntry(locs) {
+    var entry = { tryLoc: locs[0] };
+
+    if (1 in locs) {
+      entry.catchLoc = locs[1];
+    }
+
+    if (2 in locs) {
+      entry.finallyLoc = locs[2];
+      entry.afterLoc = locs[3];
+    }
+
+    this.tryEntries.push(entry);
+  }
+
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal";
+    delete record.arg;
+    entry.completion = record;
+  }
+
+  function Context(tryLocsList) {
+    // The root entry object (effectively a try statement without a catch
+    // or a finally block) gives us a place to store values thrown from
+    // locations where there is no enclosing try statement.
+    this.tryEntries = [{ tryLoc: "root" }];
+    tryLocsList.forEach(pushTryEntry, this);
+    this.reset(true);
+  }
+
+  exports.keys = function(val) {
+    var object = Object(val);
+    var keys = [];
+    for (var key in object) {
+      keys.push(key);
+    }
+    keys.reverse();
+
+    // Rather than returning an object with a next method, we keep
+    // things simple and return the next function itself.
+    return function next() {
+      while (keys.length) {
+        var key = keys.pop();
+        if (key in object) {
+          next.value = key;
+          next.done = false;
+          return next;
+        }
+      }
+
+      // To avoid creating an additional object, we just hang the .value
+      // and .done properties off the next function object itself. This
+      // also ensures that the minifier will not anonymize the function.
+      next.done = true;
+      return next;
+    };
+  };
+
+  function values(iterable) {
+    if (iterable != null) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) {
+        return iteratorMethod.call(iterable);
+      }
+
+      if (typeof iterable.next === "function") {
+        return iterable;
+      }
+
+      if (!isNaN(iterable.length)) {
+        var i = -1, next = function next() {
+          while (++i < iterable.length) {
+            if (hasOwn.call(iterable, i)) {
+              next.value = iterable[i];
+              next.done = false;
+              return next;
+            }
+          }
+
+          next.value = undefined;
+          next.done = true;
+
+          return next;
+        };
+
+        return next.next = next;
+      }
+    }
+
+    throw new TypeError(typeof iterable + " is not iterable");
+  }
+  exports.values = values;
+
+  function doneResult() {
+    return { value: undefined, done: true };
+  }
+
+  Context.prototype = {
+    constructor: Context,
+
+    reset: function(skipTempReset) {
+      this.prev = 0;
+      this.next = 0;
+      // Resetting context._sent for legacy support of Babel's
+      // function.sent implementation.
+      this.sent = this._sent = undefined;
+      this.done = false;
+      this.delegate = null;
+
+      this.method = "next";
+      this.arg = undefined;
+
+      this.tryEntries.forEach(resetTryEntry);
+
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" &&
+              hasOwn.call(this, name) &&
+              !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
+      }
+    },
+
+    stop: function() {
+      this.done = true;
+
+      var rootEntry = this.tryEntries[0];
+      var rootRecord = rootEntry.completion;
+      if (rootRecord.type === "throw") {
+        throw rootRecord.arg;
+      }
+
+      return this.rval;
+    },
+
+    dispatchException: function(exception) {
+      if (this.done) {
+        throw exception;
+      }
+
+      var context = this;
+      function handle(loc, caught) {
+        record.type = "throw";
+        record.arg = exception;
+        context.next = loc;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
+      }
+
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        var record = entry.completion;
+
+        if (entry.tryLoc === "root") {
+          // Exception thrown outside of any try block that could handle
+          // it, so set the completion value of the entire function to
+          // throw the exception.
+          return handle("end");
+        }
+
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc");
+          var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            } else if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            }
+
+          } else if (hasFinally) {
+            if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else {
+            throw new Error("try statement without catch or finally");
+          }
+        }
+      }
+    },
+
+    abrupt: function(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev &&
+            hasOwn.call(entry, "finallyLoc") &&
+            this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+
+      if (finallyEntry &&
+          (type === "break" ||
+           type === "continue") &&
+          finallyEntry.tryLoc <= arg &&
+          arg <= finallyEntry.finallyLoc) {
+        // Ignore the finally entry if control is not jumping to a
+        // location outside the try/catch block.
+        finallyEntry = null;
+      }
+
+      var record = finallyEntry ? finallyEntry.completion : {};
+      record.type = type;
+      record.arg = arg;
+
+      if (finallyEntry) {
+        this.method = "next";
+        this.next = finallyEntry.finallyLoc;
+        return ContinueSentinel;
+      }
+
+      return this.complete(record);
+    },
+
+    complete: function(record, afterLoc) {
+      if (record.type === "throw") {
+        throw record.arg;
+      }
+
+      if (record.type === "break" ||
+          record.type === "continue") {
+        this.next = record.arg;
+      } else if (record.type === "return") {
+        this.rval = this.arg = record.arg;
+        this.method = "return";
+        this.next = "end";
+      } else if (record.type === "normal" && afterLoc) {
+        this.next = afterLoc;
+      }
+
+      return ContinueSentinel;
+    },
+
+    finish: function(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) {
+          this.complete(entry.completion, entry.afterLoc);
+          resetTryEntry(entry);
+          return ContinueSentinel;
+        }
+      }
+    },
+
+    "catch": function(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if (record.type === "throw") {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+
+      // The context.catch method must only be called with a location
+      // argument that corresponds to a known catch block.
+      throw new Error("illegal catch attempt");
+    },
+
+    delegateYield: function(iterable, resultName, nextLoc) {
+      this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      };
+
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
+      return ContinueSentinel;
+    }
+  };
+
+  // Regardless of whether this script is executing as a CommonJS module
+  // or not, return the runtime object so that we can declare the variable
+  // regeneratorRuntime in the outer scope, which allows this module to be
+  // injected easily by `bin/regenerator --include-runtime script.js`.
+  return exports;
+
+}(
+  // If this script is executing as a CommonJS module, use module.exports
+  // as the regeneratorRuntime namespace. Otherwise create a new empty
+  // object. Either way, the resulting object will be used to initialize
+  // the regeneratorRuntime variable at the top of this file.
+  typeof module === "object" ? module.exports : {}
+));
+
+try {
+  regeneratorRuntime = runtime;
+} catch (accidentalStrictMode) {
+  // This module should not be running in strict mode, so the above
+  // assignment should always work unless something is misconfigured. Just
+  // in case runtime.js accidentally runs in strict mode, in modern engines
+  // we can explicitly access globalThis. In older engines we can escape
+  // strict mode using a global Function call. This could conceivably fail
+  // if a Content Security Policy forbids using Function, but in that case
+  // the proper solution is to fix the accidental strict mode problem. If
+  // you've misconfigured your bundler to force strict mode and applied a
+  // CSP to forbid Function, and you're not willing to fix either of those
+  // problems, please detail your unique predicament in a GitHub issue.
+  if (typeof globalThis === "object") {
+    globalThis.regeneratorRuntime = runtime;
+  } else {
+    Function("r", "regeneratorRuntime = r")(runtime);
+  }
 }
 
-/* ---------- Datos en vivo ---------- */
-var loadTimer=0;
-function markLoaded(k){
-  S.loaded[k]=true;
-  if(Object.keys(S.loaded).length>=5){clearTimeout(loadTimer);$('#dot').classList.add('ok');if(S.canWrite&&!window.__noStore){$('#banner').hidden=true}}
-}
-function sub(key,q){
-  q.onSnapshot(function(snap){
-    S[key]=snap.docs.map(function(d){var o={};var x=d.data()||{};for(var k in x)o[k]=x[k];o.id=d.id;return o});
-    if(!snap.metadata.fromCache)markLoaded(key);
-    scheduleUpdate();
-  },function(e){var b=$('#banner');b.hidden=false;b.className='banner bad';b.textContent='Se perdió la conexión con los datos ('+(e&&e.code||'error')+'). Recarga la página.'});
-}
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
-go(tabList()[0]);
-sub('products',db.collection('products').orderBy('name'));
-sub('sales',db.collection('sales').orderBy('ts','desc').limit(1000));
-sub('closings',db.collection('closings').orderBy('ts','desc').limit(120));
-sub('moves',db.collection('moves').orderBy('ts','desc').limit(1000));
-sub('orders',db.collection('orders').orderBy('ts','desc').limit(300));
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var r, e, o = "function" == typeof Symbol ? Symbol : {}, n = o.iterator || "@@iterator", a = o.toStringTag || "@@toStringTag"; function i(o, n, a, i) { var u = n && n.prototype instanceof Generator ? n : Generator, f = Object.create(u.prototype); return _regeneratorDefine2(f, "_invoke", function (t, o, n) { var a, i, u, f = 0, p = n || [], y = !1, G = { p: 0, n: 0, v: r, a: l, f: l.bind(r, 4), d: function d(t, e) { return a = t, i = 0, u = r, G.n = e, c; } }; function l(t, o) { for (i = t, u = o, e = 0; !y && f && !n && e < p.length; e++) { var n, a = p[e], l = G.p, F = a[2]; t > 3 ? (n = F === o) && (u = a[(i = a[4]) ? 5 : (i = 3, 3)], a[4] = a[5] = r) : a[0] <= l && ((n = t < 2 && l < a[1]) ? (i = 0, G.v = o, G.n = a[1]) : l < F && (n = t < 3 || a[0] > o || o > F) && (a[4] = t, a[5] = o, G.n = F, i = 0)); } if (n || t > 1) return c; throw y = !0, o; } return function (n, p, F) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && l(p, F), i = p, u = F; (e = i < 2 ? r : u) || !y;) { a || (i ? (i > 1 && (G.n = i < 3 ? -1 : u), l(i, u)) : G.v = u); try { if (f = 2, a) { if (i || (n = "next"), e = a[n]) { if (!(e = e.call(a, u))) throw TypeError("iterator result is not an object"); if (!e.done) return e; u = e.value, i < 2 && (i = 0); } else 1 === i && (e = a.return) && e.call(a), i < 2 && (u = TypeError("The iterator does not provide a '" + n + "' method"), i = 1); a = r; } else if ((e = (y = G.n < 0) ? u : t.call(o, G)) !== c) break; } catch (t) { a = r, i = 1, u = t; } finally { f = 1; } } return { value: e, done: y }; }; }(o, a, i), !0), f; } var c = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} e = Object.getPrototypeOf; var u = [][n] ? e(e([][n]())) : (_regeneratorDefine2(e = {}, n, function () { return this; }), e), f = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(u); function p(r) { return Object.setPrototypeOf ? Object.setPrototypeOf(r, GeneratorFunctionPrototype) : (r.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(r, a, "GeneratorFunction")), r.prototype = Object.create(f), r; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(f, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, a, "GeneratorFunction"), _regeneratorDefine2(f), _regeneratorDefine2(f, a, "Generator"), _regeneratorDefine2(f, n, function () { return this; }), _regeneratorDefine2(f, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: p }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+(function () {
+  function show(msg) {
+    var v = document.getElementById('view'),
+      t = document.getElementById('roletxt');
+    if (t) t.textContent = 'Error';
+    if (!v) return;
+    v.textContent = '';
+    var p = document.createElement('div');
+    p.className = 'panel';
+    var h = document.createElement('h2');
+    h.textContent = 'La app no ha podido arrancar';
+    var m = document.createElement('p');
+    m.className = 'muted';
+    m.textContent = 'Haz una foto de este mensaje y envíamela:';
+    var pre = document.createElement('pre');
+    pre.style.whiteSpace = 'pre-wrap';
+    pre.style.wordBreak = 'break-word';
+    pre.textContent = msg + '\n' + navigator.userAgent;
+    p.appendChild(h);
+    p.appendChild(m);
+    p.appendChild(pre);
+    v.appendChild(p);
+  }
+  window.addEventListener('error', function (e) {
+    show(String(e.message) + ' (' + (e.lineno || '?') + ':' + (e.colno || '?') + ')');
+  });
+  window.addEventListener('unhandledrejection', function (e) {
+    show('Promesa: ' + String(e.reason && e.reason.message || e.reason));
+  });
 })();
+(function () {
+  if (!Object.assign) {
+    Object.assign = function (t) {
+      for (var i = 1; i < arguments.length; i++) {
+        var s = arguments[i];
+        if (s) for (var k in s) if (Object.prototype.hasOwnProperty.call(s, k)) t[k] = s[k];
+      }
+      return t;
+    };
+  }
+  if (!Array.from) {
+    Array.from = function (x) {
+      var r = [];
+      if (x && typeof x.forEach === 'function') {
+        x.forEach(function (v) {
+          r.push(v);
+        });
+      } else if (x) {
+        for (var i = 0; i < x.length; i++) r.push(x[i]);
+      }
+      return r;
+    };
+  }
+  if (!Array.prototype.find) {
+    Array.prototype.find = function (f, th) {
+      for (var i = 0; i < this.length; i++) {
+        if (f.call(th, this[i], i, this)) return this[i];
+      }
+      return undefined;
+    };
+  }
+  var EP = window.Element && Element.prototype;
+  if (EP && !EP.matches) {
+    EP.matches = EP.webkitMatchesSelector || EP.msMatchesSelector || EP.mozMatchesSelector;
+  }
+  if (EP && !EP.closest) {
+    EP.closest = function (s) {
+      var e = this;
+      while (e && e.nodeType === 1) {
+        if (e.matches(s)) return e;
+        e = e.parentElement;
+      }
+      return null;
+    };
+  }
+})();
+_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
+  "use strict";
+
+  var $, esc, fmtNum, eur, qfmt, round2, dayOf, today, hhmm, dmy, parseNum, METHODS, Balanza, S, SEED, db, user, bn0, bn, bv, nm, prodById, okSales, toastT, toast, openSheet, closeSheet, confirmSheet, save, _save, stockOf, tabs, lastSale, pickQty, busy, cobrar, _cobrar, anular, MOVE_LBL, ST, tabList, LBL_B, LBL_W, renderNav, pinHash, askPin, go, raf, scheduleUpdate, resolveNames, _resolveNames, loadTimer, markLoaded, sub;
+  return _regenerator().w(function (_context13) {
+    while (1) switch (_context13.n) {
+      case 0:
+        sub = function _sub(key, q) {
+          q.onSnapshot(function (snap) {
+            S[key] = snap.docs.map(function (d) {
+              var o = {};
+              var x = d.data() || {};
+              for (var k in x) o[k] = x[k];
+              o.id = d.id;
+              return o;
+            });
+            if (!snap.metadata.fromCache) markLoaded(key);
+            scheduleUpdate();
+          }, function (e) {
+            var b = $('#banner');
+            b.hidden = false;
+            b.className = 'banner bad';
+            b.textContent = 'Se perdió la conexión con los datos (' + (e && e.code || 'error') + '). Recarga la página.';
+          });
+        };
+        markLoaded = function _markLoaded(k) {
+          S.loaded[k] = true;
+          if (Object.keys(S.loaded).length >= 5) {
+            clearTimeout(loadTimer);
+            $('#dot').classList.add('ok');
+            if (S.canWrite && !window.__noStore) {
+              $('#banner').hidden = true;
+            }
+          }
+        };
+        _resolveNames = function _resolveNames3() {
+          _resolveNames = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee12() {
+            var ids, need, ps, _t3;
+            return _regenerator().w(function (_context12) {
+              while (1) switch (_context12.p = _context12.n) {
+                case 0:
+                  if (!(!user || !user.profiles)) {
+                    _context12.n = 1;
+                    break;
+                  }
+                  return _context12.a(2);
+                case 1:
+                  ids = new Set();
+                  ['sales', 'closings', 'moves', 'orders'].forEach(function (k) {
+                    S[k].forEach(function (r) {
+                      if (r.by) ids.add(r.by);
+                      if (r.voidBy) ids.add(r.voidBy);
+                    });
+                  });
+                  need = Array.from(ids).filter(function (i) {
+                    return !(i in S.names);
+                  });
+                  if (need.length) {
+                    _context12.n = 2;
+                    break;
+                  }
+                  return _context12.a(2);
+                case 2:
+                  need.forEach(function (i) {
+                    S.names[i] = '';
+                  });
+                  _context12.p = 3;
+                  _context12.n = 4;
+                  return user.profiles(need);
+                case 4:
+                  ps = _context12.v;
+                  need.forEach(function (i) {
+                    S.names[i] = ps && ps[i] && ps[i].name || '';
+                  });
+                  scheduleUpdate();
+                  _context12.n = 6;
+                  break;
+                case 5:
+                  _context12.p = 5;
+                  _t3 = _context12.v;
+                case 6:
+                  return _context12.a(2);
+              }
+            }, _callee12, null, [[3, 5]]);
+          }));
+          return _resolveNames.apply(this, arguments);
+        };
+        resolveNames = function _resolveNames2() {
+          return _resolveNames.apply(this, arguments);
+        };
+        scheduleUpdate = function _scheduleUpdate() {
+          if (raf) return;
+          raf = requestAnimationFrame(function () {
+            raf = 0;
+            if (tabs[S.tab] && $('#view').firstChild) tabs[S.tab].update();
+            resolveNames();
+          });
+        };
+        go = function _go(t) {
+          if (tabList().indexOf(t) < 0) t = tabList()[0];
+          S.tab = t;
+          renderNav();
+          var v = $('#view');
+          v.innerHTML = '';
+          v.scrollTop = 0;
+          tabs[t].mount(v);
+          tabs[t].update();
+        };
+        askPin = function _askPin() {
+          return new Promise(function (res) {
+            var saved = null;
+            try {
+              saved = localStorage.getItem('carniceria.pin');
+            } catch (e) {}
+            var b = openSheet(saved ? 'PIN de jefe' : 'Crea tu PIN de jefe', '<p class="muted">' + (saved ? 'Escribe el PIN para entrar.' : 'Elige 4 cifras. Se pedirán cada vez que alguien quiera entrar como jefe.') + '</p><div><label for="pin">PIN</label><input id="pin" type="password" inputmode="numeric" maxlength="4" autocomplete="off"></div><p class="neg small" id="pe" hidden></p><button class="primary big" id="pok">' + (saved ? 'Entrar' : 'Guardar PIN') + '</button>');
+            var inp = $('#pin', b),
+              err = $('#pe', b);
+            function ok() {
+              var v = inp.value.trim();
+              if (!/^\d{4}$/.test(v)) {
+                err.textContent = 'Son 4 cifras.';
+                err.hidden = false;
+                return;
+              }
+              if (saved) {
+                if (pinHash(v) !== saved) {
+                  err.textContent = 'PIN incorrecto.';
+                  err.hidden = false;
+                  inp.value = '';
+                  return;
+                }
+              } else {
+                try {
+                  localStorage.setItem('carniceria.pin', pinHash(v));
+                } catch (e) {}
+              }
+              closeSheet();
+              res(true);
+            }
+            $('#pok', b).onclick = ok;
+            inp.onkeydown = function (e) {
+              if (e.key === 'Enter') ok();
+            };
+            inp.focus();
+          });
+        };
+        pinHash = function _pinHash(p) {
+          var h = 5381;
+          for (var i = 0; i < p.length; i++) h = (h << 5) + h + p.charCodeAt(i) | 0;
+          return 'h' + h;
+        };
+        renderNav = function _renderNav() {
+          var L = bv() ? LBL_B : LBL_W;
+          $('#nav').innerHTML = tabList().map(function (t) {
+            return '<button data-t="' + t + '"' + (t === S.tab ? ' aria-current="page"' : '') + '>' + L[t] + '</button>';
+          }).join('');
+          $('#roletxt').textContent = bv() ? 'Jefe' : 'Mostrador';
+          var sw = $('#swap');
+          sw.hidden = !S.boss;
+          sw.textContent = bv() ? 'Pasar a mostrador' : 'Entrar como jefe';
+        };
+        tabList = function _tabList() {
+          return bv() ? ['informes', 'ventas', 'stock', 'pedidos', 'caja', 'productos'] : ['vender', 'pedidos', 'stock', 'caja'];
+        };
+        anular = function _anular(id) {
+          var s = S.sales.find(function (x) {
+            return x.id === id;
+          });
+          if (!s) return;
+          var b = openSheet('Anular venta', '<p class="muted">' + hhmm(s.ts) + ' · ' + eur(s.total) + '. La venta queda marcada como anulada y el jefe la verá en los informes.</p><div><label for="why">Motivo (obligatorio)</label><input id="why" autocomplete="off" maxlength="120"></div><div class="row"><button class="ghost" id="cn">Cancelar</button><button class="danger" id="cy" disabled>Anular venta</button></div>');
+          var w = $('#why', b);
+          w.oninput = function () {
+            $('#cy', b).disabled = w.value.trim().length < 3;
+          };
+          $('#cn', b).onclick = closeSheet;
+          $('#cy', b).onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+            var why;
+            return _regenerator().w(function (_context2) {
+              while (1) switch (_context2.n) {
+                case 0:
+                  why = w.value.trim();
+                  closeSheet();
+                  _context2.n = 1;
+                  return save(function () {
+                    return db.doc('sales/' + id).update({
+                      voided: true,
+                      voidReason: why,
+                      voidBy: S.uid,
+                      voidTs: Date.now()
+                    });
+                  }, 'Venta anulada');
+                case 1:
+                  return _context2.a(2);
+              }
+            }, _callee2);
+          }));
+          w.focus();
+        };
+        _cobrar = function _cobrar3() {
+          _cobrar = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee11() {
+            var now, items, total, ok;
+            return _regenerator().w(function (_context11) {
+              while (1) switch (_context11.n) {
+                case 0:
+                  if (!(busy || !S.cart.length)) {
+                    _context11.n = 1;
+                    break;
+                  }
+                  return _context11.a(2);
+                case 1:
+                  busy = true;
+                  now = Date.now(), items = S.cart.map(function (l) {
+                    return {
+                      pid: l.pid,
+                      name: l.name,
+                      kind: l.kind,
+                      qty: l.qty,
+                      price: l.price,
+                      total: l.total
+                    };
+                  });
+                  total = round2(items.reduce(function (a, i) {
+                    return a + i.total;
+                  }, 0));
+                  _context11.n = 2;
+                  return save(function () {
+                    return db.collection('sales').doc().set({
+                      ts: now,
+                      day: dayOf(now),
+                      items: items,
+                      total: total,
+                      method: S.method,
+                      by: S.uid,
+                      voided: false
+                    });
+                  }, 'Venta registrada: ' + eur(total));
+                case 2:
+                  ok = _context11.v;
+                  if (ok) S.cart = [];
+                  busy = false;
+                  tabs.vender.update();
+                case 3:
+                  return _context11.a(2);
+              }
+            }, _callee11);
+          }));
+          return _cobrar.apply(this, arguments);
+        };
+        cobrar = function _cobrar2() {
+          return _cobrar.apply(this, arguments);
+        };
+        pickQty = function _pickQty(p) {
+          var kg = p.kind === 'kg';
+          var b = openSheet(p.name, '<p class="muted num">' + eur(p.price) + ' / ' + (kg ? 'kg' : 'ud') + '</p><div><label for="qty">' + (kg ? 'Peso en gramos' : 'Unidades') + '</label><div class="qtyrow">' + (kg ? '' : '<button class="step" data-d="-1" aria-label="Menos">−</button>') + '<input id="qty" inputmode="numeric" autocomplete="off" value="' + (kg ? '' : '1') + '" placeholder="' + (kg ? '0' : '1') + '">' + (kg ? '' : '<button class="step" data-d="1" aria-label="Más">+</button>') + '</div>' + (kg ? '<div class="chips" style="margin-top:8px">' + [100, 200, 250, 500, 1000].map(function (g) {
+            return '<button class="chip qk" data-g="' + g + '">' + (g >= 1000 ? '1 kg' : g + ' g') + '</button>';
+          }).join('') + '</div>' : '') + '</div>' + (kg && Balanza.modo !== 'manual' ? '<button class="ghost" id="leer">Leer balanza</button>' : '') + '<div class="linetotal"><span>Importe</span><strong class="num" id="lt">' + eur(0) + '</strong></div><button class="primary big" id="add">Añadir a la venta</button>');
+          var inp = $('#qty', b);
+          /* En kg se escribe en gramos enteros; se guarda en kg (200 g = 0,2). */
+          function val() {
+            var n = parseNum(inp.value);
+            if (!isFinite(n) || n <= 0 || n % 1 !== 0) return NaN;
+            if (n > (kg ? 60000 : 999)) return NaN;
+            return kg ? n / 1000 : n;
+          }
+          function upd() {
+            var n = val();
+            $('#lt', b).textContent = eur(isNaN(n) ? 0 : round2(n * p.price));
+            $('#add', b).disabled = isNaN(n);
+          }
+          inp.oninput = upd;
+          b.onclick = function (e) {
+            var k = e.target.closest('.qk');
+            if (k) {
+              inp.value = k.dataset.g;
+              upd();
+              return;
+            }
+            var s = e.target.closest('.step');
+            if (!s) return;
+            var n = parseNum(inp.value);
+            n = (isFinite(n) ? n : 0) + +s.dataset.d;
+            if (n < 1) n = 1;
+            inp.value = n;
+            upd();
+          };
+          var leer = $('#leer', b);
+          if (leer) leer.onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+            var w;
+            return _regenerator().w(function (_context) {
+              while (1) switch (_context.n) {
+                case 0:
+                  _context.n = 1;
+                  return Balanza.leerPeso();
+                case 1:
+                  w = _context.v;
+                  if (w) {
+                    inp.value = String(Math.round(w * 1000));
+                    upd();
+                  }
+                case 2:
+                  return _context.a(2);
+              }
+            }, _callee);
+          }));
+          function add() {
+            var n = val();
+            if (isNaN(n)) return;
+            S.cart.push({
+              pid: p.id,
+              name: p.name,
+              kind: p.kind,
+              qty: n,
+              price: p.price,
+              total: round2(n * p.price)
+            });
+            closeSheet();
+            tabs.vender.update();
+          }
+          $('#add', b).onclick = add;
+          inp.onkeydown = function (e) {
+            if (e.key === 'Enter') add();
+          };
+          upd();
+          inp.focus();
+        };
+        lastSale = function _lastSale() {
+          return S.sales.filter(function (s) {
+            return s.day === today() && !s.voided;
+          }).sort(function (a, b) {
+            return b.ts - a.ts;
+          })[0];
+        };
+        stockOf = function _stockOf(p) {
+          var mv = S.moves.filter(function (m) {
+            return m.pid === p.id;
+          }).sort(function (a, b) {
+            return a.ts - b.ts;
+          });
+          var base = 0,
+            since = 0,
+            last = null;
+          mv.forEach(function (m) {
+            if (m.type === 'inventario') {
+              base = m.qty;
+              since = m.ts;
+              last = m;
+            }
+          });
+          var q = base;
+          mv.forEach(function (m) {
+            if (m.ts > since) {
+              if (m.type === 'entrada') q += m.qty;else if (m.type === 'merma') q -= m.qty;
+            }
+          });
+          okSales().forEach(function (s) {
+            if (s.ts > since) (s.items || []).forEach(function (it) {
+              if (it.pid === p.id) q -= it.qty;
+            });
+          });
+          return {
+            q: round2(q * 1000) / 1000,
+            last: last
+          };
+        };
+        _save = function _save3() {
+          _save = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee10(fn, okMsg) {
+            var _t2;
+            return _regenerator().w(function (_context10) {
+              while (1) switch (_context10.p = _context10.n) {
+                case 0:
+                  _context10.p = 0;
+                  _context10.n = 1;
+                  return fn();
+                case 1:
+                  if (okMsg) toast(okMsg);
+                  return _context10.a(2, true);
+                case 2:
+                  _context10.p = 2;
+                  _t2 = _context10.v;
+                  toast('No se pudo guardar' + (_t2 && _t2.code === 'invalid_argument' ? ' (sin permiso de escritura)' : '. Inténtalo otra vez') + '.', true);
+                  return _context10.a(2, false);
+              }
+            }, _callee10, null, [[0, 2]]);
+          }));
+          return _save.apply(this, arguments);
+        };
+        save = function _save2(_x, _x2) {
+          return _save.apply(this, arguments);
+        };
+        confirmSheet = function _confirmSheet(title, text, okLabel) {
+          return new Promise(function (res) {
+            var b = openSheet(title, '<p>' + esc(text) + '</p><div class="row"><button class="ghost" id="cn">Cancelar</button><button class="danger" id="cy">' + esc(okLabel || 'Confirmar') + '</button></div>');
+            $('#cn', b).onclick = function () {
+              closeSheet();
+              res(false);
+            };
+            $('#cy', b).onclick = function () {
+              closeSheet();
+              res(true);
+            };
+          });
+        };
+        closeSheet = function _closeSheet() {
+          var el = $('#sheet');
+          el.hidden = true;
+          el.innerHTML = '';
+        };
+        openSheet = function _openSheet(title, body) {
+          var el = $('#sheet');
+          el.innerHTML = '<div class="sheet-card" role="dialog" aria-modal="true" aria-label="' + esc(title) + '"><header><h3>' + esc(title) + '</h3><button class="icon" data-close aria-label="Cerrar">×</button></header><div class="sb">' + body + '</div></div>';
+          el.hidden = false;
+          $('[data-close]', el).onclick = closeSheet;
+          el.onclick = function (e) {
+            if (e.target === el) closeSheet();
+          };
+          return $('.sb', el);
+        };
+        toast = function _toast(msg, bad) {
+          var t = $('#toast');
+          t.textContent = msg;
+          t.className = 'toast' + (bad ? ' bad' : '');
+          t.hidden = false;
+          clearTimeout(toastT);
+          toastT = setTimeout(function () {
+            t.hidden = true;
+          }, bad ? 4200 : 2400);
+        };
+        fmtNum = function _fmtNum(n, dec) {
+          var neg = n < 0;
+          n = Math.abs(n);
+          var p = n.toFixed(dec).split('.'),
+            i = p[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+          if (neg && /^[0.,]*$/.test(i + (p[1] || ''))) neg = false;
+          return (neg ? '-' : '') + i + (dec ? ',' + p[1] : '');
+        };
+        $ = function $(s, r) {
+          return (r || document).querySelector(s);
+        };
+        esc = function esc(s) {
+          return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+            return {
+              '&': '&amp;',
+              '<': '&lt;',
+              '>': '&gt;',
+              '"': '&quot;',
+              "'": '&#39;'
+            }[c];
+          });
+        };
+        eur = function eur(n) {
+          return fmtNum(n || 0, 2) + ' €';
+        };
+        qfmt = function qfmt(n, kind) {
+          n = n || 0;
+          if (kind === 'kg') {
+            if (Math.abs(n) < 1) return fmtNum(Math.round(n * 1000), 0) + ' g';
+            var t = Math.abs(n).toFixed(3).replace(/\.?0+$/, '').replace('.', ',');
+            return (n < 0 ? '-' : '') + t + ' kg';
+          }
+          return fmtNum(n, 0) + ' ud';
+        };
+        round2 = function round2(n) {
+          return Math.round((n + Number.EPSILON) * 100) / 100;
+        };
+        dayOf = function dayOf(t) {
+          var d = new Date(t),
+            m = d.getMonth() + 1,
+            dd = d.getDate();
+          return d.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (dd < 10 ? '0' : '') + dd;
+        };
+        today = function today() {
+          return dayOf(Date.now());
+        };
+        hhmm = function hhmm(t) {
+          var d = new Date(t),
+            h = d.getHours(),
+            m = d.getMinutes();
+          return (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m;
+        };
+        dmy = function dmy(d) {
+          var p = d.split('-');
+          return p[2] + '/' + p[1] + '/' + p[0];
+        };
+        parseNum = function parseNum(s) {
+          var v = parseFloat(String(s).replace(',', '.'));
+          return isFinite(v) ? v : NaN;
+        };
+        METHODS = {
+          efectivo: 'Efectivo',
+          tarjeta: 'Tarjeta',
+          bizum: 'Bizum'
+        };
+        /* BALANZA: punto único de conexión. Hoy el peso se escribe a mano (modo 'manual').
+           Cuando se conozca el modelo, aquí se cambia leerPeso() para devolver el peso real en kg
+           y el botón "Leer balanza" aparece solo. Ninguna otra parte de la app cambia. */
+        Balanza = {
+          modo: 'manual',
+          leerPeso: function leerPeso() {
+            return Promise.resolve(null);
+          }
+        };
+        S = {
+          products: [],
+          sales: [],
+          closings: [],
+          moves: [],
+          orders: [],
+          names: {},
+          cart: [],
+          method: 'efectivo',
+          cat: 'Todos',
+          range: 7,
+          boss: false,
+          uid: null,
+          canWrite: true,
+          tab: 'vender',
+          loaded: {}
+        };
+        /* Datos locales: se guardan en esta tablet (localStorage). Más adelante se cambiará por una base de datos en la nube sin tocar el resto de la app. */
+        SEED = [['Chuletón de ternera', 'kg', 24.9, 'Vacuno'], ['Entrecot de ternera', 'kg', 22.5, 'Vacuno'], ['Carne picada mixta', 'kg', 8.9, 'Vacuno'], ['Filetes de ternera', 'kg', 16.5, 'Vacuno'], ['Lomo de cerdo', 'kg', 9.5, 'Cerdo'], ['Costilla de cerdo', 'kg', 6.9, 'Cerdo'], ['Panceta', 'kg', 7.5, 'Cerdo'], ['Pechuga de pollo', 'kg', 8.5, 'Aves'], ['Muslos de pollo', 'kg', 4.9, 'Aves'], ['Pollo entero', 'ud', 7.9, 'Aves'], ['Chorizo fresco', 'ud', 3.2, 'Embutidos'], ['Morcilla', 'ud', 2.8, 'Embutidos'], ['Jamón cocido', 'kg', 14.9, 'Embutidos'], ['Huevos docena', 'ud', 3.5, 'Otros']];
+        db = function () {
+          var KEY = 'carniceria.datos.v1',
+            store = {},
+            ls = [];
+          try {
+            store = JSON.parse(localStorage.getItem(KEY) || '{}') || {};
+          } catch (e) {
+            store = {};
+            window.__noStore = true;
+          }
+          function persist() {
+            try {
+              localStorage.setItem(KEY, JSON.stringify(store));
+            } catch (e) {
+              window.__noStore = true;
+            }
+          }
+          function notify() {
+            ls.slice().forEach(function (l) {
+              l();
+            });
+          }
+          function newId() {
+            return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+          }
+          function clone(o) {
+            return JSON.parse(JSON.stringify(o));
+          }
+          function snap(name, q) {
+            var c = store[name] || {};
+            var arr = Object.keys(c).map(function (id) {
+              return {
+                id: id,
+                d: c[id]
+              };
+            });
+            if (q.f) {
+              arr.sort(function (a, b) {
+                var x = a.d[q.f],
+                  y = b.d[q.f],
+                  r = x < y ? -1 : x > y ? 1 : 0;
+                if (typeof x === 'string' && typeof y === 'string') r = x.localeCompare(y, 'es');
+                return q.d === 'desc' ? -r : r;
+              });
+            }
+            if (q.n) arr = arr.slice(0, q.n);
+            return {
+              docs: arr.map(function (i) {
+                return {
+                  id: i.id,
+                  exists: true,
+                  data: function data() {
+                    return i.d;
+                  },
+                  metadata: {
+                    fromCache: false
+                  }
+                };
+              }),
+              metadata: {
+                fromCache: false
+              }
+            };
+          }
+          function col(name, q) {
+            q = q || {};
+            return {
+              orderBy: function orderBy(f, d) {
+                return col(name, {
+                  f: f,
+                  d: d,
+                  n: q.n
+                });
+              },
+              limit: function limit(n) {
+                return col(name, {
+                  f: q.f,
+                  d: q.d,
+                  n: n
+                });
+              },
+              doc: function doc(id) {
+                return dref(name + '/' + (id || newId()));
+              },
+              onSnapshot: function onSnapshot(next) {
+                var l = function l() {
+                  next(snap(name, q));
+                };
+                ls.push(l);
+                setTimeout(l, 0);
+                return function () {
+                  ls = ls.filter(function (x) {
+                    return x !== l;
+                  });
+                };
+              }
+            };
+          }
+          function dref(path) {
+            var p = path.split('/'),
+              c = p[0],
+              id = p[1];
+            return {
+              set: function set(d) {
+                store[c] = store[c] || {};
+                store[c][id] = clone(d);
+                persist();
+                notify();
+                return Promise.resolve();
+              },
+              update: function update(d) {
+                if (!store[c] || !store[c][id]) return Promise.reject({
+                  code: 'invalid_argument'
+                });
+                Object.assign(store[c][id], clone(d));
+                persist();
+                notify();
+                return Promise.resolve();
+              },
+              delete: function _delete() {
+                if (store[c]) delete store[c][id];
+                persist();
+                notify();
+                return Promise.resolve();
+              }
+            };
+          }
+          if (!store._seeded) {
+            store.products = {};
+            SEED.forEach(function (p, i) {
+              store.products['p' + (i + 1 < 10 ? '0' : '') + (i + 1)] = {
+                name: p[0],
+                kind: p[1],
+                price: p[2],
+                cat: p[3],
+                ts: i + 1
+              };
+            });
+            store._seeded = true;
+            persist();
+          }
+          return {
+            collection: function collection(n) {
+              return col(n);
+            },
+            doc: dref,
+            _export: function _export() {
+              return clone(store);
+            },
+            _import: function _import(o) {
+              if (!o || _typeof(o) !== 'object' || Array.isArray(o)) throw new Error('x');
+              store = clone(o);
+              persist();
+              notify();
+            },
+            _clear: function _clear(names) {
+              names.forEach(function (n) {
+                delete store[n];
+              });
+              persist();
+              notify();
+            }
+          };
+        }();
+        user = null;
+        S.boss = true;
+        if (window.__noStore) {
+          bn0 = $('#banner');
+          bn0.hidden = false;
+          bn0.className = 'banner bad';
+          bn0.textContent = 'Este navegador no deja guardar datos: lo que registres se perderá al cerrar la página.';
+        }
+        Object.defineProperty(S, 'uid', {
+          get: function get() {
+            return S.mode;
+          }
+        });
+        if (!S.canWrite) {
+          bn = $('#banner');
+          bn.hidden = false;
+          bn.textContent = 'Tienes acceso solo de lectura: puedes ver los datos pero no registrar ventas.';
+        }
+
+        /* Dos pantallas: 'mostrador' (trabajador, rápida y a ciegas en caja e inventario) y 'jefe' (informes, stock, caja, productos). El jefe puede cambiar de una a otra. */
+        S.mode = 'mostrador';
+        bv = function bv() {
+          return S.boss && S.mode === 'jefe';
+        };
+        nm = function nm(id) {
+          return id === 'jefe' ? 'Jefe' : 'Mostrador';
+        };
+        prodById = function prodById(id) {
+          return S.products.find(function (p) {
+            return p.id === id;
+          });
+        };
+        okSales = function okSales() {
+          return S.sales.filter(function (s) {
+            return !s.voided;
+          });
+        };
+        /* ---------- Aviso, toasts, hojas ---------- */
+        /* ---------- Stock ---------- */
+        /* ---------- Pestañas ---------- */
+        tabs = {};
+        tabs.vender = {
+          label: 'Vender',
+          mount: function mount(v) {
+            v.innerHTML = '<div class="sell"><section class="panel"><h2>Productos</h2><input id="q" type="search" placeholder="Buscar producto" aria-label="Buscar producto" autocomplete="off"><div class="chips" id="cats"></div><div class="grid" id="grid"></div></section>' + '<aside class="panel ticket"><h2>Venta actual</h2><div class="lines" id="lines"></div><div class="total"><span>Total</span><strong class="num" id="tot"></strong></div>' + '<div class="seg" id="meth"></div><button class="primary big" id="cobrar">Cobrar</button><button class="ghost" id="vaciar">Vaciar venta</button><button class="link bad" id="anulult">Anular última venta</button></aside></div>';
+            $('#q').oninput = function () {
+              tabs.vender.update();
+            };
+            $('#cats').onclick = function (e) {
+              var b = e.target.closest('button');
+              if (!b) return;
+              S.cat = b.dataset.c;
+              tabs.vender.update();
+            };
+            $('#grid').onclick = function (e) {
+              var b = e.target.closest('button[data-id]');
+              if (!b) return;
+              var p = prodById(b.dataset.id);
+              if (p) pickQty(p);
+            };
+            $('#lines').onclick = function (e) {
+              var b = e.target.closest('button[data-i]');
+              if (!b) return;
+              S.cart.splice(+b.dataset.i, 1);
+              tabs.vender.update();
+            };
+            $('#meth').onclick = function (e) {
+              var b = e.target.closest('button');
+              if (!b) return;
+              S.method = b.dataset.m;
+              tabs.vender.update();
+            };
+            $('#vaciar').onclick = function () {
+              S.cart = [];
+              tabs.vender.update();
+            };
+            $('#cobrar').onclick = cobrar;
+            $('#anulult').onclick = function () {
+              var l = lastSale();
+              if (l) anular(l.id);
+            };
+          },
+          update: function update() {
+            if (!$('#grid')) return;
+            var cats = ['Todos'].concat(Array.from(new Set(S.products.map(function (p) {
+              return p.cat || 'Otros';
+            }))).sort());
+            if (cats.indexOf(S.cat) < 0) S.cat = 'Todos';
+            $('#cats').innerHTML = cats.map(function (c) {
+              return '<button class="chip" data-c="' + esc(c) + '" aria-pressed="' + (c === S.cat) + '">' + esc(c) + '</button>';
+            }).join('');
+            var q = $('#q').value.trim().toLowerCase();
+            var list = S.products.filter(function (p) {
+              return (S.cat === 'Todos' || (p.cat || 'Otros') === S.cat) && (!q || p.name.toLowerCase().indexOf(q) >= 0);
+            }).sort(function (a, b) {
+              return a.name.localeCompare(b.name, 'es');
+            });
+            $('#grid').innerHTML = list.length ? list.map(function (p) {
+              return '<button class="prod ' + (p.kind === 'kg' ? '' : 'ud') + '" data-id="' + esc(p.id) + '"><b>' + esc(p.name) + '</b><span class="num">' + eur(p.price) + ' / ' + (p.kind === 'kg' ? 'kg' : 'ud') + '</span></button>';
+            }).join('') : '<div class="empty" style="grid-column:1/-1">' + (S.products.length ? 'Ningún producto coincide.' : S.boss ? 'Aún no hay productos. Añádelos desde la pantalla de jefe, en Productos.' : 'El jefe todavía no ha añadido productos.') + '</div>';
+            var tot = round2(S.cart.reduce(function (a, l) {
+              return a + l.total;
+            }, 0));
+            $('#lines').innerHTML = S.cart.length ? S.cart.map(function (l, i) {
+              return '<div class="line"><div class="t"><b>' + esc(l.name) + '</b><small class="num">' + qfmt(l.qty, l.kind) + ' × ' + eur(l.price) + '</small></div><b class="num">' + eur(l.total) + '</b><button class="link bad" data-i="' + i + '" aria-label="Quitar ' + esc(l.name) + '">Quitar</button></div>';
+            }).join('') : '<div class="empty">Toca un producto para añadirlo.</div>';
+            $('#tot').textContent = eur(tot);
+            $('#meth').innerHTML = Object.keys(METHODS).map(function (m) {
+              return '<button data-m="' + m + '" aria-pressed="' + (S.method === m) + '">' + METHODS[m] + '</button>';
+            }).join('');
+            $('#cobrar').disabled = !S.cart.length || !S.canWrite;
+            $('#vaciar').hidden = !S.cart.length;
+            $('#anulult').hidden = !lastSale() || !S.canWrite;
+          }
+        };
+        busy = false;
+        /* ---- Caja ---- */
+        tabs.caja = {
+          label: 'Caja',
+          mount: function mount(v) {
+            v.innerHTML = '<section class="panel"><h2>Cierre de caja <span class="small muted" id="cdate"></span></h2><p class="muted small" id="cnote"></p>' + '<div class="row"><div class="field"><label for="fondo">Fondo de caja inicial (€)</label><input id="fondo" inputmode="decimal" autocomplete="off" placeholder="0,00"></div><div class="field"><label for="gastos">Gastos pagados de caja (€)</label><input id="gastos" inputmode="decimal" autocomplete="off" placeholder="0,00"></div></div>' + '<div class="tablewrap"><table><thead><tr><th>Método</th>' + (bv() ? '<th class="n">Ventas app</th><th class="n">Debería haber</th>' : '') + '<th class="n">Contado</th>' + (bv() ? '<th class="n">Diferencia</th>' : '') + '</tr></thead><tbody id="cbody"></tbody></table></div>' + (bv() ? '<div class="total"><span>Diferencia total</span><strong class="num" id="cdiff">—</strong></div>' : '') + '<button class="primary big" id="csave">Guardar cierre</button></section>' + '<section class="panel" id="hist" hidden><h2>Cierres anteriores</h2><div class="list" id="hlist"></div></section>';
+            var calc = function calc() {
+              tabs.caja.calc();
+            };
+            ['fondo', 'gastos'].forEach(function (i) {
+              $('#' + i).oninput = calc;
+            });
+            $('#cbody').oninput = calc;
+            $('#csave').onclick = tabs.caja.guardar;
+          },
+          sys: function sys() {
+            var d = today(),
+              r = {
+                efectivo: 0,
+                tarjeta: 0,
+                bizum: 0,
+                n: 0,
+                voids: 0
+              };
+            S.sales.forEach(function (s) {
+              if (s.day !== d) return;
+              if (s.voided) {
+                r.voids++;
+                return;
+              }
+              r[s.method] = round2((r[s.method] || 0) + s.total);
+              r.n++;
+            });
+            return r;
+          },
+          read: function read() {
+            var sys = tabs.caja.sys(),
+              f = parseNum($('#fondo').value),
+              g = parseNum($('#gastos').value);
+            f = isNaN(f) ? 0 : f;
+            g = isNaN(g) ? 0 : g;
+            var exp = {
+                efectivo: round2(f + sys.efectivo - g),
+                tarjeta: sys.tarjeta,
+                bizum: sys.bizum
+              },
+              cnt = {},
+              diff = {},
+              all = true,
+              tot = 0;
+            Object.keys(METHODS).forEach(function (m) {
+              var c = parseNum($('#c_' + m).value);
+              if (isNaN(c)) {
+                all = false;
+                cnt[m] = null;
+                diff[m] = null;
+              } else {
+                cnt[m] = c;
+                diff[m] = round2(c - exp[m]);
+                tot += diff[m];
+              }
+            });
+            return {
+              sys: sys,
+              fondo: f,
+              gastos: g,
+              exp: exp,
+              cnt: cnt,
+              diff: diff,
+              all: all,
+              tot: round2(tot)
+            };
+          },
+          calc: function calc() {
+            var r = tabs.caja.read();
+            Object.keys(METHODS).forEach(function (m) {
+              if (!$('#e_' + m)) return;
+              $('#e_' + m).textContent = eur(r.exp[m]);
+              var d = r.diff[m],
+                el = $('#d_' + m);
+              el.textContent = d == null ? '—' : (d > 0 ? '+' : '') + eur(d);
+              el.className = 'n num ' + (d == null || Math.abs(d) < 0.005 ? '' : d < 0 ? 'neg' : 'warnc');
+            });
+            var el = $('#cdiff');
+            if (el) {
+              el.textContent = r.all ? (r.tot > 0 ? '+' : '') + eur(r.tot) : '—';
+              el.className = 'num ' + (!r.all || Math.abs(r.tot) < 0.005 ? '' : r.tot < 0 ? 'neg' : 'warnc');
+            }
+            $('#csave').disabled = !r.all || !S.canWrite;
+          },
+          guardar: function () {
+            var _guardar = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+              var r, d;
+              return _regenerator().w(function (_context3) {
+                while (1) switch (_context3.n) {
+                  case 0:
+                    r = tabs.caja.read();
+                    if (r.all) {
+                      _context3.n = 1;
+                      break;
+                    }
+                    return _context3.a(2);
+                  case 1:
+                    d = today();
+                    _context3.n = 2;
+                    return save(function () {
+                      return db.doc('closings/' + d).set({
+                        day: d,
+                        ts: Date.now(),
+                        by: S.uid,
+                        fondo: r.fondo,
+                        gastos: r.gastos,
+                        sys: {
+                          efectivo: r.sys.efectivo,
+                          tarjeta: r.sys.tarjeta,
+                          bizum: r.sys.bizum
+                        },
+                        esperado: r.exp,
+                        contado: r.cnt,
+                        diff: r.diff,
+                        difTotal: r.tot,
+                        tickets: r.sys.n,
+                        anuladas: r.sys.voids
+                      });
+                    }, 'Cierre guardado');
+                  case 2:
+                    return _context3.a(2);
+                }
+              }, _callee3);
+            }));
+            function guardar() {
+              return _guardar.apply(this, arguments);
+            }
+            return guardar;
+          }(),
+          update: function update() {
+            if (!$('#cbody')) return;
+            var d = today(),
+              sys = tabs.caja.sys();
+            $('#cdate').textContent = dmy(d) + ' · ' + sys.n + ' tickets';
+            var ex = S.closings.find(function (c) {
+              return c.day === d;
+            });
+            $('#cnote').textContent = (ex ? 'Hoy ya hay un cierre guardado a las ' + hhmm(ex.ts) + '. Si guardas otro, lo sustituye. ' : '') + 'Cuenta el dinero al cerrar e introduce lo que hay en caja, en el datáfono y en Bizum.';
+            var cur = {};
+            Object.keys(METHODS).forEach(function (m) {
+              var i = $('#c_' + m);
+              if (i) cur[m] = i.value;
+            });
+            $('#cbody').innerHTML = Object.keys(METHODS).map(function (m) {
+              return '<tr><td>' + METHODS[m] + '</td>' + (bv() ? '<td class="n num">' + eur(sys[m]) + '</td><td class="n num" id="e_' + m + '"></td>' : '') + '<td class="n"><input id="c_' + m + '" inputmode="decimal" autocomplete="off" placeholder="0,00" aria-label="Contado en ' + METHODS[m] + '" value="' + esc(cur[m] || '') + '"></td>' + (bv() ? '<td class="n num" id="d_' + m + '">—</td>' : '') + '</tr>';
+            }).join('');
+            tabs.caja.calc();
+            $('#hist').hidden = !bv();
+            if (bv()) {
+              var cl = S.closings.slice().sort(function (a, b) {
+                return b.ts - a.ts;
+              }).slice(0, 14);
+              $('#hlist').innerHTML = cl.length ? cl.map(function (c) {
+                var dt = c.difTotal || 0;
+                return '<div class="item"><div class="t"><b>' + dmy(c.day) + '</b> <span class="small muted">' + c.tickets + ' tickets · cerrado por ' + esc(nm(c.by)) + '</span><small>Efectivo ' + eur(c.sys && c.sys.efectivo) + ' · Tarjeta ' + eur(c.sys && c.sys.tarjeta) + ' · Bizum ' + eur(c.sys && c.sys.bizum) + '</small></div><span class="tag ' + (Math.abs(dt) < 0.005 ? 'ok' : dt < 0 ? 'bad' : 'warn') + ' num">' + (Math.abs(dt) < 0.005 ? 'Cuadra' : (dt > 0 ? '+' : '') + eur(dt)) + '</span></div>';
+              }).join('') : '<div class="empty">Aún no hay cierres.</div>';
+            }
+          }
+        };
+
+        /* ---- Stock ---- */
+        MOVE_LBL = {
+          entrada: 'Entrada de mercancía',
+          merma: 'Merma / desperdicio',
+          inventario: 'Inventario real (contado)'
+        };
+        tabs.stock = {
+          label: 'Stock',
+          mount: function mount(v) {
+            v.innerHTML = '<section class="panel"><h2>Registrar movimiento</h2><div class="row"><div class="field"><label for="mp">Producto</label><select id="mp"></select></div><div class="field"><label for="mt">Tipo</label><select id="mt">' + Object.keys(MOVE_LBL).map(function (k) {
+              return '<option value="' + k + '">' + MOVE_LBL[k] + '</option>';
+            }).join('') + '</select></div></div>' + '<div class="row"><div class="field"><label for="mq" id="mql">Cantidad</label><input id="mq" inputmode="decimal" autocomplete="off"></div><div class="field"><label for="mn">Nota (proveedor, motivo)</label><input id="mn" autocomplete="off" maxlength="80"></div></div><button class="primary" id="mgo">Registrar</button><p class="muted small">Inventario real: cuenta lo que hay y apúntalo. La app lo compara con lo que debería haber y guarda la diferencia.</p></section>' + (bv() ? '<section class="panel"><h2>Stock teórico</h2><div class="tablewrap"><table><thead><tr><th>Producto</th><th class="n">Debería haber</th><th>Último inventario</th></tr></thead><tbody id="sbody"></tbody></table></div></section>' : '') + '<section class="panel"><h2>' + (bv() ? 'Últimos movimientos' : 'Apuntado hoy') + '</h2><div class="list" id="mlist"></div></section>';
+            $('#mp').onchange = $('#mt').onchange = function () {
+              tabs.stock.lbl();
+            };
+            $('#mgo').onclick = tabs.stock.registrar;
+            $('#mlist').onclick = /*#__PURE__*/function () {
+              var _ref4 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4(e) {
+                var b;
+                return _regenerator().w(function (_context4) {
+                  while (1) switch (_context4.n) {
+                    case 0:
+                      b = e.target.closest('button[data-del]');
+                      if (b) {
+                        _context4.n = 1;
+                        break;
+                      }
+                      return _context4.a(2);
+                    case 1:
+                      _context4.n = 2;
+                      return confirmSheet('Borrar movimiento', '¿Seguro que quieres borrar este movimiento?', 'Borrar');
+                    case 2:
+                      if (!_context4.v) {
+                        _context4.n = 3;
+                        break;
+                      }
+                      save(function () {
+                        return db.doc('moves/' + b.dataset.del).delete();
+                      }, 'Movimiento borrado');
+                    case 3:
+                      return _context4.a(2);
+                  }
+                }, _callee4);
+              }));
+              return function (_x3) {
+                return _ref4.apply(this, arguments);
+              };
+            }();
+          },
+          lbl: function lbl() {
+            var p = prodById($('#mp').value);
+            $('#mql').textContent = 'Cantidad' + (p ? p.kind === 'kg' ? ' (kg)' : ' (unidades)' : '');
+          },
+          registrar: function () {
+            var _registrar = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+              var p, t, q, now, rec, st, ok;
+              return _regenerator().w(function (_context5) {
+                while (1) switch (_context5.n) {
+                  case 0:
+                    p = prodById($('#mp').value), t = $('#mt').value, q = parseNum($('#mq').value);
+                    if (p) {
+                      _context5.n = 1;
+                      break;
+                    }
+                    toast('Elige un producto.', true);
+                    return _context5.a(2);
+                  case 1:
+                    if (!(isNaN(q) || q < 0 || t !== 'inventario' && q === 0)) {
+                      _context5.n = 2;
+                      break;
+                    }
+                    toast('Escribe una cantidad válida.', true);
+                    return _context5.a(2);
+                  case 2:
+                    if (!(p.kind === 'ud' && q % 1 !== 0)) {
+                      _context5.n = 3;
+                      break;
+                    }
+                    toast('Este producto va por unidades enteras.', true);
+                    return _context5.a(2);
+                  case 3:
+                    now = Date.now(), rec = {
+                      ts: now,
+                      day: dayOf(now),
+                      pid: p.id,
+                      pname: p.name,
+                      kind: p.kind,
+                      type: t,
+                      qty: Math.round(q * 1000) / 1000,
+                      note: $('#mn').value.trim(),
+                      by: S.uid
+                    };
+                    if (t === 'inventario') {
+                      st = stockOf(p).q;
+                      rec.expected = st;
+                      rec.diff = Math.round((rec.qty - st) * 1000) / 1000;
+                    }
+                    _context5.n = 4;
+                    return save(function () {
+                      return db.collection('moves').doc().set(rec);
+                    }, 'Movimiento registrado');
+                  case 4:
+                    ok = _context5.v;
+                    if (ok) {
+                      $('#mq').value = '';
+                      $('#mn').value = '';
+                    }
+                  case 5:
+                    return _context5.a(2);
+                }
+              }, _callee5);
+            }));
+            function registrar() {
+              return _registrar.apply(this, arguments);
+            }
+            return registrar;
+          }(),
+          update: function update() {
+            if (!$('#mp')) return;
+            var ps = S.products.slice().sort(function (a, b) {
+              return a.name.localeCompare(b.name, 'es');
+            });
+            var sel = $('#mp'),
+              cur = sel.value;
+            sel.innerHTML = ps.map(function (p) {
+              return '<option value="' + esc(p.id) + '">' + esc(p.name) + '</option>';
+            }).join('');
+            if (cur && ps.some(function (p) {
+              return p.id === cur;
+            })) sel.value = cur;
+            tabs.stock.lbl();
+            if ($('#sbody')) $('#sbody').innerHTML = ps.length ? ps.map(function (p) {
+              var s = stockOf(p),
+                l = s.last,
+                d = l ? l.diff : null;
+              return '<tr><td>' + esc(p.name) + '</td><td class="n num ' + (s.q < 0 ? 'neg' : '') + '">' + qfmt(s.q, p.kind) + '</td><td>' + (l ? dmy(l.day) + ' <span class="tag ' + (Math.abs(d) < 0.0005 ? 'ok' : d < 0 ? 'bad' : 'warn') + ' num">' + (Math.abs(d) < 0.0005 ? 'Cuadró' : (d > 0 ? '+' : '') + qfmt(d, p.kind)) + '</span>' : '<span class="muted">Sin inventario</span>') + '</td></tr>';
+            }).join('') : '<tr><td colspan="3"><div class="empty">Primero añade productos.</div></td></tr>';
+            var mv = S.moves.filter(function (m) {
+              return bv() || m.day === today();
+            }).sort(function (a, b) {
+              return b.ts - a.ts;
+            }).slice(0, 15);
+            $('#mlist').innerHTML = mv.length ? mv.map(function (m) {
+              return '<div class="item"><div class="t"><b>' + esc(m.pname || '') + '</b> <span class="tag ' + (m.type === 'merma' ? 'warn' : m.type === 'inventario' ? '' : 'ok') + '">' + esc(MOVE_LBL[m.type] || m.type) + '</span><small>' + dmy(m.day) + ' ' + hhmm(m.ts) + ' · ' + esc(nm(m.by)) + (m.note ? ' · ' + esc(m.note) : '') + '</small></div><b class="num">' + qfmt(m.qty, m.kind) + '</b>' + (bv() ? '<button class="link bad" data-del="' + esc(m.id) + '">Borrar</button>' : '') + '</div>';
+            }).join('') : '<div class="empty">Sin movimientos todavía.</div>';
+          }
+        };
+
+        /* ---- Ventas del día (jefe) ---- */
+        tabs.ventas = {
+          label: 'Ventas',
+          mount: function mount(v) {
+            S.vday = today();
+            v.innerHTML = '<section class="panel"><h2>Ventas del día <span class="small muted" id="vsum"></span></h2><div class="row"><div class="field"><label for="vd">Día</label><input id="vd" type="date"></div></div><div class="list" id="vlist"></div></section>';
+            $('#vd').value = S.vday;
+            $('#vd').onchange = function () {
+              S.vday = $('#vd').value || today();
+              tabs.ventas.update();
+            };
+          },
+          update: function update() {
+            if (!$('#vlist')) return;
+            var d = S.vday || today();
+            var td = S.sales.filter(function (s) {
+              return s.day === d;
+            }).sort(function (a, b) {
+              return b.ts - a.ts;
+            });
+            var ok = td.filter(function (s) {
+              return !s.voided;
+            });
+            $('#vsum').textContent = ok.length + ' tickets · ' + eur(round2(ok.reduce(function (a, s) {
+              return a + s.total;
+            }, 0))) + (td.length - ok.length ? ' · ' + (td.length - ok.length) + ' anuladas' : '');
+            $('#vlist').innerHTML = td.length ? td.map(function (s) {
+              var det = (s.items || []).map(function (i) {
+                return esc(i.name) + ' ' + qfmt(i.qty, i.kind);
+              }).join(', ');
+              return '<div class="item ' + (s.voided ? 'void' : '') + '"><div class="t"><b>' + hhmm(s.ts) + '</b> <span class="tag">' + esc(METHODS[s.method] || s.method) + '</span>' + (s.voided ? ' <span class="tag bad">Anulada</span>' : '') + ' <span class="small muted">' + esc(nm(s.by)) + '</span><small>' + det + '</small>' + (s.voided ? '<small>Motivo: ' + esc(s.voidReason || '—') + ' · por ' + esc(nm(s.voidBy || s.by)) + '</small>' : '') + '</div><b class="num amt">' + eur(s.total) + '</b></div>';
+            }).join('') : '<div class="empty">No hay ventas este día.</div>';
+          }
+        };
+
+        /* ---- Pedidos ---- */
+        ST = {
+          pendiente: 'Pendiente',
+          listo: 'Listo para recoger',
+          entregado: 'Entregado'
+        };
+        tabs.pedidos = {
+          label: 'Pedidos',
+          mount: function mount(v) {
+            v.innerHTML = '<section class="panel"><h2>Nuevo pedido de cliente</h2><div class="row"><div class="field"><label for="oc">Cliente</label><input id="oc" autocomplete="off" maxlength="60"></div><div class="field"><label for="ot">Teléfono</label><input id="ot" inputmode="tel" autocomplete="off" maxlength="20"></div><div class="field"><label for="od">Recoge el</label><input id="od" type="date"></div></div><div class="field"><label for="ox">Qué quiere</label><textarea id="ox" maxlength="400" placeholder="2 kg de chuletón, 1 pollo entero..."></textarea></div><button class="primary" id="ogo">Guardar pedido</button></section>' + '<section class="panel"><h2>Pedidos <span class="small muted" id="osum"></span></h2><div class="list" id="olist"></div></section>';
+            $('#od').value = today();
+            $('#ogo').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+              var c, x, ok;
+              return _regenerator().w(function (_context6) {
+                while (1) switch (_context6.n) {
+                  case 0:
+                    c = $('#oc').value.trim(), x = $('#ox').value.trim();
+                    if (!(!c || !x)) {
+                      _context6.n = 1;
+                      break;
+                    }
+                    toast('Pon el cliente y lo que quiere.', true);
+                    return _context6.a(2);
+                  case 1:
+                    _context6.n = 2;
+                    return save(function () {
+                      return db.collection('orders').doc().set({
+                        ts: Date.now(),
+                        customer: c,
+                        phone: $('#ot').value.trim(),
+                        text: x,
+                        due: $('#od').value || today(),
+                        status: 'pendiente',
+                        by: S.uid
+                      });
+                    }, 'Pedido guardado');
+                  case 2:
+                    ok = _context6.v;
+                    if (ok) {
+                      $('#oc').value = '';
+                      $('#ot').value = '';
+                      $('#ox').value = '';
+                    }
+                  case 3:
+                    return _context6.a(2);
+                }
+              }, _callee6);
+            }));
+            $('#olist').onclick = /*#__PURE__*/function () {
+              var _ref6 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7(e) {
+                var b, _t;
+                return _regenerator().w(function (_context7) {
+                  while (1) switch (_context7.n) {
+                    case 0:
+                      b = e.target.closest('button');
+                      if (b) {
+                        _context7.n = 1;
+                        break;
+                      }
+                      return _context7.a(2);
+                    case 1:
+                      if (!b.dataset.st) {
+                        _context7.n = 2;
+                        break;
+                      }
+                      save(function () {
+                        return db.doc('orders/' + b.dataset.id).update({
+                          status: b.dataset.st
+                        });
+                      });
+                      _context7.n = 5;
+                      break;
+                    case 2:
+                      _t = b.dataset.del;
+                      if (!_t) {
+                        _context7.n = 4;
+                        break;
+                      }
+                      _context7.n = 3;
+                      return confirmSheet('Borrar pedido', '¿Seguro que quieres borrar este pedido?', 'Borrar');
+                    case 3:
+                      _t = _context7.v;
+                    case 4:
+                      if (!_t) {
+                        _context7.n = 5;
+                        break;
+                      }
+                      save(function () {
+                        return db.doc('orders/' + b.dataset.del).delete();
+                      }, 'Pedido borrado');
+                    case 5:
+                      return _context7.a(2);
+                  }
+                }, _callee7);
+              }));
+              return function (_x4) {
+                return _ref6.apply(this, arguments);
+              };
+            }();
+          },
+          update: function update() {
+            if (!$('#olist')) return;
+            var rank = {
+              pendiente: 0,
+              listo: 1,
+              entregado: 2
+            };
+            var os = S.orders.slice().sort(function (a, b) {
+              return rank[a.status] - rank[b.status] || String(a.due).localeCompare(String(b.due)) || a.ts - b.ts;
+            }).filter(function (o) {
+              return o.status !== 'entregado' || o.due >= dayOf(Date.now() - 7 * 864e5);
+            });
+            var pend = S.orders.filter(function (o) {
+              return o.status === 'pendiente';
+            }).length;
+            $('#osum').textContent = pend ? pend + ' pendientes' : '';
+            $('#olist').innerHTML = os.length ? os.map(function (o) {
+              var late = o.status === 'pendiente' && o.due < today();
+              var nx = o.status === 'pendiente' ? ['listo', 'Marcar listo'] : o.status === 'listo' ? ['entregado', 'Marcar entregado'] : null;
+              return '<div class="item"><div class="t"><b>' + esc(o.customer) + '</b> <span class="tag ' + (o.status === 'entregado' ? 'ok' : late ? 'bad' : 'warn') + '">' + (late ? 'Retrasado' : ST[o.status]) + '</span><small>Recoge ' + dmy(o.due) + (o.phone ? ' · ' + esc(o.phone) : '') + '</small><small>' + esc(o.text) + '</small></div>' + (nx ? '<button class="ghost" data-id="' + esc(o.id) + '" data-st="' + nx[0] + '">' + nx[1] + '</button>' : '') + (bv() ? '<button class="link bad" data-del="' + esc(o.id) + '">Borrar</button>' : '') + '</div>';
+            }).join('') : '<div class="empty">No hay pedidos.</div>';
+          }
+        };
+
+        /* ---- Informes (jefe) ---- */
+        tabs.informes = {
+          label: 'Informes',
+          mount: function mount(v) {
+            v.innerHTML = '<section class="panel"><h2>Informes de ventas</h2><div class="chips" id="rng"></div><div class="tiles" id="tiles"></div></section>' + '<section class="panel"><h2>Ventas por día</h2><div class="bars" id="bars"></div></section>' + '<section class="panel"><h2>Para revisar</h2><div class="list" id="alerts"></div></section>' + '<div class="row" style="align-items:start"><section class="panel" style="flex:1 1 320px"><h2>Por método de pago</h2><div class="list" id="bymeth"></div></section><section class="panel" style="flex:2 1 420px"><h2>Productos más vendidos</h2><div class="tablewrap"><table><thead><tr><th>Producto</th><th class="n">Cantidad</th><th class="n">Importe</th></tr></thead><tbody id="top"></tbody></table></div></section></div>';
+            $('#rng').onclick = function (e) {
+              var b = e.target.closest('button');
+              if (!b) return;
+              S.range = +b.dataset.r;
+              tabs.informes.update();
+            };
+          },
+          update: function update() {
+            if (!$('#tiles')) return;
+            var R = [[1, 'Hoy'], [7, '7 días'], [30, '30 días']];
+            $('#rng').innerHTML = R.map(function (r) {
+              return '<button class="chip" data-r="' + r[0] + '" aria-pressed="' + (S.range === r[0]) + '">' + r[1] + '</button>';
+            }).join('');
+            var start = dayOf(Date.now() - (S.range - 1) * 864e5);
+            var inR = S.sales.filter(function (s) {
+              return s.day >= start;
+            });
+            var ok = inR.filter(function (s) {
+                return !s.voided;
+              }),
+              vd = inR.filter(function (s) {
+                return s.voided;
+              });
+            var tot = round2(ok.reduce(function (a, s) {
+                return a + s.total;
+              }, 0)),
+              vtot = round2(vd.reduce(function (a, s) {
+                return a + s.total;
+              }, 0));
+            $('#tiles').innerHTML = '<div class="tile"><small>Ventas</small><strong class="num">' + eur(tot) + '</strong></div><div class="tile"><small>Tickets</small><strong class="num">' + ok.length + '</strong></div><div class="tile"><small>Ticket medio</small><strong class="num">' + eur(ok.length ? tot / ok.length : 0) + '</strong></div><div class="tile ' + (vd.length ? 'alert' : '') + '"><small>Ventas anuladas</small><strong class="num">' + vd.length + ' · ' + eur(vtot) + '</strong></div>';
+            var days = [];
+            for (var i = S.range - 1; i >= 0; i--) days.push(dayOf(Date.now() - i * 864e5));
+            var per = {};
+            days.forEach(function (d) {
+              per[d] = 0;
+            });
+            ok.forEach(function (s) {
+              if (per[s.day] != null) per[s.day] = round2(per[s.day] + s.total);
+            });
+            var mx = Math.max.apply(null, days.map(function (d) {
+              return per[d];
+            }).concat([1]));
+            $('#bars').innerHTML = days.map(function (d) {
+              return '<div class="bar"><span class="num">' + dmy(d).slice(0, 5) + '</span><div class="track"><div class="fill" style="width:' + Math.round(per[d] / mx * 100) + '%"></div></div><span class="v num">' + eur(per[d]) + '</span></div>';
+            }).join('');
+            var al = [];
+            S.closings.filter(function (c) {
+              return c.day >= start && Math.abs(c.difTotal || 0) >= 0.5;
+            }).forEach(function (c) {
+              al.push({
+                t: c.ts,
+                h: '<b>Caja del ' + dmy(c.day) + '</b> <span class="tag ' + ((c.difTotal || 0) < 0 ? 'bad' : 'warn') + ' num">' + ((c.difTotal || 0) > 0 ? '+' : '') + eur(c.difTotal) + '</span><small>Cierre de ' + esc(nm(c.by)) + '. Falta o sobra dinero respecto a las ventas registradas.</small>'
+              });
+            });
+            vd.forEach(function (s) {
+              al.push({
+                t: s.voidTs || s.ts,
+                h: '<b>Venta anulada ' + dmy(s.day) + ' ' + hhmm(s.ts) + '</b> <span class="tag bad num">' + eur(s.total) + '</span><small>Motivo: ' + esc(s.voidReason || '—') + ' · por ' + esc(nm(s.voidBy || s.by)) + '</small>'
+              });
+            });
+            S.moves.filter(function (m) {
+              return m.type === 'inventario' && m.day >= start && m.diff < 0;
+            }).forEach(function (m) {
+              al.push({
+                t: m.ts,
+                h: '<b>Faltan ' + esc(qfmt(-m.diff, m.kind)) + ' de ' + esc(m.pname) + '</b> <span class="tag bad">Inventario ' + dmy(m.day) + '</span><small>Debería haber ' + esc(qfmt(m.expected, m.kind)) + ' y se contó ' + esc(qfmt(m.qty, m.kind)) + '.</small>'
+              });
+            });
+            al.sort(function (a, b) {
+              return b.t - a.t;
+            });
+            $('#alerts').innerHTML = al.length ? al.map(function (a) {
+              return '<div class="item"><div class="t">' + a.h + '</div></div>';
+            }).join('') : '<div class="empty">Nada raro en este periodo: cajas cuadradas, sin anulaciones ni faltas de stock.</div>';
+            var bm = {};
+            ok.forEach(function (s) {
+              bm[s.method] = round2((bm[s.method] || 0) + s.total);
+            });
+            $('#bymeth').innerHTML = Object.keys(METHODS).map(function (m) {
+              return '<div class="item"><div class="t">' + METHODS[m] + '</div><b class="num">' + eur(bm[m] || 0) + '</b></div>';
+            }).join('');
+            var tp = {};
+            ok.forEach(function (s) {
+              (s.items || []).forEach(function (it) {
+                var k = it.pid;
+                tp[k] = tp[k] || {
+                  name: it.name,
+                  kind: it.kind,
+                  q: 0,
+                  t: 0
+                };
+                tp[k].q += it.qty;
+                tp[k].t = round2(tp[k].t + it.total);
+              });
+            });
+            var tl = Object.keys(tp).map(function (k) {
+              return tp[k];
+            }).sort(function (a, b) {
+              return b.t - a.t;
+            }).slice(0, 10);
+            $('#top').innerHTML = tl.length ? tl.map(function (t) {
+              return '<tr><td>' + esc(t.name) + '</td><td class="n num">' + qfmt(t.q, t.kind) + '</td><td class="n num">' + eur(t.t) + '</td></tr>';
+            }).join('') : '<tr><td colspan="3"><div class="empty">Sin ventas en este periodo.</div></td></tr>';
+          }
+        };
+
+        /* ---- Productos (jefe) ---- */
+        tabs.productos = {
+          label: 'Productos',
+          mount: function mount(v) {
+            v.innerHTML = '<section class="panel"><h2>Añadir producto</h2><div class="row"><div class="field" style="flex:2 1 200px"><label for="pn">Nombre</label><input id="pn" autocomplete="off" maxlength="50"></div><div class="field"><label for="pk">Se vende por</label><select id="pk"><option value="kg">Peso (kg)</option><option value="ud">Unidades</option></select></div><div class="field"><label for="pp">Precio (€)</label><input id="pp" inputmode="decimal" autocomplete="off" placeholder="0,00"></div><div class="field"><label for="pc">Categoría</label><input id="pc" list="cl" autocomplete="off" maxlength="30" placeholder="Vacuno, Cerdo..."><datalist id="cl"></datalist></div></div><button class="primary" id="pgo">Añadir producto</button></section>' + '<section class="panel"><h2>Precios <span class="small muted">Edita el precio y sale del campo para guardar</span></h2><div class="tablewrap"><table><thead><tr><th>Producto</th><th>Categoría</th><th>Por</th><th class="n">Precio</th><th></th></tr></thead><tbody id="plist"></tbody></table></div></section>' + '<section class="panel"><h2>Copia de seguridad</h2><p class="muted small">Los datos están guardados solo en esta tablet. Descarga una copia de vez en cuando.</p><div class="row"><button class="ghost" id="dl">Descargar copia</button><label class="ghost" style="display:flex;align-items:center;justify-content:center;cursor:pointer;margin:0;color:#1c2127;font-size:1rem">Cargar copia<input id="ul" type="file" accept="application/json,.json" hidden></label><button class="danger" id="clr">Borrar datos de prueba</button></div></section>';
+            $('#dl').onclick = function () {
+              var blob = new Blob([JSON.stringify(db._export())], {
+                type: 'application/json'
+              });
+              var a = document.createElement('a');
+              a.href = URL.createObjectURL(blob);
+              a.download = 'carniceria-copia-' + today() + '.json';
+              document.body.appendChild(a);
+              a.click();
+              a.remove();
+              setTimeout(function () {
+                URL.revokeObjectURL(a.href);
+              }, 2000);
+            };
+            $('#ul').onchange = function (e) {
+              var f = e.target.files[0];
+              if (!f) return;
+              var r = new FileReader();
+              r.onload = function () {
+                try {
+                  db._import(JSON.parse(r.result));
+                  toast('Copia cargada');
+                } catch (x) {
+                  toast('Archivo no válido', true);
+                }
+              };
+              r.readAsText(f);
+            };
+            $('#clr').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+              return _regenerator().w(function (_context8) {
+                while (1) switch (_context8.n) {
+                  case 0:
+                    _context8.n = 1;
+                    return confirmSheet('Borrar datos de prueba', 'Se borran ventas, cierres, movimientos y pedidos. Los productos se quedan.', 'Borrar');
+                  case 1:
+                    if (!_context8.v) {
+                      _context8.n = 2;
+                      break;
+                    }
+                    db._clear(['sales', 'closings', 'moves', 'orders']);
+                    toast('Datos de prueba borrados');
+                  case 2:
+                    return _context8.a(2);
+                }
+              }, _callee8);
+            }));
+            $('#pgo').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+              var n, p, ok;
+              return _regenerator().w(function (_context9) {
+                while (1) switch (_context9.n) {
+                  case 0:
+                    n = $('#pn').value.trim(), p = parseNum($('#pp').value);
+                    if (!(!n || isNaN(p) || p < 0)) {
+                      _context9.n = 1;
+                      break;
+                    }
+                    toast('Pon nombre y precio.', true);
+                    return _context9.a(2);
+                  case 1:
+                    _context9.n = 2;
+                    return save(function () {
+                      return db.collection('products').doc().set({
+                        name: n,
+                        kind: $('#pk').value,
+                        price: round2(p),
+                        cat: $('#pc').value.trim() || 'Otros',
+                        ts: Date.now()
+                      });
+                    }, 'Producto añadido');
+                  case 2:
+                    ok = _context9.v;
+                    if (ok) {
+                      $('#pn').value = '';
+                      $('#pp').value = '';
+                    }
+                  case 3:
+                    return _context9.a(2);
+                }
+              }, _callee9);
+            }));
+            $('#plist').onchange = function (e) {
+              var i = e.target.closest('input[data-id]');
+              if (!i) return;
+              var p = parseNum(i.value);
+              if (isNaN(p) || p < 0) {
+                toast('Precio no válido.', true);
+                tabs.productos.update();
+                return;
+              }
+              save(function () {
+                return db.doc('products/' + i.dataset.id).update({
+                  price: round2(p)
+                });
+              }, 'Precio actualizado');
+            };
+            $('#plist').onclick = /*#__PURE__*/function () {
+              var _ref9 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0(e) {
+                var b, p;
+                return _regenerator().w(function (_context0) {
+                  while (1) switch (_context0.n) {
+                    case 0:
+                      b = e.target.closest('button[data-del]');
+                      if (b) {
+                        _context0.n = 1;
+                        break;
+                      }
+                      return _context0.a(2);
+                    case 1:
+                      p = prodById(b.dataset.del);
+                      _context0.n = 2;
+                      return confirmSheet('Borrar producto', '¿Borrar "' + (p ? p.name : '') + '"? Las ventas ya hechas se conservan.', 'Borrar');
+                    case 2:
+                      if (!_context0.v) {
+                        _context0.n = 3;
+                        break;
+                      }
+                      save(function () {
+                        return db.doc('products/' + b.dataset.del).delete();
+                      }, 'Producto borrado');
+                    case 3:
+                      return _context0.a(2);
+                  }
+                }, _callee0);
+              }));
+              return function (_x5) {
+                return _ref9.apply(this, arguments);
+              };
+            }();
+          },
+          update: function update() {
+            if (!$('#plist')) return;
+            $('#cl').innerHTML = Array.from(new Set(S.products.map(function (p) {
+              return p.cat;
+            }))).map(function (c) {
+              return '<option value="' + esc(c) + '">';
+            }).join('');
+            if (document.activeElement && document.activeElement.closest && document.activeElement.closest('#plist')) return;
+            var ps = S.products.slice().sort(function (a, b) {
+              return (a.cat || '').localeCompare(b.cat || '', 'es') || a.name.localeCompare(b.name, 'es');
+            });
+            $('#plist').innerHTML = ps.length ? ps.map(function (p) {
+              return '<tr><td>' + esc(p.name) + '</td><td>' + esc(p.cat || '') + '</td><td>' + (p.kind === 'kg' ? 'kg' : 'ud') + '</td><td class="n"><input data-id="' + esc(p.id) + '" inputmode="decimal" value="' + String(p.price).replace('.', ',') + '" aria-label="Precio de ' + esc(p.name) + '"></td><td class="n"><button class="link bad" data-del="' + esc(p.id) + '">Borrar</button></td></tr>';
+            }).join('') : '<tr><td colspan="5"><div class="empty">Sin productos todavía.</div></td></tr>';
+          }
+        };
+
+        /* ---------- Navegación ---------- */
+        LBL_B = {
+          informes: 'Informes',
+          ventas: 'Ventas',
+          stock: 'Stock',
+          pedidos: 'Pedidos',
+          caja: 'Caja',
+          productos: 'Productos'
+        };
+        LBL_W = {
+          vender: 'Vender',
+          pedidos: 'Pedidos',
+          stock: 'Mercancía',
+          caja: 'Cerrar caja'
+        };
+        $('#swap').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
+          return _regenerator().w(function (_context1) {
+            while (1) switch (_context1.n) {
+              case 0:
+                if (!bv()) {
+                  _context1.n = 1;
+                  break;
+                }
+                S.mode = 'mostrador';
+                S.cart = [];
+                go(tabList()[0]);
+                return _context1.a(2);
+              case 1:
+                _context1.n = 2;
+                return askPin();
+              case 2:
+                if (!_context1.v) {
+                  _context1.n = 3;
+                  break;
+                }
+                S.mode = 'jefe';
+                go(tabList()[0]);
+              case 3:
+                return _context1.a(2);
+            }
+          }, _callee1);
+        }));
+        $('#nav').onclick = function (e) {
+          var b = e.target.closest('button[data-t]');
+          if (b) go(b.dataset.t);
+        };
+        raf = 0;
+        /* ---------- Datos en vivo ---------- */
+        loadTimer = 0;
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('sw.js').catch(function () {});
+        }
+        go(tabList()[0]);
+        sub('products', db.collection('products').orderBy('name'));
+        sub('sales', db.collection('sales').orderBy('ts', 'desc').limit(1000));
+        sub('closings', db.collection('closings').orderBy('ts', 'desc').limit(120));
+        sub('moves', db.collection('moves').orderBy('ts', 'desc').limit(1000));
+        sub('orders', db.collection('orders').orderBy('ts', 'desc').limit(300));
+      case 1:
+        return _context13.a(2);
+    }
+  }, _callee13);
+}))();
+
 </script>
 </body>
 </html>

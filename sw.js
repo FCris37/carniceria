@@ -1,9 +1,35 @@
-const CACHE = 'carniceria-v1';
-const FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
-self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting())); });
-self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
+var CACHE = 'carniceria-v1';
+var FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
+self.addEventListener('install', function (e) {
+  e.waitUntil(caches.open(CACHE).then(function (c) {
+    return c.addAll(FILES);
+  }).then(function () {
+    return self.skipWaiting();
+  }));
+});
+self.addEventListener('activate', function (e) {
+  e.waitUntil(caches.keys().then(function (ks) {
+    return Promise.all(ks.filter(function (k) {
+      return k !== CACHE;
+    }).map(function (k) {
+      return caches.delete(k);
+    }));
+  }).then(function () {
+    return self.clients.claim();
+  }));
+});
 // Red primero (así ves las actualizaciones); si no hay red, lo guardado.
-self.addEventListener('fetch', e => {
+self.addEventListener('fetch', function (e) {
   if (e.request.method !== 'GET' || new URL(e.request.url).origin !== location.origin) return;
-  e.respondWith(fetch(e.request).then(r => { const c = r.clone(); caches.open(CACHE).then(ca => ca.put(e.request, c)); return r; }).catch(() => caches.match(e.request).then(m => m || caches.match('./index.html'))));
+  e.respondWith(fetch(e.request).then(function (r) {
+    var c = r.clone();
+    caches.open(CACHE).then(function (ca) {
+      return ca.put(e.request, c);
+    });
+    return r;
+  }).catch(function () {
+    return caches.match(e.request).then(function (m) {
+      return m || caches.match('./index.html');
+    });
+  }));
 });
