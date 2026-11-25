@@ -2944,9 +2944,6 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
             while (b && b !== el && !(b.getAttribute && b.getAttribute('data-k'))) b = b.parentNode;
             if (b && b !== el && !b.disabled) press(b.getAttribute('data-k'));
           });
-          document.addEventListener('focus', function (e) {
-            if (match(e.target)) show(e.target);
-          }, true);
           document.addEventListener('click', function (e) {
             var n = e.target;
             if (match(n)) {
