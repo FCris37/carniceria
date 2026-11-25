@@ -169,6 +169,18 @@ td input{min-width:90px;text-align:right}
 .linetotal strong{font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif;font-size:1.8rem}
 .toast{position:fixed;left:50%;bottom:84px;-webkit-transform:translateX(-50%);transform:translateX(-50%);background:#1c2127;color:#fff;padding:12px 18px;border-radius:10px;z-index:30;max-width:90%;font-weight:500}
 .toast.bad{background:#b3261e;color:#fff}
+
+/* Revisar */
+.alert{border:1px solid #dde1e6;border-left:6px solid #b3261e;border-radius:10px;padding:14px 16px}
+.alert+.alert{margin-top:12px}
+.alert.done{border-left-color:#1f7a4d;opacity:.8}
+.alert>*+*{margin-top:8px}
+.ahead{display:flex;justify-content:space-between;align-items:center}
+.ahead b{font-family:'Barlow Semi Condensed','Arial Narrow',Roboto,Arial,sans-serif;font-size:1.3rem;margin-right:12px}
+.asub{color:#5d6975}
+.alert p{margin:0}
+.alert .ghost{border-color:#9b1c2e;color:#9b1c2e}
+.badge{display:inline-block;min-width:22px;padding:1px 7px;margin-left:6px;border-radius:12px;background:#b3261e;color:#fff;font-size:.8rem;line-height:1.5}
 </style>
 </head>
 <body>
@@ -1030,7 +1042,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
   "use strict";
 
-  var $, esc, fmtNum, eur, qfmt, round2, dayOf, today, hhmm, dmy, parseNum, METHODS, Balanza, S, SEED, db, user, bn0, bn, bv, nm, prodById, okSales, toastT, toast, openSheet, closeSheet, confirmSheet, save, _save, stockOf, tabs, lastSale, pickQty, busy, cobrar, _cobrar, anular, MOVE_LBL, ST, tabList, LBL_B, LBL_W, renderNav, pinHash, askPin, go, raf, scheduleUpdate, resolveNames, _resolveNames, loadTimer, markLoaded, sub;
+  var $, esc, fmtNum, eur, qfmt, round2, dayOf, today, hhmm, dmy, parseNum, METHODS, Balanza, S, SEED, db, user, bn0, bn, bv, nm, prodById, okSales, toastT, toast, openSheet, closeSheet, confirmSheet, save, _save, stockOf, tabs, lastSale, pickQty, busy, cobrar, _cobrar, anular, MOVE_LBL, ST, computeAlerts, alertCard, updateBadge, tabList, LBL_B, LBL_W, renderNav, pinHash, askPin, go, raf, scheduleUpdate, resolveNames, _resolveNames, loadTimer, markLoaded, sub;
   return _regenerator().w(function (_context13) {
     while (1) switch (_context13.n) {
       case 0:
@@ -1054,7 +1066,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
         };
         markLoaded = function _markLoaded(k) {
           S.loaded[k] = true;
-          if (Object.keys(S.loaded).length >= 5) {
+          if (Object.keys(S.loaded).length >= 6) {
             clearTimeout(loadTimer);
             $('#dot').classList.add('ok');
             if (S.canWrite && !window.__noStore) {
@@ -1122,6 +1134,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
           raf = requestAnimationFrame(function () {
             raf = 0;
             if (tabs[S.tab] && $('#view').firstChild) tabs[S.tab].update();
+            updateBadge();
             resolveNames();
           });
         };
@@ -1187,9 +1200,142 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
           var sw = $('#swap');
           sw.hidden = !S.boss;
           sw.textContent = bv() ? 'Pasar a mostrador' : 'Entrar como jefe';
+          updateBadge();
         };
         tabList = function _tabList() {
-          return bv() ? ['informes', 'ventas', 'stock', 'pedidos', 'caja', 'productos'] : ['vender', 'pedidos', 'stock', 'caja'];
+          return bv() ? ['revisar', 'informes', 'ventas', 'stock', 'pedidos', 'caja', 'productos'] : ['vender', 'pedidos', 'stock', 'caja'];
+        };
+        updateBadge = function _updateBadge() {
+          if (!bv()) return;
+          var b = document.querySelector('#nav button[data-t=revisar]');
+          if (!b) return;
+          var n = computeAlerts().filter(function (a) {
+            return !a.rev;
+          }).length;
+          b.innerHTML = 'Revisar' + (n ? '<span class="badge">' + n + '</span>' : '');
+        };
+        alertCard = function _alertCard(a) {
+          var title = '',
+            tag = '',
+            tagc = 'bad',
+            sub = '',
+            body = '';
+          if (a.kind === 'caja') {
+            var c = a.c,
+              tot = c.difTotal || 0;
+            var parts = [],
+              neg = false;
+            Object.keys(METHODS).forEach(function (m) {
+              var d = c.diff && c.diff[m];
+              if (d != null && Math.abs(d) >= 0.5) {
+                parts.push(METHODS[m] + ': ' + (d < 0 ? 'faltan ' : 'sobran ') + eur(Math.abs(d)));
+                if (d < 0) neg = true;
+              }
+            });
+            title = parts.join(' · ');
+            tag = 'Caja del ' + dmy(c.day);
+            tagc = neg ? 'bad' : 'warn';
+            sub = 'Cierre hecho por ' + nm(c.by) + ' a las ' + hhmm(c.ts) + ' · ' + c.tickets + ' tickets';
+            body = '<div class="tablewrap"><table><thead><tr><th>Método</th><th class="n">Debería haber</th><th class="n">Contado</th><th class="n">Diferencia</th></tr></thead><tbody>' + Object.keys(METHODS).map(function (m) {
+              var d = c.diff && c.diff[m],
+                cls = d == null || Math.abs(d) < 0.005 ? '' : d < 0 ? 'neg' : 'warnc';
+              return '<tr><td>' + METHODS[m] + '</td><td class="n num">' + eur(c.esperado && c.esperado[m]) + '</td><td class="n num">' + eur(c.contado && c.contado[m]) + '</td><td class="n num ' + cls + '"><b>' + (d > 0 ? '+' : '') + eur(d) + '</b></td></tr>';
+            }).join('') + '</tbody></table></div><p class="muted small">Fondo inicial ' + eur(c.fondo) + ' · Gastos de caja ' + eur(c.gastos) + '. En efectivo, "debería haber" es fondo + ventas apuntadas − gastos.</p>';
+          } else if (a.kind === 'anulada') {
+            var s = a.s;
+            title = 'Venta anulada de ' + eur(s.total);
+            tag = 'Anulada';
+            sub = dmy(s.day) + ' a las ' + hhmm(s.ts) + ' · anulada por ' + nm(s.voidBy || s.by);
+            body = '<p>' + (s.items || []).map(function (i) {
+              return esc(i.name) + ' ' + esc(qfmt(i.qty, i.kind));
+            }).join(', ') + '</p><p><b>Motivo:</b> ' + esc(s.voidReason || 'sin motivo') + '</p>';
+          } else if (a.kind === 'inventario') {
+            var m = a.m,
+              faltan = m.diff < 0;
+            title = (faltan ? 'Faltan ' : 'Sobran ') + qfmt(Math.abs(m.diff), m.kind) + ' de ' + m.pname;
+            tag = 'Inventario del ' + dmy(m.day);
+            tagc = faltan ? 'bad' : 'warn';
+            sub = 'Contado por ' + nm(m.by) + ' a las ' + hhmm(m.ts);
+            body = '<p>Debería haber <b>' + esc(qfmt(m.expected, m.kind)) + '</b> y se contó <b>' + esc(qfmt(m.qty, m.kind)) + '</b>.</p>';
+          } else {
+            title = 'No se hizo el cierre de caja del ' + dmy(a.day);
+            tag = 'Sin cierre';
+            tagc = 'warn';
+            sub = a.o.n + ' ventas por ' + eur(a.o.t) + ' ese día';
+            body = '<p class="muted">Ese día hubo ventas pero nadie guardó el cierre de caja, así que no se puede comprobar si cuadraba.</p>';
+          }
+          var foot = a.rev ? '<p class="muted small">Revisado por ' + esc(nm(a.rev.by)) + ' el ' + dmy(dayOf(a.rev.ts)) + '</p>' : '<button class="ghost" data-rv="' + esc(a.key) + '">Marcar como revisado</button>';
+          return '<div class="alert' + (a.rev ? ' done' : '') + '"><div class="ahead"><b>' + esc(title) + '</b><span class="tag ' + (a.rev ? '' : tagc) + '">' + esc(tag) + '</span></div><div class="asub">' + esc(sub) + '</div>' + body + foot + '</div>';
+        };
+        computeAlerts = function _computeAlerts() {
+          var out = [];
+          S.closings.forEach(function (c) {
+            var d = c.diff || {},
+              bad = false;
+            Object.keys(METHODS).forEach(function (m) {
+              if (d[m] != null && Math.abs(d[m]) >= 0.5) bad = true;
+            });
+            if (bad) out.push({
+              key: 'c:' + c.day + ':' + c.ts,
+              t: c.ts,
+              kind: 'caja',
+              c: c
+            });
+          });
+          S.sales.forEach(function (s) {
+            if (s.voided) out.push({
+              key: 'v:' + s.id,
+              t: s.voidTs || s.ts,
+              kind: 'anulada',
+              s: s
+            });
+          });
+          S.moves.forEach(function (m) {
+            if (m.type === 'inventario' && m.diff != null && Math.abs(m.diff) >= 0.0005) out.push({
+              key: 'i:' + m.id,
+              t: m.ts,
+              kind: 'inventario',
+              m: m
+            });
+          });
+          var closed = {};
+          S.closings.forEach(function (c) {
+            closed[c.day] = true;
+          });
+          var perDay = {};
+          S.sales.forEach(function (s) {
+            if (!s.voided && s.day < today()) {
+              var o = perDay[s.day] = perDay[s.day] || {
+                n: 0,
+                t: 0
+              };
+              o.n++;
+              o.t = round2(o.t + s.total);
+            }
+          });
+          Object.keys(perDay).forEach(function (d) {
+            if (!closed[d]) {
+              var p = d.split('-');
+              out.push({
+                key: 'z:' + d,
+                t: new Date(+p[0], +p[1] - 1, +p[2], 23, 59).getTime(),
+                kind: 'sincierre',
+                day: d,
+                o: perDay[d]
+              });
+            }
+          });
+          var rv = {};
+          S.reviews.forEach(function (r) {
+            rv[r.key] = r;
+          });
+          out.forEach(function (a) {
+            a.rev = rv[a.key] || null;
+          });
+          out.sort(function (a, b) {
+            return b.t - a.t;
+          });
+          return out;
         };
         anular = function _anular(id) {
           var s = S.sales.find(function (x) {
@@ -1534,6 +1680,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
           closings: [],
           moves: [],
           orders: [],
+          reviews: [],
           names: {},
           cart: [],
           method: 'efectivo',
@@ -2299,11 +2446,45 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
           }
         };
 
+        /* ---- Revisar (jefe): lo que no cuadra, con el detalle y para marcar como visto ---- */
+
+        tabs.revisar = {
+          label: 'Revisar',
+          mount: function mount(v) {
+            v.innerHTML = '<section class="panel"><h2>Pendiente de revisar <span class="small muted" id="rsum"></span></h2><div id="rpend"></div></section><section class="panel"><h2>Ya revisado</h2><div id="rdone"></div></section>';
+            v.onclick = function (e) {
+              var b = e.target.closest('button[data-rv]');
+              if (!b) return;
+              var key = b.dataset.rv;
+              save(function () {
+                return db.doc('reviews/' + key).set({
+                  key: key,
+                  ts: Date.now(),
+                  by: S.uid
+                });
+              }, 'Marcado como revisado');
+            };
+          },
+          update: function update() {
+            if (!$('#rpend')) return;
+            var al = computeAlerts(),
+              pend = al.filter(function (a) {
+                return !a.rev;
+              }),
+              done = al.filter(function (a) {
+                return a.rev;
+              }).slice(0, 10);
+            $('#rsum').textContent = pend.length ? pend.length + (pend.length === 1 ? ' aviso' : ' avisos') : '';
+            $('#rpend').innerHTML = pend.length ? pend.map(alertCard).join('') : '<div class="empty">Todo en orden. No hay nada pendiente de revisar.</div>';
+            $('#rdone').innerHTML = done.length ? done.map(alertCard).join('') : '<div class="empty">Todavía no has marcado nada como revisado.</div>';
+          }
+        };
+
         /* ---- Informes (jefe) ---- */
         tabs.informes = {
           label: 'Informes',
           mount: function mount(v) {
-            v.innerHTML = '<section class="panel"><h2>Informes de ventas</h2><div class="chips" id="rng"></div><div class="tiles" id="tiles"></div></section>' + '<section class="panel"><h2>Ventas por día</h2><div class="bars" id="bars"></div></section>' + '<section class="panel"><h2>Para revisar</h2><div class="list" id="alerts"></div></section>' + '<div class="row" style="align-items:start"><section class="panel" style="flex:1 1 320px"><h2>Por método de pago</h2><div class="list" id="bymeth"></div></section><section class="panel" style="flex:2 1 420px"><h2>Productos más vendidos</h2><div class="tablewrap"><table><thead><tr><th>Producto</th><th class="n">Cantidad</th><th class="n">Importe</th></tr></thead><tbody id="top"></tbody></table></div></section></div>';
+            v.innerHTML = '<section class="panel"><h2>Informes de ventas</h2><div class="chips" id="rng"></div><div class="tiles" id="tiles"></div></section>' + '<section class="panel"><h2>Ventas por día</h2><div class="bars" id="bars"></div></section>' + '<div id="alerts" hidden></div>' + '<div class="row" style="align-items:start"><section class="panel" style="flex:1 1 320px"><h2>Por método de pago</h2><div class="list" id="bymeth"></div></section><section class="panel" style="flex:2 1 420px"><h2>Productos más vendidos</h2><div class="tablewrap"><table><thead><tr><th>Producto</th><th class="n">Cantidad</th><th class="n">Importe</th></tr></thead><tbody id="top"></tbody></table></div></section></div>';
             $('#rng').onclick = function (e) {
               var b = e.target.closest('button');
               if (!b) return;
@@ -2563,6 +2744,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
 
         /* ---------- Navegación ---------- */
         LBL_B = {
+          revisar: 'Revisar',
           informes: 'Informes',
           ventas: 'Ventas',
           stock: 'Stock',
@@ -2619,6 +2801,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
         sub('closings', db.collection('closings').orderBy('ts', 'desc').limit(120));
         sub('moves', db.collection('moves').orderBy('ts', 'desc').limit(1000));
         sub('orders', db.collection('orders').orderBy('ts', 'desc').limit(300));
+        sub('reviews', db.collection('reviews').orderBy('ts', 'desc').limit(500));
       case 1:
         return _context13.a(2);
     }
