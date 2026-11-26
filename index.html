@@ -266,6 +266,13 @@ input.kp-on{border-color:#9b1c2e;box-shadow:0 0 0 3px rgba(155,28,46,.25)}
 .rtop{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between}
 .rtop p{margin:0;-webkit-flex:1;flex:1}.rtop button{margin-left:12px;min-height:44px;-webkit-flex-shrink:0;flex-shrink:0}
 .rrow{display:-webkit-flex;display:flex}.rrow>.field{-webkit-flex:1;flex:1;min-width:0}.rrow>.field+.field{margin-left:10px}
+.rlist .item{padding:10px 0}
+
+.minirow{display:-webkit-flex;display:flex;-webkit-flex-shrink:0;flex-shrink:0}
+.minirow button{-webkit-flex:1;flex:1;min-height:44px;padding:0 6px;font-size:.85rem;white-space:nowrap}
+.minirow button+button{margin-left:6px}
+.minirow button.bad{color:#9b1c2e}
+.sell>aside{overflow-y:auto}
 </style>
 </head>
 <body>
@@ -1127,7 +1134,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
   "use strict";
 
-  var $, esc, fmtNum, eur, qfmt, round2, dayOf, today, hhmm, dmy, parseNum, METHODS, Balanza, S, SEED, db, user, bn0, bn, bv, nm, prodById, tnum, okSales, toastT, toast, openSheet, closeSheet, confirmSheet, save, _save, stockOf, tabs, lastSale, pickQty, busy, cobrar, doCobrar, _doCobrar, anular, MOVE_LBL, devolver, ST, computeAlerts, alertCard, updateBadge, buildDemo, tabList, LBL_B, LBL_W, renderNav, Keypad, pinHash, askPin, go, raf, scheduleUpdate, resolveNames, _resolveNames, loadTimer, markLoaded, sub;
+  var $, esc, fmtNum, eur, qfmt, round2, dayOf, today, hhmm, dmy, parseNum, METHODS, Balanza, S, SEED, db, user, bn0, bn, bv, nm, prodById, tnum, okSales, toastT, toast, openSheet, closeSheet, confirmSheet, save, _save, stockOf, tabs, lastSale, pickQty, busy, cobrar, doCobrar, _doCobrar, anular, MOVE_LBL, REF_PIN_MIN, devolverLista, devolver, ST, computeAlerts, alertCard, updateBadge, buildDemo, tabList, LBL_B, LBL_W, renderNav, Keypad, pinHash, askPin, go, raf, scheduleUpdate, resolveNames, _resolveNames, loadTimer, markLoaded, sub;
   return _regenerator().w(function (_context16) {
     while (1) switch (_context16.n) {
       case 0:
@@ -1290,7 +1297,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
           updateBadge();
         };
         tabList = function _tabList() {
-          return bv() ? ['revisar', 'informes', 'ventas', 'stock', 'pedidos', 'caja', 'productos'] : ['vender', 'pedidos', 'stock', 'caja'];
+          return bv() ? ['revisar', 'informes', 'ventas', 'devoluciones', 'stock', 'pedidos', 'caja', 'productos'] : ['vender', 'pedidos', 'stock', 'caja'];
         };
         buildDemo = function _buildDemo() {
           var seed = 12345;
@@ -1689,6 +1696,10 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
             return x.id === id;
           });
           if (!s || s.voided) return;
+          if (!bv() && s.day !== today()) {
+            toast('Las devoluciones de días anteriores las hace el administrador.', true);
+            return;
+          }
           var fs = S.refunds.filter(function (f) {
             return f.saleId === id;
           });
@@ -1786,7 +1797,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
             calc();
           };
           $('#rgo', b).onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-            var c, reason, note, rec;
+            var c, reason, note, rec, hasPin;
             return _regenerator().w(function (_context6) {
               while (1) switch (_context6.n) {
                 case 0:
@@ -1818,16 +1829,64 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
                     restock: $('#rs', b).checked,
                     by: S.uid
                   };
+                  if (!(!bv() && c.tot >= REF_PIN_MIN)) {
+                    _context6.n = 5;
+                    break;
+                  }
+                  hasPin = null;
+                  try {
+                    hasPin = localStorage.getItem('carniceria.pin');
+                  } catch (e) {}
+                  if (hasPin) {
+                    _context6.n = 3;
+                    break;
+                  }
+                  toast('Falta crear el PIN de administrador (botón Modo administrador).', true);
+                  return _context6.a(2);
+                case 3:
+                  _context6.n = 4;
+                  return askPin();
+                case 4:
+                  if (_context6.v) {
+                    _context6.n = 5;
+                    break;
+                  }
+                  return _context6.a(2);
+                case 5:
                   closeSheet();
-                  _context6.n = 3;
+                  _context6.n = 6;
                   return save(function () {
                     return db.collection('refunds').doc().set(rec);
                   }, 'Devolución registrada: ' + eur(c.tot) + ' en ' + mname);
-                case 3:
+                case 6:
                   return _context6.a(2);
               }
             }, _callee6);
           }));
+        };
+        devolverLista = function _devolverLista() {
+          var td = S.sales.filter(function (s) {
+            return s.day === today() && !s.voided;
+          }).sort(function (a, b) {
+            return b.ts - a.ts;
+          });
+          var rows = td.map(function (s) {
+            var back = round2(S.refunds.filter(function (f) {
+                return f.saleId === s.id;
+              }).reduce(function (a, f) {
+                return a + f.total;
+              }, 0)),
+              net = round2(s.total - back);
+            var det = (s.items || []).map(function (i) {
+              return esc(i.name) + ' ' + qfmt(i.qty, i.kind);
+            }).join(', ');
+            return '<div class="item"><div class="t"><b>' + hhmm(s.ts) + '</b> <span class="tag">' + esc(tnum(s)) + '</span> <span class="tag">' + esc(METHODS[s.method] || s.method) + '</span>' + (back ? ' <span class="tag warn">' + (net <= 0.004 ? 'Devuelta' : 'Devolución parcial') + '</span>' : '') + '<small>' + det + '</small></div><div class="vact"><b class="num amt">' + eur(net) + '</b>' + (net > 0.004 ? '<button class="ghost" data-ref="' + esc(s.id) + '">Devolver</button>' : '') + '</div></div>';
+          }).join('');
+          var b = openSheet('¿Qué ticket se devuelve?', td.length ? '<p class="muted small">Tickets de hoy, del más reciente al más antiguo.</p><div class="list rlist">' + rows + '</div>' : '<div class="empty">Hoy no hay ventas.</div>');
+          b.onclick = function (e) {
+            var k = e.target.closest('button[data-ref]');
+            if (k) devolver(k.dataset.ref);
+          };
         };
         anular = function _anular(id) {
           var s = S.sales.find(function (x) {
@@ -2480,7 +2539,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
         tabs.vender = {
           label: 'Vender',
           mount: function mount(v) {
-            v.innerHTML = '<div class="sell"><section class="panel"><h2>Productos</h2><input id="q" type="search" placeholder="Buscar producto" aria-label="Buscar producto" autocomplete="off"><div class="chips" id="cats"></div><div class="grid" id="grid"></div></section>' + '<aside class="panel ticket"><h2>Venta actual</h2><div class="lines" id="lines"></div><div class="total"><span>Total</span><strong class="num" id="tot"></strong></div>' + '<div class="seg" id="meth"></div><button class="primary big" id="cobrar">Cobrar</button><button class="ghost" id="vaciar">Vaciar venta</button><button class="link bad" id="anulult">Anular última venta</button></aside></div>';
+            v.innerHTML = '<div class="sell"><section class="panel"><h2>Productos</h2><input id="q" type="search" placeholder="Buscar producto" aria-label="Buscar producto" autocomplete="off"><div class="chips" id="cats"></div><div class="grid" id="grid"></div></section>' + '<aside class="panel ticket"><h2>Venta actual</h2><div class="lines" id="lines"></div><div class="total"><span>Total</span><strong class="num" id="tot"></strong></div>' + '<div class="seg" id="meth"></div><button class="primary big" id="cobrar">Cobrar</button><div class="minirow"><button class="ghost" id="vaciar">Vaciar</button><button class="ghost" id="devbtn">Devolver</button><button class="ghost bad" id="anulult">Anular última</button></div></aside></div>';
             $('#q').oninput = function () {
               tabs.vender.update();
             };
@@ -2513,6 +2572,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
               tabs.vender.update();
             };
             $('#cobrar').onclick = cobrar;
+            $('#devbtn').onclick = devolverLista;
             $('#anulult').onclick = function () {
               var l = lastSale();
               if (l) anular(l.id);
@@ -2549,6 +2609,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
             $('#cobrar').disabled = !S.cart.length || !S.canWrite;
             $('#vaciar').hidden = !S.cart.length;
             $('#anulult').hidden = !lastSale() || !S.canWrite;
+            $('#devbtn').hidden = !S.canWrite;
           }
         };
         busy = false;
@@ -2925,6 +2986,52 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
         };
 
         /* ---- Devolución (total o parcial) por el mismo medio de pago ---- */
+        REF_PIN_MIN = 50;
+        /* ---- Devoluciones (administrador) ---- */
+        tabs.devoluciones = {
+          label: 'Devoluciones',
+          mount: function mount(v) {
+            S.drange = S.drange || 7;
+            v.innerHTML = '<section class="panel"><h2>Devoluciones</h2><div class="chips" id="drng"></div><div class="tiles" id="dtiles"></div></section><section class="panel"><h2>Listado <span class="small muted" id="dsum"></span></h2><div class="list" id="dlist"></div></section>';
+            $('#drng').onclick = function (e) {
+              var b = e.target.closest('button');
+              if (!b) return;
+              S.drange = +b.dataset.r;
+              tabs.devoluciones.update();
+            };
+          },
+          update: function update() {
+            if (!$('#dlist')) return;
+            var R = [[1, 'Hoy'], [7, '7 días'], [30, '30 días']];
+            $('#drng').innerHTML = R.map(function (r) {
+              return '<button class="chip" data-r="' + r[0] + '" aria-pressed="' + (S.drange === r[0]) + '">' + r[1] + '</button>';
+            }).join('');
+            var start = dayOf(Date.now() - (S.drange - 1) * 864e5);
+            var L = S.refunds.filter(function (f) {
+              return f.day >= start;
+            }).sort(function (a, b) {
+              return b.ts - a.ts;
+            });
+            var by = {};
+            L.forEach(function (f) {
+              by[f.method] = round2((by[f.method] || 0) + f.total);
+            });
+            var tot = round2(L.reduce(function (a, f) {
+              return a + f.total;
+            }, 0));
+            $('#dtiles').innerHTML = '<div class="tile ' + (L.length ? 'alert' : '') + '"><small>Devoluciones</small><strong class="num">' + L.length + ' · ' + eur(tot) + '</strong></div>' + Object.keys(METHODS).map(function (m) {
+              return '<div class="tile"><small>En ' + esc(METHODS[m].toLowerCase()) + '</small><strong class="num">' + eur(by[m] || 0) + '</strong></div>';
+            }).join('');
+            $('#dsum').textContent = L.length ? L.length + ' en este periodo' : '';
+            $('#dlist').innerHTML = L.length ? L.map(function (f) {
+              var det = (f.items || []).map(function (i) {
+                return esc(i.name) + ' ' + qfmt(i.qty, i.kind);
+              }).join(', ');
+              return '<div class="item"><div class="t"><b>' + dmy(f.day).slice(0, 5) + ' ' + hhmm(f.ts) + '</b> <span class="tag">' + (f.num ? 'T-' + ('000000' + f.num).slice(-6) : '—') + '</span> <span class="tag">' + esc(METHODS[f.method] || f.method) + '</span> <span class="small muted">' + esc(nm(f.by)) + '</span><small>' + det + '</small><small>' + esc(f.reason || '') + (f.note ? ' · ' + esc(f.note) : '') + (f.restock ? ' · vuelve al stock' : '') + '</small></div><b class="num amt">' + eur(f.total) + '</b></div>';
+            }).join('') : '<div class="empty">No hay devoluciones en este periodo.</div>';
+          }
+        };
+
         /* ---- Pedidos ---- */
         ST = {
           pendiente: 'Pendiente',
@@ -3423,6 +3530,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
           revisar: 'Revisar',
           informes: 'Informes',
           ventas: 'Ventas',
+          devoluciones: 'Devoluciones',
           stock: 'Stock',
           pedidos: 'Pedidos',
           caja: 'Caja',
@@ -3529,7 +3637,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
               v = fresh ? k : v + k;
               var m = v.split(/[,.]/);
               if (m[1] && m[1].length > 3) return;
-              if (/^0\d/.test(v)) v = v.replace(/^0+/, '') || '0';
+              if (i.type !== 'password' && i.getAttribute('inputmode') !== 'tel' && /^0\d/.test(v)) v = v.replace(/^0+/, '') || '0';
             }
             fresh = false;
             var ml = +i.getAttribute('maxlength') || 0;
