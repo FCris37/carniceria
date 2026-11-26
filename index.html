@@ -278,6 +278,22 @@ input.kp-on{border-color:#9b1c2e;box-shadow:0 0 0 3px rgba(155,28,46,.25)}
 
 .touch .sheet.kp-room.tall{padding-bottom:8px}
 .touch body.kp-open .sheet.kp-room.tall{padding-bottom:230px}
+
+.fchk{display:flex;align-items:center;flex:1;cursor:pointer;margin:0}
+.fchk input{width:24px;height:24px;margin:0 12px 0 0;flex-shrink:0;padding:0}
+.inv{font-size:.85rem;color:#111;line-height:1.35}
+.invsim{border:2px solid #b3261e;color:#b3261e;text-align:center;font-weight:700;padding:4px;margin-bottom:10px;letter-spacing:.08em}
+.invhead{display:flex;justify-content:space-between;margin-bottom:12px}
+.invno{text-align:right}.invn{font-size:1.3rem;font-weight:700}
+.invcli{border:1px solid #ccc;padding:8px;margin-bottom:10px}
+.invt{width:100%;border-collapse:collapse;margin-bottom:8px}
+.invt th,.invt td{padding:4px 6px;border-bottom:1px solid #ddd;text-align:left;vertical-align:top;font-size:.82rem}
+.invt .n,.invt th.n{text-align:right}
+.invtot{display:flex;justify-content:space-between;align-items:center;padding-top:6px;border-top:2px solid #111;font-size:1rem}
+.invwrap{border:1px solid #dde1e6;border-radius:8px;padding:12px;background:#fff;max-height:50vh;overflow:auto}
+.invbtns{display:flex;flex-wrap:wrap}.invbtns button{flex:1 1 40%;margin:4px}
+#printarea{display:none}
+@media print{body>*:not(#printarea){display:none!important}#printarea{display:block}#printarea.p-tk .inv{font-size:10px}#printarea.p-tk .invhead{display:block}#printarea.p-tk .invno{text-align:left;margin-top:6px}#printarea .inv{font-size:12px}}
 </style>
 </head>
 <body>
@@ -1136,12 +1152,12 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     };
   }
 })();
-_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
+_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee23() {
   "use strict";
 
-  var $, esc, fmtNum, eur, qfmt, round2, dayOf, today, hhmm, dmy, parseNum, METHODS, Balanza, S, SEED, db, user, bn0, bn, bv, nm, prodById, tnum, okSales, toastT, toast, openSheet, closeSheet, confirmSheet, save, _save, stockOf, tabs, lastSale, pickQty, busy, cobrar, doCobrar, _doCobrar, anular, MOVE_LBL, REF_PIN_MIN, devolverLista, devolver, ST, computeAlerts, alertCard, updateBadge, buildDemo, tabList, LBL_B, LBL_W, renderNav, Keypad, csvNum, downloadCSV, exportRows, pinHash, askPin, go, raf, scheduleUpdate, resolveNames, _resolveNames, loadTimer, markLoaded, sub;
-  return _regenerator().w(function (_context16) {
-    while (1) switch (_context16.n) {
+  var $, esc, fmtNum, eur, qfmt, round2, dayOf, today, hhmm, dmy, parseNum, METHODS, Balanza, S, SEED, db, user, bn0, bn, bv, nm, prodById, tnum, okSales, toastT, toast, openSheet, closeSheet, confirmSheet, save, _save, stockOf, tabs, lastSale, pickQty, busy, cobrar, doCobrar, _doCobrar, anular, MOVE_LBL, REF_PIN_MIN, devolverLista, devolver, ST, computeAlerts, alertCard, updateBadge, buildDemo, ivaOf, inum, bizData, netLines, invTotals, invSim, invHtml, printInv, invView, clientSheet, demoClients, tabList, LBL_B, LBL_W, renderNav, Keypad, csvNum, downloadCSV, exportRows, pinHash, askPin, go, raf, scheduleUpdate, resolveNames, _resolveNames, loadTimer, markLoaded, sub;
+  return _regenerator().w(function (_context23) {
+    while (1) switch (_context23.n) {
       case 0:
         sub = function _sub(key, q) {
           q.onSnapshot(function (snap) {
@@ -1172,16 +1188,16 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
           }
         };
         _resolveNames = function _resolveNames3() {
-          _resolveNames = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
+          _resolveNames = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee22() {
             var ids, need, ps, _t3;
-            return _regenerator().w(function (_context15) {
-              while (1) switch (_context15.p = _context15.n) {
+            return _regenerator().w(function (_context22) {
+              while (1) switch (_context22.p = _context22.n) {
                 case 0:
                   if (!(!user || !user.profiles)) {
-                    _context15.n = 1;
+                    _context22.n = 1;
                     break;
                   }
-                  return _context15.a(2);
+                  return _context22.a(2);
                 case 1:
                   ids = new Set();
                   ['sales', 'closings', 'moves', 'orders'].forEach(function (k) {
@@ -1194,32 +1210,32 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
                     return !(i in S.names);
                   });
                   if (need.length) {
-                    _context15.n = 2;
+                    _context22.n = 2;
                     break;
                   }
-                  return _context15.a(2);
+                  return _context22.a(2);
                 case 2:
                   need.forEach(function (i) {
                     S.names[i] = '';
                   });
-                  _context15.p = 3;
-                  _context15.n = 4;
+                  _context22.p = 3;
+                  _context22.n = 4;
                   return user.profiles(need);
                 case 4:
-                  ps = _context15.v;
+                  ps = _context22.v;
                   need.forEach(function (i) {
                     S.names[i] = ps && ps[i] && ps[i].name || '';
                   });
                   scheduleUpdate();
-                  _context15.n = 6;
+                  _context22.n = 6;
                   break;
                 case 5:
-                  _context15.p = 5;
-                  _t3 = _context15.v;
+                  _context22.p = 5;
+                  _t3 = _context22.v;
                 case 6:
-                  return _context15.a(2);
+                  return _context22.a(2);
               }
-            }, _callee15, null, [[3, 5]]);
+            }, _callee22, null, [[3, 5]]);
           }));
           return _resolveNames.apply(this, arguments);
         };
@@ -1355,7 +1371,338 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
           updateBadge();
         };
         tabList = function _tabList() {
-          return bv() ? ['revisar', 'informes', 'ventas', 'devoluciones', 'stock', 'pedidos', 'caja', 'productos'] : ['vender', 'pedidos', 'stock', 'caja'];
+          return bv() ? ['revisar', 'informes', 'ventas', 'devoluciones', 'facturas', 'stock', 'pedidos', 'caja', 'productos'] : ['vender', 'pedidos', 'stock', 'caja'];
+        };
+        demoClients = function _demoClients() {
+          var d = {
+            demo_c1: {
+              name: 'Restaurante El Percebe S.L.',
+              nif: 'B36111222',
+              addr: 'Rúa do Mar 12, 36202 Vigo',
+              email: 'compras@elpercebe.example',
+              ts: 1
+            },
+            demo_c2: {
+              name: 'María Gómez Pérez',
+              nif: '35123456K',
+              addr: 'Calle Príncipe 45, 36202 Vigo',
+              email: 'maria@example.com',
+              ts: 2
+            },
+            demo_c3: {
+              name: 'Bar La Esquina C.B.',
+              nif: 'E36333444',
+              addr: 'Avda. Castelao 3, 36209 Vigo',
+              email: '',
+              ts: 3
+            }
+          };
+          return {
+            clients: d
+          };
+        };
+        clientSheet = function _clientSheet(done) {
+          var b = openSheet('Nuevo cliente', '<div><label for="cn">Nombre o razón social</label><input id="cn" autocomplete="off" maxlength="80"></div><div><label for="cf">NIF / CIF</label><input id="cf" autocomplete="off" maxlength="14"></div><div><label for="ca">Dirección</label><input id="ca" autocomplete="off" maxlength="120"></div><div><label for="ce">Email (opcional)</label><input id="ce" type="email" autocomplete="off" maxlength="80"></div><button class="primary big" id="cok">Guardar cliente</button>');
+          $('#cok', b).onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee14() {
+            var n, f, id, ok;
+            return _regenerator().w(function (_context14) {
+              while (1) switch (_context14.n) {
+                case 0:
+                  n = $('#cn', b).value.trim(), f = $('#cf', b).value.trim().toUpperCase();
+                  if (!(!n || !f)) {
+                    _context14.n = 1;
+                    break;
+                  }
+                  toast('Pon nombre y NIF.', true);
+                  return _context14.a(2);
+                case 1:
+                  id = 'c' + Date.now().toString(36);
+                  _context14.n = 2;
+                  return save(function () {
+                    return db.doc('clients/' + id).set({
+                      name: n,
+                      nif: f,
+                      addr: $('#ca', b).value.trim(),
+                      email: $('#ce', b).value.trim(),
+                      ts: Date.now()
+                    });
+                  }, 'Cliente guardado');
+                case 2:
+                  ok = _context14.v;
+                  if (ok) {
+                    closeSheet();
+                    if (done) done(id);
+                  }
+                case 3:
+                  return _context14.a(2);
+              }
+            }, _callee14);
+          }));
+        };
+        invView = function _invView(id) {
+          var inv = S.invoices.find(function (x) {
+            return x.id === id;
+          });
+          if (!inv) return;
+          var rect = inv.serie === 'R';
+          var b = openSheet((rect ? 'Rectificativa ' : 'Factura ') + inum(inv), '<div class="invwrap">' + invHtml(inv) + '</div><div class="invbtns"><button class="ghost" data-p="a4">Imprimir A4</button><button class="ghost" data-p="tk">Imprimir ticket</button><button class="ghost" data-p="pdf">Descargar PDF</button><button class="ghost" data-p="mail">Enviar por email</button></div>' + (!rect && inv.status !== 'rectificada' && S.canWrite ? '<button class="ghost bad" data-p="rect">Rectificar (anular) esta factura</button>' : '') + (inv.status === 'rectificada' ? '<p class="muted small">Esta factura está rectificada.</p>' : ''));
+          b.onclick = /*#__PURE__*/function () {
+            var _ref11 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13(e) {
+              var k, a, to, bz, body, rl, t, rid, rec, ok;
+              return _regenerator().w(function (_context13) {
+                while (1) switch (_context13.n) {
+                  case 0:
+                    k = e.target.closest('button[data-p]');
+                    if (k) {
+                      _context13.n = 1;
+                      break;
+                    }
+                    return _context13.a(2);
+                  case 1:
+                    a = k.dataset.p;
+                    if (!(a === 'a4')) {
+                      _context13.n = 2;
+                      break;
+                    }
+                    printInv(inv, 'a4');
+                    _context13.n = 9;
+                    break;
+                  case 2:
+                    if (!(a === 'tk')) {
+                      _context13.n = 3;
+                      break;
+                    }
+                    printInv(inv, 'tk');
+                    _context13.n = 9;
+                    break;
+                  case 3:
+                    if (!(a === 'pdf')) {
+                      _context13.n = 4;
+                      break;
+                    }
+                    toast('En la ventana de imprimir elige «Guardar como PDF».');
+                    printInv(inv, 'a4');
+                    _context13.n = 9;
+                    break;
+                  case 4:
+                    if (!(a === 'mail')) {
+                      _context13.n = 5;
+                      break;
+                    }
+                    to = inv.client && inv.client.email || '', bz = bizData();
+                    body = 'Adjunto la factura ' + inum(inv) + ' por importe de ' + eur(inv.total) + '.\n\nUn saludo,\n' + bz.name;
+                    toast('Se abre tu correo. Adjunta el PDF descargado.');
+                    window.location.href = 'mailto:' + encodeURIComponent(to).replace('%40', '@') + '?subject=' + encodeURIComponent('Factura ' + inum(inv)) + '&body=' + encodeURIComponent(body);
+                    _context13.n = 9;
+                    break;
+                  case 5:
+                    if (!(a === 'rect')) {
+                      _context13.n = 9;
+                      break;
+                    }
+                    _context13.n = 6;
+                    return confirmSheet('Rectificar factura', 'Se emite una factura rectificativa por el importe total, ' + inum(inv) + ' queda como rectificada y sus tickets vuelven a estar libres.', 'Rectificar');
+                  case 6:
+                    if (_context13.v) {
+                      _context13.n = 7;
+                      break;
+                    }
+                    return _context13.a(2);
+                  case 7:
+                    rl = inv.lines.map(function (l) {
+                      var o = {};
+                      for (var x in l) o[x] = l[x];
+                      o.qty = -l.qty;
+                      o.total = -l.total;
+                      return o;
+                    });
+                    t = invTotals(rl), rid = 'i' + Date.now().toString(36);
+                    rec = {
+                      serie: 'R',
+                      num: db._next('invoices_R'),
+                      ts: Date.now(),
+                      day: today(),
+                      client: inv.client,
+                      saleIds: inv.saleIds,
+                      tickets: inv.tickets,
+                      lines: rl,
+                      groups: t.groups,
+                      base: t.base,
+                      iva: t.iva,
+                      total: t.total,
+                      status: 'emitida',
+                      rectOf: inv.id,
+                      rectNum: inum(inv),
+                      by: S.uid
+                    };
+                    _context13.n = 8;
+                    return save(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee12() {
+                      var i;
+                      return _regenerator().w(function (_context12) {
+                        while (1) switch (_context12.n) {
+                          case 0:
+                            _context12.n = 1;
+                            return db.doc('invoices/' + rid).set(rec);
+                          case 1:
+                            _context12.n = 2;
+                            return db.doc('invoices/' + inv.id).update({
+                              status: 'rectificada',
+                              rectBy: rid
+                            });
+                          case 2:
+                            i = 0;
+                          case 3:
+                            if (!(i < inv.saleIds.length)) {
+                              _context12.n = 5;
+                              break;
+                            }
+                            _context12.n = 4;
+                            return db.doc('sales/' + inv.saleIds[i]).update({
+                              invoiceId: '',
+                              invoiceNum: ''
+                            });
+                          case 4:
+                            i++;
+                            _context12.n = 3;
+                            break;
+                          case 5:
+                            return _context12.a(2);
+                        }
+                      }, _callee12);
+                    })), 'Rectificativa ' + inum(rec) + ' emitida');
+                  case 8:
+                    ok = _context13.v;
+                    if (ok) {
+                      closeSheet();
+                      setTimeout(function () {
+                        invView(rid);
+                      }, 50);
+                    }
+                  case 9:
+                    return _context13.a(2);
+                }
+              }, _callee13);
+            }));
+            return function (_x6) {
+              return _ref11.apply(this, arguments);
+            };
+          }();
+        };
+        printInv = function _printInv(inv, fmt) {
+          var el = document.getElementById('printarea');
+          if (!el) {
+            el = document.createElement('div');
+            el.id = 'printarea';
+            document.body.appendChild(el);
+          }
+          var st = document.getElementById('pgs');
+          if (!st) {
+            st = document.createElement('style');
+            st.id = 'pgs';
+            document.head.appendChild(st);
+          }
+          st.textContent = fmt === 'tk' ? '@page{size:80mm auto;margin:3mm}' : '@page{size:A4;margin:12mm}';
+          el.className = fmt === 'tk' ? 'p-tk' : 'p-a4';
+          el.innerHTML = invHtml(inv);
+          setTimeout(function () {
+            window.print();
+          }, 120);
+        };
+        invHtml = function _invHtml(inv) {
+          var b = bizData(),
+            rect = inv.serie === 'R';
+          var rows = inv.lines.map(function (l) {
+            return '<tr><td>' + esc(l.name) + '<br><small>' + esc(l.ticket || '') + '</small></td><td class="n">' + esc(qfmt(l.qty, l.kind)) + '</td><td class="n">' + eur(l.price) + '</td><td class="n">' + l.iva + '%</td><td class="n">' + eur(l.total) + '</td></tr>';
+          }).join('');
+          var gr = inv.groups.map(function (x) {
+            return '<tr><td>IVA ' + x.rate + '%</td><td class="n">Base ' + eur(x.base) + '</td><td class="n">Cuota ' + eur(x.cuota) + '</td></tr>';
+          }).join('');
+          var c = inv.client || {};
+          return '<div class="inv">' + (invSim() ? '<div class="invsim">SIMULACRO · sin validez fiscal</div>' : '') + '<div class="invhead"><div><b class="invbiz">' + esc(b.name) + '</b><br>' + (b.nif ? 'NIF ' + esc(b.nif) + '<br>' : '') + esc(b.addr) + (b.phone ? '<br>Tel. ' + esc(b.phone) : '') + '</div>' + '<div class="invno"><b>' + (rect ? 'FACTURA RECTIFICATIVA' : 'FACTURA') + '</b><br><span class="invn">' + esc(inum(inv)) + '</span><br>' + dmy(inv.day) + (rect ? '<br><small>Rectifica ' + esc(inv.rectNum || '') + '</small>' : '') + '</div></div>' + '<div class="invcli"><small>Cliente</small><br><b>' + esc(c.name || '') + '</b><br>NIF ' + esc(c.nif || '—') + (c.addr ? '<br>' + esc(c.addr) : '') + '</div>' + '<table class="invt"><thead><tr><th>Concepto</th><th class="n">Cant.</th><th class="n">Precio</th><th class="n">IVA</th><th class="n">Importe</th></tr></thead><tbody>' + rows + '</tbody></table>' + '<table class="invt invg"><tbody>' + gr + '</tbody></table>' + '<div class="invtot"><span>Base imponible ' + eur(inv.base) + ' · IVA ' + eur(inv.iva) + '</span><b>TOTAL ' + eur(inv.total) + '</b></div>' + '<div class="invfoot"><small>Precios con IVA incluido en el ticket. ' + (rect ? 'Anula la factura ' + esc(inv.rectNum || '') + '.' : 'Tickets facturados: ' + esc((inv.tickets || []).join(', ')) + '. Pagado.') + '</small></div></div>';
+        };
+        invSim = function _invSim() {
+          return !bizData().nif;
+        };
+        invTotals = function _invTotals(lines) {
+          var g = {},
+            tot = 0;
+          lines.forEach(function (l) {
+            g[l.iva] = round2((g[l.iva] || 0) + l.total);
+            tot = round2(tot + l.total);
+          });
+          var groups = Object.keys(g).map(function (r) {
+            var gross = g[r],
+              base = round2(gross / (1 + +r / 100));
+            return {
+              rate: +r,
+              base: base,
+              cuota: round2(gross - base),
+              gross: gross
+            };
+          }).sort(function (a, b) {
+            return a.rate - b.rate;
+          });
+          var base = 0,
+            iva = 0;
+          groups.forEach(function (x) {
+            base = round2(base + x.base);
+            iva = round2(iva + x.cuota);
+          });
+          return {
+            groups: groups,
+            base: base,
+            iva: iva,
+            total: tot
+          };
+        };
+        netLines = function _netLines(s) {
+          var out = [];
+          (s.items || []).forEach(function (it, li) {
+            var q = it.qty,
+              t = it.total;
+            S.refunds.forEach(function (f) {
+              if (f.saleId !== s.id) return;
+              (f.items || []).forEach(function (r) {
+                if (r.li === li) {
+                  q -= r.qty;
+                  t -= r.total;
+                }
+              });
+            });
+            q = Math.round(q * 1000) / 1000;
+            t = round2(t);
+            if (t > 0.004) out.push({
+              name: it.name,
+              pid: it.pid,
+              kind: it.kind,
+              qty: q,
+              price: it.price,
+              total: t,
+              iva: ivaOf(it),
+              ticket: tnum(s)
+            });
+          });
+          return out;
+        };
+        bizData = function _bizData() {
+          var b = S.settings.filter(function (x) {
+            return x.id === 'biz';
+          })[0] || {};
+          return {
+            name: b.name || 'Carnicería (datos de prueba)',
+            nif: b.nif || '',
+            addr: b.addr || '',
+            phone: b.phone || '',
+            email: b.email || ''
+          };
+        };
+        inum = function _inum(x) {
+          return (x.serie || 'F') + '-' + ('000000' + x.num).slice(-6);
+        };
+        ivaOf = function _ivaOf(it) {
+          var p = prodById(it.pid);
+          if (p && p.iva != null && p.iva !== '') return +p.iva;
+          return /huevo/i.test(it.name || '') ? 4 : 10;
         };
         buildDemo = function _buildDemo() {
           var seed = 12345;
@@ -1754,6 +2101,10 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
             return x.id === id;
           });
           if (!s || s.voided) return;
+          if (s.invoiceId) {
+            toast('Ticket facturado: rectifica antes la factura ' + (s.invoiceNum || '') + '.', true);
+            return;
+          }
           if (!bv() && s.day !== today()) {
             toast('Las devoluciones de días anteriores las hace el administrador.', true);
             return;
@@ -1925,7 +2276,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
         };
         devolverLista = function _devolverLista() {
           var td = S.sales.filter(function (s) {
-            return s.day === today() && !s.voided;
+            return s.day === today() && !s.voided && !s.invoiceId;
           }).sort(function (a, b) {
             return b.ts - a.ts;
           });
@@ -1948,6 +2299,13 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
           };
         };
         anular = function _anular(id) {
+          var sx = S.sales.find(function (x) {
+            return x.id === id;
+          });
+          if (sx && sx.invoiceId) {
+            toast('Ticket facturado: rectifica antes la factura ' + (sx.invoiceNum || '') + '.', true);
+            return;
+          }
           var s = S.sales.find(function (x) {
             return x.id === id;
           });
@@ -1982,16 +2340,16 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
           w.focus();
         };
         _doCobrar = function _doCobrar3() {
-          _doCobrar = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee14() {
+          _doCobrar = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee21() {
             var now, items, total, ok;
-            return _regenerator().w(function (_context14) {
-              while (1) switch (_context14.n) {
+            return _regenerator().w(function (_context21) {
+              while (1) switch (_context21.n) {
                 case 0:
                   if (!(busy || !S.cart.length)) {
-                    _context14.n = 1;
+                    _context21.n = 1;
                     break;
                   }
-                  return _context14.a(2);
+                  return _context21.a(2);
                 case 1:
                   busy = true;
                   now = Date.now(), items = S.cart.map(function (l) {
@@ -2007,7 +2365,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
                   total = round2(items.reduce(function (a, i) {
                     return a + i.total;
                   }, 0));
-                  _context14.n = 2;
+                  _context21.n = 2;
                   return save(function () {
                     return db.collection('sales').doc().set({
                       ts: now,
@@ -2021,14 +2379,14 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
                     });
                   }, 'Venta registrada: ' + eur(total));
                 case 2:
-                  ok = _context14.v;
+                  ok = _context21.v;
                   if (ok) S.cart = [];
                   busy = false;
                   tabs.vender.update();
                 case 3:
-                  return _context14.a(2);
+                  return _context21.a(2);
               }
-            }, _callee14);
+            }, _callee21);
           }));
           return _doCobrar.apply(this, arguments);
         };
@@ -2203,24 +2561,24 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
           };
         };
         _save = function _save3() {
-          _save = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13(fn, okMsg) {
+          _save = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee20(fn, okMsg) {
             var _t2;
-            return _regenerator().w(function (_context13) {
-              while (1) switch (_context13.p = _context13.n) {
+            return _regenerator().w(function (_context20) {
+              while (1) switch (_context20.p = _context20.n) {
                 case 0:
-                  _context13.p = 0;
-                  _context13.n = 1;
+                  _context20.p = 0;
+                  _context20.n = 1;
                   return fn();
                 case 1:
                   if (okMsg) toast(okMsg);
-                  return _context13.a(2, true);
+                  return _context20.a(2, true);
                 case 2:
-                  _context13.p = 2;
-                  _t2 = _context13.v;
+                  _context20.p = 2;
+                  _t2 = _context20.v;
                   toast('No se pudo guardar' + (_t2 && _t2.code === 'invalid_argument' ? ' (sin permiso de escritura)' : '. Inténtalo otra vez') + '.', true);
-                  return _context13.a(2, false);
+                  return _context20.a(2, false);
               }
-            }, _callee13, null, [[0, 2]]);
+            }, _callee20, null, [[0, 2]]);
           }));
           return _save.apply(this, arguments);
         };
@@ -2345,6 +2703,9 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
           products: [],
           sales: [],
           refunds: [],
+          clients: [],
+          invoices: [],
+          settings: [],
           closings: [],
           moves: [],
           orders: [],
@@ -2528,7 +2889,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
               notify();
             },
             _undemo: function _undemo() {
-              ['sales', 'refunds', 'closings', 'moves', 'orders'].forEach(function (c) {
+              ['sales', 'refunds', 'closings', 'moves', 'orders', 'clients'].forEach(function (c) {
                 Object.keys(store[c] || {}).forEach(function (id) {
                   if (id.indexOf('demo_') === 0) delete store[c][id];
                 });
@@ -3038,8 +3399,8 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
               var rl = fs.map(function (f) {
                 return '<small class="refl">Devolución de ' + eur(f.total) + ' en ' + esc((METHODS[f.method] || f.method).toLowerCase()) + ' · ' + dmy(f.day) + ' ' + hhmm(f.ts) + ' · ' + esc(f.reason || '') + (f.note ? ' (' + esc(f.note) + ')' : '') + (f.restock ? ' · vuelve al stock' : '') + '</small>';
               }).join('');
-              var can = !s.voided && net > 0.004 && S.canWrite;
-              return '<div class="item ' + (s.voided ? 'void' : '') + '"><div class="t"><b>' + hhmm(s.ts) + '</b> <span class="tag">' + esc(tnum(s)) + '</span> <span class="tag">' + esc(METHODS[s.method] || s.method) + '</span>' + (s.voided ? ' <span class="tag bad">Anulada</span>' : '') + (back && !s.voided ? ' <span class="tag warn">' + (net <= 0.004 ? 'Devuelta' : 'Devolución parcial') + '</span>' : '') + ' <span class="small muted">' + esc(nm(s.by)) + '</span><small>' + det + '</small>' + (s.voided ? '<small>Motivo: ' + esc(s.voidReason || '—') + ' · por ' + esc(nm(s.voidBy || s.by)) + '</small>' : '') + rl + '</div><div class="vact"><b class="num amt">' + eur(s.voided ? s.total : net) + '</b>' + (can ? '<button class="ghost" data-ref="' + esc(s.id) + '">Devolver</button>' : '') + '</div></div>';
+              var can = !s.voided && net > 0.004 && S.canWrite && !s.invoiceId;
+              return '<div class="item ' + (s.voided ? 'void' : '') + '"><div class="t"><b>' + hhmm(s.ts) + '</b> <span class="tag">' + esc(tnum(s)) + '</span> <span class="tag">' + esc(METHODS[s.method] || s.method) + '</span>' + (s.voided ? ' <span class="tag bad">Anulada</span>' : '') + (s.invoiceId ? ' <span class="tag ok">Facturado ' + esc(s.invoiceNum || '') + '</span>' : '') + (back && !s.voided ? ' <span class="tag warn">' + (net <= 0.004 ? 'Devuelta' : 'Devolución parcial') + '</span>' : '') + ' <span class="small muted">' + esc(nm(s.by)) + '</span><small>' + det + '</small>' + (s.voided ? '<small>Motivo: ' + esc(s.voidReason || '—') + ' · por ' + esc(nm(s.voidBy || s.by)) + '</small>' : '') + rl + '</div><div class="vact"><b class="num amt">' + eur(s.voided ? s.total : net) + '</b>' + (can ? '<button class="ghost" data-ref="' + esc(s.id) + '">Devolver</button>' : '') + '</div></div>';
             }).join('') : '<div class="empty">No hay ventas este día.</div>';
           }
         };
@@ -3403,7 +3764,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
         tabs.productos = {
           label: 'Productos',
           mount: function mount(v) {
-            v.innerHTML = '<section class="panel"><h2>Añadir producto</h2><div class="row"><div class="field" style="flex:2 1 200px"><label for="pn">Nombre</label><input id="pn" autocomplete="off" maxlength="50"></div><div class="field"><label for="pk">Se vende por</label><select id="pk"><option value="kg">Peso (kg)</option><option value="ud">Unidades</option></select></div><div class="field"><label for="pp">Precio (€)</label><input id="pp" inputmode="decimal" autocomplete="off" placeholder="0,00"></div><div class="field"><label for="pc">Categoría</label><input id="pc" list="cl" autocomplete="off" maxlength="30" placeholder="Vacuno, Cerdo..."><datalist id="cl"></datalist></div></div><button class="primary" id="pgo">Añadir producto</button></section>' + '<section class="panel"><h2>Precios <span class="small muted">Edita el precio y sale del campo para guardar</span></h2><div class="tablewrap"><table><thead><tr><th>Producto</th><th>Categoría</th><th>Por</th><th class="n">Precio</th><th></th></tr></thead><tbody id="plist"></tbody></table></div></section>' + '<section class="panel"><h2>Copia de seguridad</h2><p class="muted small">Los datos están guardados solo en esta tablet. Descarga una copia de vez en cuando.</p><div class="row"><button class="ghost" id="dl">Descargar copia</button><label class="ghost" style="display:flex;align-items:center;justify-content:center;cursor:pointer;margin:0;color:#1c2127;font-size:1rem">Cargar copia<input id="ul" type="file" accept="application/json,.json" hidden></label><button class="ghost" id="demo">Cargar datos de ejemplo</button><button class="ghost" id="undemo">Quitar datos de ejemplo</button><button class="danger" id="clr">Borrar datos de prueba</button></div></section>';
+            v.innerHTML = '<section class="panel"><h2>Añadir producto</h2><div class="row"><div class="field" style="flex:2 1 200px"><label for="pn">Nombre</label><input id="pn" autocomplete="off" maxlength="50"></div><div class="field"><label for="pk">Se vende por</label><select id="pk"><option value="kg">Peso (kg)</option><option value="ud">Unidades</option></select></div><div class="field"><label for="pp">Precio (€)</label><input id="pp" inputmode="decimal" autocomplete="off" placeholder="0,00"></div><div class="field"><label for="pc">Categoría</label><input id="pc" list="cl" autocomplete="off" maxlength="30" placeholder="Vacuno, Cerdo..."><datalist id="cl"></datalist></div></div><button class="primary" id="pgo">Añadir producto</button></section>' + '<section class="panel"><h2>Precios <span class="small muted">Edita el precio y sale del campo para guardar</span></h2><div class="tablewrap"><table><thead><tr><th>Producto</th><th>Categoría</th><th>Por</th><th>IVA</th><th class="n">Precio</th><th></th></tr></thead><tbody id="plist"></tbody></table></div></section>' + '<section class="panel"><h2>Copia de seguridad</h2><p class="muted small">Los datos están guardados solo en esta tablet. Descarga una copia de vez en cuando.</p><div class="row"><button class="ghost" id="dl">Descargar copia</button><label class="ghost" style="display:flex;align-items:center;justify-content:center;cursor:pointer;margin:0;color:#1c2127;font-size:1rem">Cargar copia<input id="ul" type="file" accept="application/json,.json" hidden></label><button class="ghost" id="demo">Cargar datos de ejemplo</button><button class="ghost" id="undemo">Quitar datos de ejemplo</button><button class="danger" id="clr">Borrar datos de prueba</button></div></section>';
             $('#dl').onclick = function () {
               var blob = new Blob([JSON.stringify(db._export())], {
                 type: 'application/json'
@@ -3483,7 +3844,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
                       _context1.n = 2;
                       break;
                     }
-                    db._clear(['sales', 'refunds', 'closings', 'moves', 'orders']);
+                    db._clear(['sales', 'refunds', 'closings', 'moves', 'orders', 'invoices', 'clients']);
                     toast('Datos de prueba borrados');
                   case 2:
                     return _context1.a(2);
@@ -3539,6 +3900,14 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
                 });
               }, 'Precio actualizado');
             };
+            $('#plist').addEventListener('change', function (e) {
+              var i = e.target.closest('select[data-iva]');
+              if (i) save(function () {
+                return db.doc('products/' + i.dataset.iva).update({
+                  iva: +i.value
+                });
+              }, 'IVA actualizado');
+            });
             $('#plist').onclick = /*#__PURE__*/function () {
               var _ref10 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee11(e) {
                 var b, p;
@@ -3585,8 +3954,289 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
               return (a.cat || '').localeCompare(b.cat || '', 'es') || a.name.localeCompare(b.name, 'es');
             });
             $('#plist').innerHTML = ps.length ? ps.map(function (p) {
-              return '<tr><td>' + esc(p.name) + '</td><td>' + esc(p.cat || '') + '</td><td>' + (p.kind === 'kg' ? 'kg' : 'ud') + '</td><td class="n"><input data-id="' + esc(p.id) + '" inputmode="decimal" value="' + String(p.price).replace('.', ',') + '" aria-label="Precio de ' + esc(p.name) + '"></td><td class="n"><button class="link bad" data-del="' + esc(p.id) + '">Borrar</button></td></tr>';
+              return '<tr><td>' + esc(p.name) + '</td><td>' + esc(p.cat || '') + '</td><td>' + (p.kind === 'kg' ? 'kg' : 'ud') + '</td><td><select data-iva="' + esc(p.id) + '" aria-label="IVA de ' + esc(p.name) + '">' + [4, 10, 21].map(function (r) {
+                return '<option value="' + r + '"' + (ivaOf({
+                  pid: p.id,
+                  name: p.name
+                }) === r ? ' selected' : '') + '>' + r + '%</option>';
+              }).join('') + '</select></td><td class="n"><input data-id="' + esc(p.id) + '" inputmode="decimal" value="' + String(p.price).replace('.', ',') + '" aria-label="Precio de ' + esc(p.name) + '"></td><td class="n"><button class="link bad" data-del="' + esc(p.id) + '">Borrar</button></td></tr>';
             }).join('') : '<tr><td colspan="5"><div class="empty">Sin productos todavía.</div></td></tr>';
+          }
+        };
+
+        /* ---------- Facturación (local, para simulacros) ---------- */
+
+        tabs.facturas = {
+          label: 'Facturas',
+          mount: function mount(v) {
+            S.frange = S.frange || 7;
+            S.fsel = S.fsel || {};
+            v.innerHTML = '<section class="panel"><h2>Nueva factura <span class="small muted" id="fsum"></span></h2><p class="muted small">Marca los tickets que quiere el cliente (puede ser uno o varios) y elige el cliente.</p><div class="chips" id="frng"></div><div class="list" id="ftk"></div>' + '<div class="row" style="align-items:end"><div class="field" style="flex:2 1 220px"><label for="fcli">Cliente</label><select id="fcli"></select></div><div class="field"><button class="primary big" id="femit">Emitir factura</button></div></div></section>' + '<section class="panel"><h2>Facturas emitidas</h2><div class="list" id="finv"></div></section>' + '<section class="panel"><h2>Clientes</h2><div class="list" id="fcl"></div><div class="row"><button class="ghost" id="fnew">Nuevo cliente</button><button class="ghost" id="fdemo">Cargar clientes de ejemplo</button></div></section>' + '<section class="panel"><h2>Datos del negocio <span class="small muted">salen en la cabecera de la factura</span></h2><div class="row"><div class="field" style="flex:2 1 220px"><label for="bn">Nombre fiscal</label><input id="bn" maxlength="80"></div><div class="field"><label for="bf">NIF / CIF</label><input id="bf" maxlength="14"></div></div><div class="row"><div class="field" style="flex:2 1 220px"><label for="ba">Dirección</label><input id="ba" maxlength="120"></div><div class="field"><label for="bp">Teléfono</label><input id="bp" maxlength="20"></div></div><p class="muted small">Mientras el NIF esté vacío, todas las facturas salen marcadas como <b>SIMULACRO</b>.</p><button class="ghost" id="bsave">Guardar datos</button></section>' + '<section class="panel"><h2>Prueba</h2><p class="muted small">Borra todas las facturas y clientes de prueba y libera los tickets.</p><button class="ghost bad" id="fclear">Borrar facturas y clientes</button></section>';
+            var bz = bizData();
+            $('#bn').value = S.settings.some(function (x) {
+              return x.id === 'biz';
+            }) ? bz.name : '';
+            $('#bf').value = bz.nif;
+            $('#ba').value = bz.addr;
+            $('#bp').value = bz.phone;
+            $('#bn').placeholder = 'Carnicería (datos de prueba)';
+            $('#frng').onclick = function (e) {
+              var b = e.target.closest('button');
+              if (!b) return;
+              S.frange = +b.dataset.r;
+              tabs.facturas.update();
+            };
+            $('#ftk').onchange = function (e) {
+              var i = e.target.closest('input[data-s]');
+              if (!i) return;
+              if (i.checked) S.fsel[i.dataset.s] = 1;else delete S.fsel[i.dataset.s];
+              tabs.facturas.update();
+            };
+            $('#fcli').onchange = function () {
+              S.fcli = $('#fcli').value;
+            };
+            $('#fnew').onclick = function () {
+              clientSheet(function (id) {
+                S.fcli = id;
+                tabs.facturas.update();
+              });
+            };
+            $('#fdemo').onclick = function () {
+              db._demo(demoClients());
+              toast('Clientes de ejemplo cargados');
+            };
+            $('#fcl').onclick = /*#__PURE__*/function () {
+              var _ref14 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15(e) {
+                var b, c;
+                return _regenerator().w(function (_context15) {
+                  while (1) switch (_context15.n) {
+                    case 0:
+                      b = e.target.closest('button[data-del]');
+                      if (b) {
+                        _context15.n = 1;
+                        break;
+                      }
+                      return _context15.a(2);
+                    case 1:
+                      c = S.clients.find(function (x) {
+                        return x.id === b.dataset.del;
+                      });
+                      _context15.n = 2;
+                      return confirmSheet('Borrar cliente', '¿Borrar "' + (c ? c.name : '') + '"? Las facturas ya emitidas se conservan.', 'Borrar');
+                    case 2:
+                      if (!_context15.v) {
+                        _context15.n = 3;
+                        break;
+                      }
+                      save(function () {
+                        return db.doc('clients/' + b.dataset.del).delete();
+                      }, 'Cliente borrado');
+                    case 3:
+                      return _context15.a(2);
+                  }
+                }, _callee15);
+              }));
+              return function (_x7) {
+                return _ref14.apply(this, arguments);
+              };
+            }();
+            $('#finv').onclick = function (e) {
+              var b = e.target.closest('button[data-v]');
+              if (b) invView(b.dataset.v);
+            };
+            $('#bsave').onclick = function () {
+              save(function () {
+                return db.doc('settings/biz').set({
+                  name: $('#bn').value.trim(),
+                  nif: $('#bf').value.trim().toUpperCase(),
+                  addr: $('#ba').value.trim(),
+                  phone: $('#bp').value.trim()
+                });
+              }, 'Datos guardados');
+            };
+            $('#fclear').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
+              return _regenerator().w(function (_context16) {
+                while (1) switch (_context16.n) {
+                  case 0:
+                    _context16.n = 1;
+                    return confirmSheet('Borrar facturas y clientes', 'Se borran todas las facturas (también rectificativas) y los clientes. Los tickets vuelven a estar sin facturar.', 'Borrar');
+                  case 1:
+                    if (!_context16.v) {
+                      _context16.n = 2;
+                      break;
+                    }
+                    S.sales.forEach(function (s) {
+                      if (s.invoiceId) db.doc('sales/' + s.id).update({
+                        invoiceId: '',
+                        invoiceNum: ''
+                      });
+                    });
+                    db._clear(['invoices', 'clients']);
+                    S.fsel = {};
+                    toast('Facturas y clientes borrados');
+                  case 2:
+                    return _context16.a(2);
+                }
+              }, _callee16);
+            }));
+            $('#femit').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee18() {
+              var ids, cl, ss, lines, t, iid, rec, ok;
+              return _regenerator().w(function (_context18) {
+                while (1) switch (_context18.n) {
+                  case 0:
+                    ids = Object.keys(S.fsel).filter(function (id) {
+                      return S.sales.some(function (s) {
+                        return s.id === id && !s.invoiceId && !s.voided;
+                      });
+                    });
+                    cl = S.clients.find(function (c) {
+                      return c.id === $('#fcli').value;
+                    });
+                    if (ids.length) {
+                      _context18.n = 1;
+                      break;
+                    }
+                    toast('Marca al menos un ticket.', true);
+                    return _context18.a(2);
+                  case 1:
+                    if (cl) {
+                      _context18.n = 2;
+                      break;
+                    }
+                    toast('Elige un cliente (o crea uno nuevo).', true);
+                    return _context18.a(2);
+                  case 2:
+                    ss = ids.map(function (id) {
+                      return S.sales.find(function (s) {
+                        return s.id === id;
+                      });
+                    }).sort(function (a, b) {
+                      return a.ts - b.ts;
+                    });
+                    lines = [];
+                    ss.forEach(function (s) {
+                      lines = lines.concat(netLines(s));
+                    });
+                    if (lines.length) {
+                      _context18.n = 3;
+                      break;
+                    }
+                    toast('Esos tickets están devueltos del todo.', true);
+                    return _context18.a(2);
+                  case 3:
+                    t = invTotals(lines), iid = 'i' + Date.now().toString(36);
+                    rec = {
+                      serie: 'F',
+                      num: db._next('invoices_F'),
+                      ts: Date.now(),
+                      day: today(),
+                      client: {
+                        id: cl.id,
+                        name: cl.name,
+                        nif: cl.nif,
+                        addr: cl.addr || '',
+                        email: cl.email || ''
+                      },
+                      saleIds: ss.map(function (s) {
+                        return s.id;
+                      }),
+                      tickets: ss.map(tnum),
+                      lines: lines,
+                      groups: t.groups,
+                      base: t.base,
+                      iva: t.iva,
+                      total: t.total,
+                      status: 'emitida',
+                      by: S.uid
+                    };
+                    _context18.n = 4;
+                    return save(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee17() {
+                      var i;
+                      return _regenerator().w(function (_context17) {
+                        while (1) switch (_context17.n) {
+                          case 0:
+                            _context17.n = 1;
+                            return db.doc('invoices/' + iid).set(rec);
+                          case 1:
+                            i = 0;
+                          case 2:
+                            if (!(i < ss.length)) {
+                              _context17.n = 4;
+                              break;
+                            }
+                            _context17.n = 3;
+                            return db.doc('sales/' + ss[i].id).update({
+                              invoiceId: iid,
+                              invoiceNum: inum(rec)
+                            });
+                          case 3:
+                            i++;
+                            _context17.n = 2;
+                            break;
+                          case 4:
+                            return _context17.a(2);
+                        }
+                      }, _callee17);
+                    })), 'Factura ' + inum(rec) + ' emitida');
+                  case 4:
+                    ok = _context18.v;
+                    if (ok) {
+                      S.fsel = {};
+                      invView(iid);
+                    }
+                  case 5:
+                    return _context18.a(2);
+                }
+              }, _callee18);
+            }));
+          },
+          update: function update() {
+            if (!$('#ftk')) return;
+            var R = [[1, 'Hoy'], [7, '7 días'], [30, '30 días']];
+            $('#frng').innerHTML = R.map(function (r) {
+              return '<button class="chip" data-r="' + r[0] + '" aria-pressed="' + (S.frange === r[0]) + '">' + r[1] + '</button>';
+            }).join('');
+            var start = dayOf(Date.now() - (S.frange - 1) * 864e5);
+            var L = S.sales.filter(function (s) {
+              return s.day >= start && !s.voided && !s.invoiceId;
+            }).sort(function (a, b) {
+              return b.ts - a.ts;
+            });
+            var sel = 0,
+              selT = 0;
+            $('#ftk').innerHTML = L.length ? L.map(function (s) {
+              var nl = netLines(s),
+                net = round2(nl.reduce(function (a, l) {
+                  return a + l.total;
+                }, 0));
+              var on = !!S.fsel[s.id];
+              if (on && net > 0) {
+                sel++;
+                selT = round2(selT + net);
+              }
+              var det = nl.map(function (l) {
+                return esc(l.name) + ' ' + qfmt(l.qty, l.kind);
+              }).join(', ');
+              return '<div class="item"><label class="fchk"><input type="checkbox" data-s="' + esc(s.id) + '"' + (on ? ' checked' : '') + (net <= 0 ? ' disabled' : '') + '><span class="t"><b>' + dmy(s.day).slice(0, 5) + ' ' + hhmm(s.ts) + '</b> <span class="tag">' + esc(tnum(s)) + '</span> <span class="tag">' + esc(METHODS[s.method] || s.method) + '</span><small>' + det + '</small></span></label><b class="num">' + eur(net) + '</b></div>';
+            }).join('') : '<div class="empty">No hay tickets sin facturar en este periodo.</div>';
+            $('#fsum').textContent = sel ? sel + ' ticket' + (sel > 1 ? 's' : '') + ' · ' + eur(selT) : '';
+            var cur = S.fcli || $('#fcli').value;
+            $('#fcli').innerHTML = '<option value="">— Elige cliente —</option>' + S.clients.slice().sort(function (a, b) {
+              return (a.name || '').localeCompare(b.name || '', 'es');
+            }).map(function (c) {
+              return '<option value="' + esc(c.id) + '"' + (c.id === cur ? ' selected' : '') + '>' + esc(c.name) + ' · ' + esc(c.nif) + '</option>';
+            }).join('');
+            var iv = S.invoices.slice().sort(function (a, b) {
+              return b.ts - a.ts;
+            });
+            $('#finv').innerHTML = iv.length ? iv.map(function (x) {
+              return '<div class="item"><div class="t"><b>' + esc(inum(x)) + '</b> <span class="tag ' + (x.serie === 'R' ? 'warn' : x.status === 'rectificada' ? 'bad' : '') + '">' + (x.serie === 'R' ? 'Rectificativa' : x.status === 'rectificada' ? 'Rectificada' : 'Emitida') + '</span><small>' + dmy(x.day) + ' · ' + esc((x.client || {}).name || '') + ' · ' + esc((x.tickets || []).join(', ')) + '</small></div><b class="num">' + eur(x.total) + '</b><button class="ghost" data-v="' + esc(x.id) + '">Ver</button></div>';
+            }).join('') : '<div class="empty">Todavía no hay facturas.</div>';
+            $('#fcl').innerHTML = S.clients.length ? S.clients.slice().sort(function (a, b) {
+              return (a.name || '').localeCompare(b.name || '', 'es');
+            }).map(function (c) {
+              return '<div class="item"><div class="t"><b>' + esc(c.name) + '</b><small>' + esc(c.nif) + (c.addr ? ' · ' + esc(c.addr) : '') + (c.email ? ' · ' + esc(c.email) : '') + '</small></div><button class="link bad" data-del="' + esc(c.id) + '">Borrar</button></div>';
+            }).join('') : '<div class="empty">Sin clientes. Crea uno o carga los de ejemplo.</div>';
           }
         };
 
@@ -3596,6 +4246,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
           informes: 'Informes',
           ventas: 'Ventas',
           devoluciones: 'Devoluciones',
+          facturas: 'Facturas',
           stock: 'Stock',
           pedidos: 'Pedidos',
           caja: 'Caja',
@@ -3758,32 +4409,32 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
             show: show
           };
         }();
-        $('#swap').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee12() {
-          return _regenerator().w(function (_context12) {
-            while (1) switch (_context12.n) {
+        $('#swap').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee19() {
+          return _regenerator().w(function (_context19) {
+            while (1) switch (_context19.n) {
               case 0:
                 if (!bv()) {
-                  _context12.n = 1;
+                  _context19.n = 1;
                   break;
                 }
                 S.mode = 'mostrador';
                 S.cart = [];
                 go(tabList()[0]);
-                return _context12.a(2);
+                return _context19.a(2);
               case 1:
-                _context12.n = 2;
+                _context19.n = 2;
                 return askPin();
               case 2:
-                if (!_context12.v) {
-                  _context12.n = 3;
+                if (!_context19.v) {
+                  _context19.n = 3;
                   break;
                 }
                 S.mode = 'jefe';
                 go(tabList()[0]);
               case 3:
-                return _context12.a(2);
+                return _context19.a(2);
             }
-          }, _callee12);
+          }, _callee19);
         }));
         $('#nav').onclick = function (e) {
           var b = e.target.closest('button[data-t]');
@@ -3802,11 +4453,14 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
         sub('closings', db.collection('closings').orderBy('ts', 'desc').limit(120));
         sub('moves', db.collection('moves').orderBy('ts', 'desc').limit(1000));
         sub('orders', db.collection('orders').orderBy('ts', 'desc').limit(300));
+        sub('clients', db.collection('clients'));
+        sub('invoices', db.collection('invoices').orderBy('ts', 'desc').limit(1000));
+        sub('settings', db.collection('settings'));
         sub('reviews', db.collection('reviews').orderBy('ts', 'desc').limit(500));
       case 1:
-        return _context16.a(2);
+        return _context23.a(2);
     }
-  }, _callee16);
+  }, _callee23);
 }))();
 
 </script>
