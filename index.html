@@ -249,6 +249,23 @@ input.kp-on{border-color:#9b1c2e;box-shadow:0 0 0 3px rgba(155,28,46,.25)}
   .sheet.kp-room .primary.big{min-height:40px}
   .sheet.kp-room .change{padding:4px 12px}
 }
+
+/* devolución */
+.vact{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-flex-shrink:0;flex-shrink:0}
+.vact button{margin-left:12px;min-height:44px}
+.refl{display:block;color:#9b1c2e}
+.rlines{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column}
+.rline{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e5e8ec}
+.rl{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-flex:1;flex:1;margin:0}
+.rl input[type=checkbox]{width:26px;height:26px;min-height:0;margin:0 12px 0 0;-webkit-flex-shrink:0;flex-shrink:0}
+.rl small{display:block;color:#5b6570}
+.rqw{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center}
+.rqw .rq{width:100px;text-align:right;min-height:46px}
+.rqw em{margin-left:6px;font-style:normal;color:#5b6570;width:24px}
+
+.rtop{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between}
+.rtop p{margin:0;-webkit-flex:1;flex:1}.rtop button{margin-left:12px;min-height:44px;-webkit-flex-shrink:0;flex-shrink:0}
+.rrow{display:-webkit-flex;display:flex}.rrow>.field{-webkit-flex:1;flex:1;min-width:0}.rrow>.field+.field{margin-left:10px}
 </style>
 </head>
 <body>
@@ -1107,12 +1124,12 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     };
   }
 })();
-_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
+_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
   "use strict";
 
-  var $, esc, fmtNum, eur, qfmt, round2, dayOf, today, hhmm, dmy, parseNum, METHODS, Balanza, S, SEED, db, user, bn0, bn, bv, nm, prodById, okSales, toastT, toast, openSheet, closeSheet, confirmSheet, save, _save, stockOf, tabs, lastSale, pickQty, busy, cobrar, doCobrar, _doCobrar, anular, MOVE_LBL, ST, computeAlerts, alertCard, updateBadge, buildDemo, tabList, LBL_B, LBL_W, renderNav, Keypad, pinHash, askPin, go, raf, scheduleUpdate, resolveNames, _resolveNames, loadTimer, markLoaded, sub;
-  return _regenerator().w(function (_context15) {
-    while (1) switch (_context15.n) {
+  var $, esc, fmtNum, eur, qfmt, round2, dayOf, today, hhmm, dmy, parseNum, METHODS, Balanza, S, SEED, db, user, bn0, bn, bv, nm, prodById, tnum, okSales, toastT, toast, openSheet, closeSheet, confirmSheet, save, _save, stockOf, tabs, lastSale, pickQty, busy, cobrar, doCobrar, _doCobrar, anular, MOVE_LBL, devolver, ST, computeAlerts, alertCard, updateBadge, buildDemo, tabList, LBL_B, LBL_W, renderNav, Keypad, pinHash, askPin, go, raf, scheduleUpdate, resolveNames, _resolveNames, loadTimer, markLoaded, sub;
+  return _regenerator().w(function (_context16) {
+    while (1) switch (_context16.n) {
       case 0:
         sub = function _sub(key, q) {
           q.onSnapshot(function (snap) {
@@ -1143,16 +1160,16 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
           }
         };
         _resolveNames = function _resolveNames3() {
-          _resolveNames = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee14() {
+          _resolveNames = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
             var ids, need, ps, _t3;
-            return _regenerator().w(function (_context14) {
-              while (1) switch (_context14.p = _context14.n) {
+            return _regenerator().w(function (_context15) {
+              while (1) switch (_context15.p = _context15.n) {
                 case 0:
                   if (!(!user || !user.profiles)) {
-                    _context14.n = 1;
+                    _context15.n = 1;
                     break;
                   }
-                  return _context14.a(2);
+                  return _context15.a(2);
                 case 1:
                   ids = new Set();
                   ['sales', 'closings', 'moves', 'orders'].forEach(function (k) {
@@ -1165,32 +1182,32 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
                     return !(i in S.names);
                   });
                   if (need.length) {
-                    _context14.n = 2;
+                    _context15.n = 2;
                     break;
                   }
-                  return _context14.a(2);
+                  return _context15.a(2);
                 case 2:
                   need.forEach(function (i) {
                     S.names[i] = '';
                   });
-                  _context14.p = 3;
-                  _context14.n = 4;
+                  _context15.p = 3;
+                  _context15.n = 4;
                   return user.profiles(need);
                 case 4:
-                  ps = _context14.v;
+                  ps = _context15.v;
                   need.forEach(function (i) {
                     S.names[i] = ps && ps[i] && ps[i].name || '';
                   });
                   scheduleUpdate();
-                  _context14.n = 6;
+                  _context15.n = 6;
                   break;
                 case 5:
-                  _context14.p = 5;
-                  _t3 = _context14.v;
+                  _context15.p = 5;
+                  _t3 = _context15.v;
                 case 6:
-                  return _context14.a(2);
+                  return _context15.a(2);
               }
-            }, _callee14, null, [[3, 5]]);
+            }, _callee15, null, [[3, 5]]);
           }));
           return _resolveNames.apply(this, arguments);
         };
@@ -1288,6 +1305,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
           if (!P.length) return null;
           var out = {
               sales: {},
+              refunds: {},
               closings: {},
               moves: {},
               orders: {}
@@ -1342,7 +1360,8 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
                 n: 0
               },
               cnt = 0,
-              lastId = null;
+              lastId = null,
+              dsale = null;
             for (var i = 0; i < tk; i++) {
               var h = 9 + Math.floor(i * (past ? 11 : 4) / tk);
               if (h > 13 && h < 17) h = 17;
@@ -1371,6 +1390,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
               var sale = {
                 ts: ts,
                 day: day,
+                num: db._next('sales'),
                 items: items,
                 total: total,
                 method: m,
@@ -1385,11 +1405,46 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
               }
               out.sales[id] = sale;
               if (sale.voided) continue;
+              if (past && (di === 3 || di === 5) && !dsale) dsale = {
+                id: id,
+                s: sale
+              };
               items.forEach(function (it) {
                 stock[it.pid] -= it.qty;
               });
               tot[m] = round2(tot[m] + total);
               tot.n++;
+            }
+            if (dsale) {
+              var it0 = dsale.s.items[0],
+                half = it0.kind === 'kg' ? Math.max(0.05, Math.round(it0.qty * 500) / 1000) : 1,
+                rt = round2(half * it0.price);
+              if (half >= it0.qty) {
+                half = it0.qty;
+                rt = it0.total;
+              }
+              out.refunds['demo_r' + n++] = {
+                ts: dsale.s.ts + 45 * 60000,
+                day: day,
+                saleId: dsale.id,
+                num: dsale.s.num,
+                items: [{
+                  li: 0,
+                  pid: it0.pid,
+                  name: it0.name,
+                  kind: it0.kind,
+                  qty: half,
+                  price: it0.price,
+                  total: rt
+                }],
+                total: rt,
+                method: dsale.s.method,
+                reason: di === 3 ? 'Error al cobrar' : 'El cliente devuelve el producto',
+                note: '',
+                restock: false,
+                by: 'jefe'
+              };
+              tot[dsale.s.method] = round2(tot[dsale.s.method] - rt);
             }
             if (past && di === 2) {
               var p = P.filter(function (x) {
@@ -1523,6 +1578,16 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
             body = '<p>' + (s.items || []).map(function (i) {
               return esc(i.name) + ' ' + esc(qfmt(i.qty, i.kind));
             }).join(', ') + '</p><p><b>Motivo:</b> ' + esc(s.voidReason || 'sin motivo') + '</p>';
+          } else if (a.kind === 'devolucion') {
+            var f = a.f,
+              mn = (METHODS[f.method] || f.method).toLowerCase();
+            title = 'Devolución de ' + eur(f.total) + ' en ' + mn;
+            tag = 'Devolución';
+            tagc = 'warn';
+            sub = dmy(f.day) + ' a las ' + hhmm(f.ts) + ' · hecha por ' + nm(f.by) + (f.num ? ' · ticket T-' + ('000000' + f.num).slice(-6) : '');
+            body = '<p>' + (f.items || []).map(function (i) {
+              return esc(i.name) + ' ' + esc(qfmt(i.qty, i.kind)) + ' (' + eur(i.total) + ')';
+            }).join(', ') + '</p><p><b>Motivo:</b> ' + esc(f.reason || 'sin motivo') + (f.note ? ' · ' + esc(f.note) : '') + '</p><p class="muted small">' + (f.restock ? 'El producto vuelve al stock.' : 'El producto no vuelve al stock.') + (f.method === 'tarjeta' ? ' Debe constar también en el datáfono.' : '') + '</p>';
           } else if (a.kind === 'inventario') {
             var m = a.m,
               faltan = m.diff < 0;
@@ -1562,6 +1627,14 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
               t: s.voidTs || s.ts,
               kind: 'anulada',
               s: s
+            });
+          });
+          S.refunds.forEach(function (f) {
+            out.push({
+              key: 'r:' + f.id,
+              t: f.ts,
+              kind: 'devolucion',
+              f: f
             });
           });
           S.moves.forEach(function (m) {
@@ -1611,6 +1684,151 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
           });
           return out;
         };
+        devolver = function _devolver(id) {
+          var s = S.sales.find(function (x) {
+            return x.id === id;
+          });
+          if (!s || s.voided) return;
+          var fs = S.refunds.filter(function (f) {
+            return f.saleId === id;
+          });
+          var L = (s.items || []).map(function (it, i) {
+            var rq = it.qty,
+              rt = it.total;
+            fs.forEach(function (f) {
+              (f.items || []).forEach(function (x) {
+                if (x.li === i) {
+                  rq -= x.qty;
+                  rt -= x.total;
+                }
+              });
+            });
+            return {
+              i: i,
+              it: it,
+              rq: Math.round(rq * 1000) / 1000,
+              rt: round2(rt)
+            };
+          }).filter(function (l) {
+            return l.rq > 0.0004;
+          });
+          if (!L.length) {
+            toast('Este ticket ya está devuelto por completo.', true);
+            return;
+          }
+          var mname = (METHODS[s.method] || s.method).toLowerCase();
+          var rows = L.map(function (l) {
+            return '<div class="rline"><label class="rl"><input type="checkbox" class="rc" data-i="' + l.i + '"><span><b>' + esc(l.it.name) + '</b><small>Quedan ' + esc(qfmt(l.rq, l.it.kind)) + ' · ' + eur(l.rt) + '</small></span></label><span class="rqw"><input class="rq" data-i="' + l.i + '" inputmode="numeric" autocomplete="off" maxlength="6" placeholder="0"><em>' + (l.it.kind === 'kg' ? 'g' : 'ud') + '</em></span></div>';
+          }).join('');
+          var b = openSheet('Devolver · ' + tnum(s), '<div class="rtop"><p class="muted">' + dmy(s.day) + ' ' + hhmm(s.ts) + ' · ' + eur(s.total) + ' · cobrado en ' + esc(mname) + '</p><button class="ghost" id="rall">Todo el ticket</button></div><div class="rlines">' + rows + '</div><div class="rrow"><div class="field"><label for="rr">Motivo</label><select id="rr"><option>Error al cobrar</option><option>El cliente devuelve el producto</option><option>Otro</option></select></div><div class="field"><label for="rn">Nota (obligatoria si es «Otro»)</label><input id="rn" maxlength="80" autocomplete="off"></div></div><label class="rl"><input type="checkbox" id="rs"><span>Devolver el producto al stock<small>Normalmente no: la carne devuelta no se vuelve a vender.</small></span></label><div class="change" id="rsum"><span id="rlab">Devolver en ' + esc(mname) + '</span><strong class="num" id="rv">0,00 €</strong></div><p class="muted small" id="rhint">' + (s.method === 'tarjeta' ? 'Haz también la devolución en el datáfono: la app solo la registra.' : 'Entrega este dinero al cliente en efectivo.') + '</p><button class="primary big" id="rgo" disabled>Registrar devolución</button>');
+          var byI = {};
+          L.forEach(function (l) {
+            byI[l.i] = l;
+          });
+          function inp(i) {
+            return b.querySelector('.rq[data-i="' + i + '"]');
+          }
+          function chk(i) {
+            return b.querySelector('.rc[data-i="' + i + '"]');
+          }
+          function qOf(i) {
+            var v = parseNum(inp(i).value);
+            if (isNaN(v) || v <= 0) return 0;
+            var l = byI[i];
+            if (l.it.kind === 'kg') return Math.min(v / 1000, l.rq);
+            return Math.min(Math.floor(v), l.rq);
+          }
+          function calc() {
+            var lines = [],
+              tot = 0;
+            L.forEach(function (l) {
+              var r = qOf(l.i);
+              if (r <= 0) return;
+              var t = Math.abs(r - l.rq) < 1e-9 ? l.rt : round2(Math.min(l.rt, l.it.price * r));
+              lines.push({
+                li: l.i,
+                pid: l.it.pid,
+                name: l.it.name,
+                kind: l.it.kind,
+                qty: Math.round(r * 1000) / 1000,
+                price: l.it.price,
+                total: t
+              });
+              tot = round2(tot + t);
+            });
+            $('#rv', b).textContent = eur(tot);
+            $('#rgo', b).disabled = !lines.length;
+            return {
+              lines: lines,
+              tot: tot
+            };
+          }
+          function full(i) {
+            var l = byI[i];
+            inp(i).value = l.it.kind === 'kg' ? String(Math.round(l.rq * 1000)) : String(l.rq);
+            chk(i).checked = true;
+          }
+          L.forEach(function (l) {
+            chk(l.i).onchange = function () {
+              if (this.checked) full(l.i);else inp(l.i).value = '';
+              calc();
+            };
+            inp(l.i).oninput = function () {
+              var v = parseNum(this.value);
+              chk(l.i).checked = !isNaN(v) && v > 0;
+              calc();
+            };
+          });
+          $('#rall', b).onclick = function () {
+            L.forEach(function (l) {
+              full(l.i);
+            });
+            calc();
+          };
+          $('#rgo', b).onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+            var c, reason, note, rec;
+            return _regenerator().w(function (_context6) {
+              while (1) switch (_context6.n) {
+                case 0:
+                  c = calc();
+                  if (c.lines.length) {
+                    _context6.n = 1;
+                    break;
+                  }
+                  return _context6.a(2);
+                case 1:
+                  reason = $('#rr', b).value, note = $('#rn', b).value.trim();
+                  if (!(reason === 'Otro' && !note)) {
+                    _context6.n = 2;
+                    break;
+                  }
+                  toast('Escribe una nota para el motivo «Otro».', true);
+                  return _context6.a(2);
+                case 2:
+                  rec = {
+                    ts: Date.now(),
+                    day: dayOf(Date.now()),
+                    saleId: s.id,
+                    num: s.num || null,
+                    items: c.lines,
+                    total: c.tot,
+                    method: s.method,
+                    reason: reason,
+                    note: note,
+                    restock: $('#rs', b).checked,
+                    by: S.uid
+                  };
+                  closeSheet();
+                  _context6.n = 3;
+                  return save(function () {
+                    return db.collection('refunds').doc().set(rec);
+                  }, 'Devolución registrada: ' + eur(c.tot) + ' en ' + mname);
+                case 3:
+                  return _context6.a(2);
+              }
+            }, _callee6);
+          }));
+        };
         anular = function _anular(id) {
           var s = S.sales.find(function (x) {
             return x.id === id;
@@ -1646,16 +1864,16 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
           w.focus();
         };
         _doCobrar = function _doCobrar3() {
-          _doCobrar = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
+          _doCobrar = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee14() {
             var now, items, total, ok;
-            return _regenerator().w(function (_context13) {
-              while (1) switch (_context13.n) {
+            return _regenerator().w(function (_context14) {
+              while (1) switch (_context14.n) {
                 case 0:
                   if (!(busy || !S.cart.length)) {
-                    _context13.n = 1;
+                    _context14.n = 1;
                     break;
                   }
-                  return _context13.a(2);
+                  return _context14.a(2);
                 case 1:
                   busy = true;
                   now = Date.now(), items = S.cart.map(function (l) {
@@ -1671,11 +1889,12 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
                   total = round2(items.reduce(function (a, i) {
                     return a + i.total;
                   }, 0));
-                  _context13.n = 2;
+                  _context14.n = 2;
                   return save(function () {
                     return db.collection('sales').doc().set({
                       ts: now,
                       day: dayOf(now),
+                      num: db._next('sales'),
                       items: items,
                       total: total,
                       method: S.method,
@@ -1684,14 +1903,14 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
                     });
                   }, 'Venta registrada: ' + eur(total));
                 case 2:
-                  ok = _context13.v;
+                  ok = _context14.v;
                   if (ok) S.cart = [];
                   busy = false;
                   tabs.vender.update();
                 case 3:
-                  return _context13.a(2);
+                  return _context14.a(2);
               }
-            }, _callee13);
+            }, _callee14);
           }));
           return _doCobrar.apply(this, arguments);
         };
@@ -1855,30 +2074,35 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
               if (it.pid === p.id) q -= it.qty;
             });
           });
+          S.refunds.forEach(function (f) {
+            if (f.restock && f.ts > since) (f.items || []).forEach(function (it) {
+              if (it.pid === p.id) q += it.qty;
+            });
+          });
           return {
             q: round2(q * 1000) / 1000,
             last: last
           };
         };
         _save = function _save3() {
-          _save = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee12(fn, okMsg) {
+          _save = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13(fn, okMsg) {
             var _t2;
-            return _regenerator().w(function (_context12) {
-              while (1) switch (_context12.p = _context12.n) {
+            return _regenerator().w(function (_context13) {
+              while (1) switch (_context13.p = _context13.n) {
                 case 0:
-                  _context12.p = 0;
-                  _context12.n = 1;
+                  _context13.p = 0;
+                  _context13.n = 1;
                   return fn();
                 case 1:
                   if (okMsg) toast(okMsg);
-                  return _context12.a(2, true);
+                  return _context13.a(2, true);
                 case 2:
-                  _context12.p = 2;
-                  _t2 = _context12.v;
+                  _context13.p = 2;
+                  _t2 = _context13.v;
                   toast('No se pudo guardar' + (_t2 && _t2.code === 'invalid_argument' ? ' (sin permiso de escritura)' : '. Inténtalo otra vez') + '.', true);
-                  return _context12.a(2, false);
+                  return _context13.a(2, false);
               }
-            }, _callee12, null, [[0, 2]]);
+            }, _callee13, null, [[0, 2]]);
           }));
           return _save.apply(this, arguments);
         };
@@ -2002,6 +2226,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
         S = {
           products: [],
           sales: [],
+          refunds: [],
           closings: [],
           moves: [],
           orders: [],
@@ -2185,13 +2410,19 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
               notify();
             },
             _undemo: function _undemo() {
-              ['sales', 'closings', 'moves', 'orders'].forEach(function (c) {
+              ['sales', 'refunds', 'closings', 'moves', 'orders'].forEach(function (c) {
                 Object.keys(store[c] || {}).forEach(function (id) {
                   if (id.indexOf('demo_') === 0) delete store[c][id];
                 });
               });
               persist();
               notify();
+            },
+            _next: function _next(name) {
+              store._seq = store._seq || {};
+              store._seq[name] = (store._seq[name] || 0) + 1;
+              persist();
+              return store._seq[name];
             },
             _clear: function _clear(names) {
               names.forEach(function (n) {
@@ -2233,6 +2464,9 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
           return S.products.find(function (p) {
             return p.id === id;
           });
+        };
+        tnum = function tnum(s) {
+          return s && s.num ? 'T-' + ('000000' + s.num).slice(-6) : '—';
         };
         okSales = function okSales() {
           return S.sales.filter(function (s) {
@@ -2348,6 +2582,11 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
               }
               r[s.method] = round2((r[s.method] || 0) + s.total);
               r.n++;
+            });
+            S.refunds.forEach(function (f) {
+              if (f.day !== d) return;
+              r[f.method] = round2((r[f.method] || 0) - f.total);
+              r.refs = (r.refs || 0) + 1;
             });
             return r;
           },
@@ -2639,6 +2878,10 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
               S.vday = $('#vd').value || today();
               tabs.ventas.update();
             };
+            $('#vlist').onclick = function (e) {
+              var b = e.target.closest('button[data-ref]');
+              if (b && S.canWrite) devolver(b.dataset.ref);
+            };
           },
           update: function update() {
             if (!$('#vlist')) return;
@@ -2651,18 +2894,37 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
             var ok = td.filter(function (s) {
               return !s.voided;
             });
+            var dev = round2(S.refunds.filter(function (f) {
+              return f.day === d;
+            }).reduce(function (a, f) {
+              return a + f.total;
+            }, 0));
             $('#vsum').textContent = ok.length + ' tickets · ' + eur(round2(ok.reduce(function (a, s) {
               return a + s.total;
-            }, 0))) + (td.length - ok.length ? ' · ' + (td.length - ok.length) + ' anuladas' : '');
+            }, 0))) + (dev ? ' · devuelto ' + eur(dev) : '') + (td.length - ok.length ? ' · ' + (td.length - ok.length) + ' anuladas' : '');
             $('#vlist').innerHTML = td.length ? td.map(function (s) {
               var det = (s.items || []).map(function (i) {
                 return esc(i.name) + ' ' + qfmt(i.qty, i.kind);
               }).join(', ');
-              return '<div class="item ' + (s.voided ? 'void' : '') + '"><div class="t"><b>' + hhmm(s.ts) + '</b> <span class="tag">' + esc(METHODS[s.method] || s.method) + '</span>' + (s.voided ? ' <span class="tag bad">Anulada</span>' : '') + ' <span class="small muted">' + esc(nm(s.by)) + '</span><small>' + det + '</small>' + (s.voided ? '<small>Motivo: ' + esc(s.voidReason || '—') + ' · por ' + esc(nm(s.voidBy || s.by)) + '</small>' : '') + '</div><b class="num amt">' + eur(s.total) + '</b></div>';
+              var fs = S.refunds.filter(function (f) {
+                return f.saleId === s.id;
+              }).sort(function (a, b) {
+                return a.ts - b.ts;
+              });
+              var back = round2(fs.reduce(function (a, f) {
+                  return a + f.total;
+                }, 0)),
+                net = round2(s.total - back);
+              var rl = fs.map(function (f) {
+                return '<small class="refl">Devolución de ' + eur(f.total) + ' en ' + esc((METHODS[f.method] || f.method).toLowerCase()) + ' · ' + dmy(f.day) + ' ' + hhmm(f.ts) + ' · ' + esc(f.reason || '') + (f.note ? ' (' + esc(f.note) + ')' : '') + (f.restock ? ' · vuelve al stock' : '') + '</small>';
+              }).join('');
+              var can = !s.voided && net > 0.004 && S.canWrite;
+              return '<div class="item ' + (s.voided ? 'void' : '') + '"><div class="t"><b>' + hhmm(s.ts) + '</b> <span class="tag">' + esc(tnum(s)) + '</span> <span class="tag">' + esc(METHODS[s.method] || s.method) + '</span>' + (s.voided ? ' <span class="tag bad">Anulada</span>' : '') + (back && !s.voided ? ' <span class="tag warn">' + (net <= 0.004 ? 'Devuelta' : 'Devolución parcial') + '</span>' : '') + ' <span class="small muted">' + esc(nm(s.by)) + '</span><small>' + det + '</small>' + (s.voided ? '<small>Motivo: ' + esc(s.voidReason || '—') + ' · por ' + esc(nm(s.voidBy || s.by)) + '</small>' : '') + rl + '</div><div class="vact"><b class="num amt">' + eur(s.voided ? s.total : net) + '</b>' + (can ? '<button class="ghost" data-ref="' + esc(s.id) + '">Devolver</button>' : '') + '</div></div>';
             }).join('') : '<div class="empty">No hay ventas este día.</div>';
           }
         };
 
+        /* ---- Devolución (total o parcial) por el mismo medio de pago ---- */
         /* ---- Pedidos ---- */
         ST = {
           pendiente: 'Pendiente',
@@ -2674,20 +2936,20 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
           mount: function mount(v) {
             v.innerHTML = '<section class="panel"><h2>Nuevo pedido de cliente</h2><div class="row"><div class="field"><label for="oc">Cliente</label><input id="oc" autocomplete="off" maxlength="60"></div><div class="field"><label for="ot">Teléfono</label><input id="ot" inputmode="tel" autocomplete="off" maxlength="20"></div><div class="field"><label for="od">Recoge el</label><input id="od" type="date"></div></div><div class="field"><label for="ox">Qué quiere</label><textarea id="ox" maxlength="400" placeholder="2 kg de chuletón, 1 pollo entero..."></textarea></div><button class="primary" id="ogo">Guardar pedido</button></section>' + '<section class="panel"><h2>Pedidos <span class="small muted" id="osum"></span></h2><div class="list" id="olist"></div></section>';
             $('#od').value = today();
-            $('#ogo').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+            $('#ogo').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
               var c, x, ok;
-              return _regenerator().w(function (_context6) {
-                while (1) switch (_context6.n) {
+              return _regenerator().w(function (_context7) {
+                while (1) switch (_context7.n) {
                   case 0:
                     c = $('#oc').value.trim(), x = $('#ox').value.trim();
                     if (!(!c || !x)) {
-                      _context6.n = 1;
+                      _context7.n = 1;
                       break;
                     }
                     toast('Pon el cliente y lo que quiere.', true);
-                    return _context6.a(2);
+                    return _context7.a(2);
                   case 1:
-                    _context6.n = 2;
+                    _context7.n = 2;
                     return save(function () {
                       return db.collection('orders').doc().set({
                         ts: Date.now(),
@@ -2700,32 +2962,32 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
                       });
                     }, 'Pedido guardado');
                   case 2:
-                    ok = _context6.v;
+                    ok = _context7.v;
                     if (ok) {
                       $('#oc').value = '';
                       $('#ot').value = '';
                       $('#ox').value = '';
                     }
                   case 3:
-                    return _context6.a(2);
+                    return _context7.a(2);
                 }
-              }, _callee6);
+              }, _callee7);
             }));
             $('#olist').onclick = /*#__PURE__*/function () {
-              var _ref6 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7(e) {
+              var _ref7 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8(e) {
                 var b, _t;
-                return _regenerator().w(function (_context7) {
-                  while (1) switch (_context7.n) {
+                return _regenerator().w(function (_context8) {
+                  while (1) switch (_context8.n) {
                     case 0:
                       b = e.target.closest('button');
                       if (b) {
-                        _context7.n = 1;
+                        _context8.n = 1;
                         break;
                       }
-                      return _context7.a(2);
+                      return _context8.a(2);
                     case 1:
                       if (!b.dataset.st) {
-                        _context7.n = 2;
+                        _context8.n = 2;
                         break;
                       }
                       save(function () {
@@ -2733,33 +2995,33 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
                           status: b.dataset.st
                         });
                       });
-                      _context7.n = 5;
+                      _context8.n = 5;
                       break;
                     case 2:
                       _t = b.dataset.del;
                       if (!_t) {
-                        _context7.n = 4;
+                        _context8.n = 4;
                         break;
                       }
-                      _context7.n = 3;
+                      _context8.n = 3;
                       return confirmSheet('Borrar pedido', '¿Seguro que quieres borrar este pedido?', 'Borrar');
                     case 3:
-                      _t = _context7.v;
+                      _t = _context8.v;
                     case 4:
                       if (!_t) {
-                        _context7.n = 5;
+                        _context8.n = 5;
                         break;
                       }
                       save(function () {
                         return db.doc('orders/' + b.dataset.del).delete();
                       }, 'Pedido borrado');
                     case 5:
-                      return _context7.a(2);
+                      return _context8.a(2);
                   }
-                }, _callee7);
+                }, _callee8);
               }));
               return function (_x4) {
-                return _ref6.apply(this, arguments);
+                return _ref7.apply(this, arguments);
               };
             }();
           },
@@ -2849,13 +3111,19 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
               vd = inR.filter(function (s) {
                 return s.voided;
               });
+            var rf = S.refunds.filter(function (f) {
+                return f.day >= start;
+              }),
+              rfT = round2(rf.reduce(function (a, f) {
+                return a + f.total;
+              }, 0));
             var tot = round2(ok.reduce(function (a, s) {
                 return a + s.total;
-              }, 0)),
+              }, 0) - rfT),
               vtot = round2(vd.reduce(function (a, s) {
                 return a + s.total;
               }, 0));
-            $('#tiles').innerHTML = '<div class="tile"><small>Ventas</small><strong class="num">' + eur(tot) + '</strong></div><div class="tile"><small>Tickets</small><strong class="num">' + ok.length + '</strong></div><div class="tile"><small>Ticket medio</small><strong class="num">' + eur(ok.length ? tot / ok.length : 0) + '</strong></div><div class="tile ' + (vd.length ? 'alert' : '') + '"><small>Ventas anuladas</small><strong class="num">' + vd.length + ' · ' + eur(vtot) + '</strong></div>';
+            $('#tiles').innerHTML = '<div class="tile"><small>Ventas</small><strong class="num">' + eur(tot) + '</strong></div><div class="tile"><small>Tickets</small><strong class="num">' + ok.length + '</strong></div><div class="tile"><small>Ticket medio</small><strong class="num">' + eur(ok.length ? tot / ok.length : 0) + '</strong></div><div class="tile ' + (vd.length ? 'alert' : '') + '"><small>Ventas anuladas</small><strong class="num">' + vd.length + ' · ' + eur(vtot) + '</strong></div><div class="tile ' + (rf.length ? 'alert' : '') + '"><small>Devoluciones</small><strong class="num">' + rf.length + ' · ' + eur(rfT) + '</strong></div>';
             var days = [];
             for (var i = S.range - 1; i >= 0; i--) days.push(dayOf(Date.now() - i * 864e5));
             var per = {};
@@ -2864,6 +3132,9 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
             });
             ok.forEach(function (s) {
               if (per[s.day] != null) per[s.day] = round2(per[s.day] + s.total);
+            });
+            rf.forEach(function (f) {
+              if (per[f.day] != null) per[f.day] = round2(per[f.day] - f.total);
             });
             var mx = Math.max.apply(null, days.map(function (d) {
               return per[d];
@@ -2886,6 +3157,12 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
                 h: '<b>Venta anulada ' + dmy(s.day) + ' ' + hhmm(s.ts) + '</b> <span class="tag bad num">' + eur(s.total) + '</span><small>Motivo: ' + esc(s.voidReason || '—') + ' · por ' + esc(nm(s.voidBy || s.by)) + '</small>'
               });
             });
+            rf.forEach(function (f) {
+              al.push({
+                t: f.ts,
+                h: '<b>Devolución ' + dmy(f.day) + ' ' + hhmm(f.ts) + '</b> <span class="tag warn num">' + eur(f.total) + '</span><small>' + esc(METHODS[f.method] || f.method) + ' · ' + esc(f.reason || '') + (f.note ? ' (' + esc(f.note) + ')' : '') + ' · por ' + esc(nm(f.by)) + '</small>'
+              });
+            });
             S.moves.filter(function (m) {
               return m.type === 'inventario' && m.day >= start && m.diff < 0;
             }).forEach(function (m) {
@@ -2899,10 +3176,13 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
             });
             $('#alerts').innerHTML = al.length ? al.map(function (a) {
               return '<div class="item"><div class="t">' + a.h + '</div></div>';
-            }).join('') : '<div class="empty">Nada raro en este periodo: cajas cuadradas, sin anulaciones ni faltas de stock.</div>';
+            }).join('') : '<div class="empty">Nada raro en este periodo: cajas cuadradas, sin anulaciones, devoluciones ni faltas de stock.</div>';
             var bm = {};
             ok.forEach(function (s) {
               bm[s.method] = round2((bm[s.method] || 0) + s.total);
+            });
+            rf.forEach(function (f) {
+              bm[f.method] = round2((bm[f.method] || 0) - f.total);
             });
             $('#bymeth').innerHTML = Object.keys(METHODS).map(function (m) {
               return '<div class="item"><div class="t">' + METHODS[m] + '</div><b class="num">' + eur(bm[m] || 0) + '</b></div>';
@@ -2919,6 +3199,19 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
                 };
                 tp[k].q += it.qty;
                 tp[k].t = round2(tp[k].t + it.total);
+              });
+            });
+            rf.forEach(function (f) {
+              (f.items || []).forEach(function (it) {
+                var k = it.pid;
+                tp[k] = tp[k] || {
+                  name: it.name,
+                  kind: it.kind,
+                  q: 0,
+                  t: 0
+                };
+                tp[k].q -= it.qty;
+                tp[k].t = round2(tp[k].t - it.total);
               });
             });
             var tl = Object.keys(tp).map(function (k) {
@@ -2967,16 +3260,16 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
               };
               r.readAsText(f);
             };
-            $('#demo').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+            $('#demo').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
               var d;
-              return _regenerator().w(function (_context8) {
-                while (1) switch (_context8.n) {
+              return _regenerator().w(function (_context9) {
+                while (1) switch (_context9.n) {
                   case 0:
-                    _context8.n = 1;
+                    _context9.n = 1;
                     return confirmSheet('Cargar datos de ejemplo', 'Se añaden unos 7 días de ventas, cierres de caja (con algún descuadre), mermas, inventario y pedidos de mentira para enseñar la app. Se quitan con «Quitar datos de ejemplo».', 'Cargar');
                   case 1:
-                    if (!_context8.v) {
-                      _context8.n = 2;
+                    if (!_context9.v) {
+                      _context9.n = 2;
                       break;
                     }
                     d = buildDemo();
@@ -2985,60 +3278,60 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
                       toast('Datos de ejemplo cargados');
                     }
                   case 2:
-                    return _context8.a(2);
-                }
-              }, _callee8);
-            }));
-            $('#undemo').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
-              return _regenerator().w(function (_context9) {
-                while (1) switch (_context9.n) {
-                  case 0:
-                    _context9.n = 1;
-                    return confirmSheet('Quitar datos de ejemplo', 'Solo se quitan los datos de ejemplo. Lo demás se queda.', 'Quitar');
-                  case 1:
-                    if (!_context9.v) {
-                      _context9.n = 2;
-                      break;
-                    }
-                    db._undemo();
-                    toast('Datos de ejemplo quitados');
-                  case 2:
                     return _context9.a(2);
                 }
               }, _callee9);
             }));
-            $('#clr').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
+            $('#undemo').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
               return _regenerator().w(function (_context0) {
                 while (1) switch (_context0.n) {
                   case 0:
                     _context0.n = 1;
-                    return confirmSheet('Borrar datos de prueba', 'Se borran ventas, cierres, movimientos y pedidos. Los productos se quedan.', 'Borrar');
+                    return confirmSheet('Quitar datos de ejemplo', 'Solo se quitan los datos de ejemplo. Lo demás se queda.', 'Quitar');
                   case 1:
                     if (!_context0.v) {
                       _context0.n = 2;
                       break;
                     }
-                    db._clear(['sales', 'closings', 'moves', 'orders']);
-                    toast('Datos de prueba borrados');
+                    db._undemo();
+                    toast('Datos de ejemplo quitados');
                   case 2:
                     return _context0.a(2);
                 }
               }, _callee0);
             }));
-            $('#pgo').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
-              var n, p, ok;
+            $('#clr').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
               return _regenerator().w(function (_context1) {
                 while (1) switch (_context1.n) {
                   case 0:
+                    _context1.n = 1;
+                    return confirmSheet('Borrar datos de prueba', 'Se borran ventas, cierres, movimientos y pedidos. Los productos se quedan.', 'Borrar');
+                  case 1:
+                    if (!_context1.v) {
+                      _context1.n = 2;
+                      break;
+                    }
+                    db._clear(['sales', 'refunds', 'closings', 'moves', 'orders']);
+                    toast('Datos de prueba borrados');
+                  case 2:
+                    return _context1.a(2);
+                }
+              }, _callee1);
+            }));
+            $('#pgo').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee10() {
+              var n, p, ok;
+              return _regenerator().w(function (_context10) {
+                while (1) switch (_context10.n) {
+                  case 0:
                     n = $('#pn').value.trim(), p = parseNum($('#pp').value);
                     if (!(!n || isNaN(p) || p < 0)) {
-                      _context1.n = 1;
+                      _context10.n = 1;
                       break;
                     }
                     toast('Pon nombre y precio.', true);
-                    return _context1.a(2);
+                    return _context10.a(2);
                   case 1:
-                    _context1.n = 2;
+                    _context10.n = 2;
                     return save(function () {
                       return db.collection('products').doc().set({
                         name: n,
@@ -3049,15 +3342,15 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
                       });
                     }, 'Producto añadido');
                   case 2:
-                    ok = _context1.v;
+                    ok = _context10.v;
                     if (ok) {
                       $('#pn').value = '';
                       $('#pp').value = '';
                     }
                   case 3:
-                    return _context1.a(2);
+                    return _context10.a(2);
                 }
-              }, _callee1);
+              }, _callee10);
             }));
             $('#plist').onchange = function (e) {
               var i = e.target.closest('input[data-id]');
@@ -3075,36 +3368,36 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
               }, 'Precio actualizado');
             };
             $('#plist').onclick = /*#__PURE__*/function () {
-              var _ref1 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee10(e) {
+              var _ref10 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee11(e) {
                 var b, p;
-                return _regenerator().w(function (_context10) {
-                  while (1) switch (_context10.n) {
+                return _regenerator().w(function (_context11) {
+                  while (1) switch (_context11.n) {
                     case 0:
                       b = e.target.closest('button[data-del]');
                       if (b) {
-                        _context10.n = 1;
+                        _context11.n = 1;
                         break;
                       }
-                      return _context10.a(2);
+                      return _context11.a(2);
                     case 1:
                       p = prodById(b.dataset.del);
-                      _context10.n = 2;
+                      _context11.n = 2;
                       return confirmSheet('Borrar producto', '¿Borrar "' + (p ? p.name : '') + '"? Las ventas ya hechas se conservan.', 'Borrar');
                     case 2:
-                      if (!_context10.v) {
-                        _context10.n = 3;
+                      if (!_context11.v) {
+                        _context11.n = 3;
                         break;
                       }
                       save(function () {
                         return db.doc('products/' + b.dataset.del).delete();
                       }, 'Producto borrado');
                     case 3:
-                      return _context10.a(2);
+                      return _context11.a(2);
                   }
-                }, _callee10);
+                }, _callee11);
               }));
               return function (_x5) {
-                return _ref1.apply(this, arguments);
+                return _ref10.apply(this, arguments);
               };
             }();
           },
@@ -3291,32 +3584,32 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
             show: show
           };
         }();
-        $('#swap').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee11() {
-          return _regenerator().w(function (_context11) {
-            while (1) switch (_context11.n) {
+        $('#swap').onclick = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee12() {
+          return _regenerator().w(function (_context12) {
+            while (1) switch (_context12.n) {
               case 0:
                 if (!bv()) {
-                  _context11.n = 1;
+                  _context12.n = 1;
                   break;
                 }
                 S.mode = 'mostrador';
                 S.cart = [];
                 go(tabList()[0]);
-                return _context11.a(2);
+                return _context12.a(2);
               case 1:
-                _context11.n = 2;
+                _context12.n = 2;
                 return askPin();
               case 2:
-                if (!_context11.v) {
-                  _context11.n = 3;
+                if (!_context12.v) {
+                  _context12.n = 3;
                   break;
                 }
                 S.mode = 'jefe';
                 go(tabList()[0]);
               case 3:
-                return _context11.a(2);
+                return _context12.a(2);
             }
-          }, _callee11);
+          }, _callee12);
         }));
         $('#nav').onclick = function (e) {
           var b = e.target.closest('button[data-t]');
@@ -3331,14 +3624,15 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
         go(tabList()[0]);
         sub('products', db.collection('products').orderBy('name'));
         sub('sales', db.collection('sales').orderBy('ts', 'desc').limit(1000));
+        sub('refunds', db.collection('refunds').orderBy('ts', 'desc').limit(1000));
         sub('closings', db.collection('closings').orderBy('ts', 'desc').limit(120));
         sub('moves', db.collection('moves').orderBy('ts', 'desc').limit(1000));
         sub('orders', db.collection('orders').orderBy('ts', 'desc').limit(300));
         sub('reviews', db.collection('reviews').orderBy('ts', 'desc').limit(500));
       case 1:
-        return _context15.a(2);
+        return _context16.a(2);
     }
-  }, _callee15);
+  }, _callee16);
 }))();
 
 </script>
