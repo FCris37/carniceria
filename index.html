@@ -206,48 +206,48 @@ input.kp-on{border-color:#9b1c2e;box-shadow:0 0 0 3px rgba(155,28,46,.25)}
 .change.low{background:#fdecea;border-color:#f0a8a0;color:#9b1c2e}
 .sb{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column}
 .sb>*{-webkit-flex-shrink:0;flex-shrink:0}
-.sheet.kp-room{bottom:270px;padding:8px 16px}
-.sheet.kp-room .sheet-card{max-height:100%;padding:12px 16px}
-.sheet.kp-room .sheet-card>*+*{margin-top:8px}
-.sheet.kp-room .sb>*+*{margin-top:8px}
+.touch .sheet.kp-room{padding:8px 16px 278px}
+.touch .sheet.kp-room .sheet-card{max-height:100%;padding:12px 16px}
+.touch .sheet.kp-room .sheet-card>*+*{margin-top:8px}
+.touch .sheet.kp-room .sb>*+*{margin-top:8px}
 .bigin{font-size:2rem;min-height:68px;text-align:center}
 @media (max-height:760px){
   .kp{height:220px;padding:8px}
   .kp-row{margin-bottom:6px}.kp-row button+button{margin-left:6px}.kp-r{margin-left:6px}.kp-r button+button{margin-top:6px}
   .kp button{font-size:1.6rem}
-  .sheet.kp-room{bottom:220px;padding:6px 16px}
-  .sheet.kp-room .sheet-card{padding:10px 16px}
-  .sheet.kp-room .sheet-card>*+*,.sheet.kp-room .sb>*+*{margin-top:6px}
-  .sheet.kp-room h3{font-size:1.1rem}
-  .sheet.kp-room .icon{min-height:36px}
-  .sheet.kp-room .bigin,.sheet.kp-room .qtyrow input{font-size:1.7rem;min-height:54px}
-  .sheet.kp-room .chip{min-height:40px;padding:6px 14px}
-  .sheet.kp-room .change{padding:8px 12px}.sheet.kp-room .change strong,.sheet.kp-room .linetotal strong{font-size:1.4rem}
-  .sheet.kp-room .primary.big{min-height:48px}
-  .sheet.kp-room label{font-size:.8rem}
+  .touch .sheet.kp-room{padding:6px 16px 226px}
+  .touch .sheet.kp-room .sheet-card{padding:10px 16px}
+  .touch .sheet.kp-room .sheet-card>*+*,.touch .sheet.kp-room .sb>*+*{margin-top:6px}
+  .touch .sheet.kp-room h3{font-size:1.1rem}
+  .touch .sheet.kp-room .icon{min-height:36px}
+  .touch .sheet.kp-room .bigin,.touch .sheet.kp-room .qtyrow input{font-size:1.7rem;min-height:54px}
+  .touch .sheet.kp-room .chip{min-height:40px;padding:6px 14px}
+  .touch .sheet.kp-room .change{padding:8px 12px}.touch .sheet.kp-room .change strong,.touch .sheet.kp-room .linetotal strong{font-size:1.4rem}
+  .touch .sheet.kp-room .primary.big{min-height:48px}
+  .touch .sheet.kp-room label{font-size:.8rem}
   body.kp-open main#view{padding-bottom:240px}
 }
 @media (max-height:620px){
   .kp{height:190px}
-  .sheet.kp-room{bottom:190px}
-  .sheet.kp-room .sheet-card{padding:8px 14px}
-  .sheet.kp-room .bigin,.sheet.kp-room .qtyrow input{min-height:46px;font-size:1.5rem}
-  .sheet.kp-room .chip{min-height:36px}
-  .sheet.kp-room .primary.big{min-height:44px}
-  .sheet.kp-room .sheet-card header{margin-bottom:-4px}
+  .touch .sheet.kp-room{padding-bottom:196px}
+  .touch .sheet.kp-room .sheet-card{padding:8px 14px}
+  .touch .sheet.kp-room .bigin,.touch .sheet.kp-room .qtyrow input{min-height:46px;font-size:1.5rem}
+  .touch .sheet.kp-room .chip{min-height:36px}
+  .touch .sheet.kp-room .primary.big{min-height:44px}
+  .touch .sheet.kp-room .sheet-card header{margin-bottom:-4px}
 }
 .kp button{line-height:1}
 .kp-row,.kp-l,.kp-r,.kp-in{min-height:0}
 @media (max-height:620px){.kp button{font-size:1.4rem}}
 @media (max-height:560px){
   .kp{height:170px;padding:6px}
-  .sheet.kp-room{bottom:170px;padding:4px 16px}
-  .sheet.kp-room .sheet-card{padding:6px 14px}
-  .sheet.kp-room .sheet-card>*+*,.sheet.kp-room .sb>*+*{margin-top:4px}
-  .sheet.kp-room .bigin,.sheet.kp-room .qtyrow input{min-height:40px;font-size:1.4rem}
-  .sheet.kp-room .chip{min-height:32px}
-  .sheet.kp-room .primary.big{min-height:40px}
-  .sheet.kp-room .change{padding:4px 12px}
+  .touch .sheet.kp-room{padding:4px 16px 174px}
+  .touch .sheet.kp-room .sheet-card{padding:6px 14px}
+  .touch .sheet.kp-room .sheet-card>*+*,.touch .sheet.kp-room .sb>*+*{margin-top:4px}
+  .touch .sheet.kp-room .bigin,.touch .sheet.kp-room .qtyrow input{min-height:40px;font-size:1.4rem}
+  .touch .sheet.kp-room .chip{min-height:32px}
+  .touch .sheet.kp-room .primary.big{min-height:40px}
+  .touch .sheet.kp-room .change{padding:4px 12px}
 }
 
 /* devolución */
@@ -273,6 +273,11 @@ input.kp-on{border-color:#9b1c2e;box-shadow:0 0 0 3px rgba(155,28,46,.25)}
 .minirow button+button{margin-left:6px}
 .minirow button.bad{color:#9b1c2e}
 .sell>aside{overflow-y:auto}
+
+@media (min-width:900px){body.adm{zoom:.85}}
+
+.touch .sheet.kp-room.tall{padding-bottom:8px}
+.touch body.kp-open .sheet.kp-room.tall{padding-bottom:230px}
 </style>
 </head>
 <body>
@@ -1339,6 +1344,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
         };
         renderNav = function _renderNav() {
           var L = bv() ? LBL_B : LBL_W;
+          document.body.classList[bv() ? 'add' : 'remove']('adm');
           $('#nav').innerHTML = tabList().map(function (t) {
             return '<button data-t="' + t + '"' + (t === S.tab ? ' aria-current="page"' : '') + '>' + L[t] + '</button>';
           }).join('');
@@ -1784,6 +1790,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
             return '<div class="rline"><label class="rl"><input type="checkbox" class="rc" data-i="' + l.i + '"><span><b>' + esc(l.it.name) + '</b><small>Quedan ' + esc(qfmt(l.rq, l.it.kind)) + ' · ' + eur(l.rt) + '</small></span></label><span class="rqw"><input class="rq" data-i="' + l.i + '" inputmode="numeric" autocomplete="off" maxlength="6" placeholder="0"><em>' + (l.it.kind === 'kg' ? 'g' : 'ud') + '</em></span></div>';
           }).join('');
           var b = openSheet('Devolver · ' + tnum(s), '<div class="rtop"><p class="muted">' + dmy(s.day) + ' ' + hhmm(s.ts) + ' · ' + eur(s.total) + ' · cobrado en ' + esc(mname) + '</p><button class="ghost" id="rall">Todo el ticket</button></div><div class="rlines">' + rows + '</div><div class="rrow"><div class="field"><label for="rr">Motivo</label><select id="rr"><option>Error al cobrar</option><option>El cliente devuelve el producto</option><option>Otro</option></select></div><div class="field"><label for="rn">Nota (obligatoria si es «Otro»)</label><input id="rn" maxlength="80" autocomplete="off"></div></div><label class="rl"><input type="checkbox" id="rs"><span>Devolver el producto al stock<small>Normalmente no: la carne devuelta no se vuelve a vender.</small></span></label><div class="change" id="rsum"><span id="rlab">Devolver en ' + esc(mname) + '</span><strong class="num" id="rv">0,00 €</strong></div><p class="muted small" id="rhint">' + (s.method === 'tarjeta' ? 'Haz también la devolución en el datáfono: la app solo la registra.' : 'Entrega este dinero al cliente en efectivo.') + '</p><button class="primary big" id="rgo" disabled>Registrar devolución</button>');
+          $('#sheet').className += ' tall';
           var byI = {};
           L.forEach(function (l) {
             byI[l.i] = l;
@@ -3619,6 +3626,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
             KH = 270,
             shownAt = 0,
             touch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+          if (touch) document.documentElement.className += ' touch';
           function match(i) {
             return !!i && i.tagName === 'INPUT' && /^(numeric|decimal|tel)$/.test(i.getAttribute('inputmode') || '');
           }
