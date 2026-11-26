@@ -2893,11 +2893,13 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
             fresh = false,
             dec = false,
             KH = 270,
-            shownAt = 0;
+            shownAt = 0,
+            touch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
           function match(i) {
             return !!i && i.tagName === 'INPUT' && /^(numeric|decimal|tel)$/.test(i.getAttribute('inputmode') || '');
           }
           function prep(root) {
+            if (!touch) return;
             var l = (root || document).querySelectorAll('input[inputmode]');
             for (var i = 0; i < l.length; i++) {
               if (match(l[i]) && !l[i].readOnly) l[i].readOnly = true;
@@ -2909,6 +2911,7 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
             n.dispatchEvent(ev);
           }
           function show(i) {
+            if (!touch) return;
             if (t === i && !el.hidden) return;
             if (t && t !== i) hide();
             t = i;
@@ -2993,6 +2996,19 @@ _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
             if (el.contains(n) || n.closest && n.closest('button')) return;
             if (Date.now() - shownAt < 500) return;
             hide();
+          });
+          document.addEventListener('keydown', function (e) {
+            if (!t || e.ctrlKey || e.metaKey || e.altKey) return;
+            var c = e.keyCode,
+              k = null;
+            if (c >= 48 && c <= 57) k = String(c - 48);else if (c >= 96 && c <= 105) k = String(c - 96);else if (c === 188 || c === 190 || c === 110) k = ',';else if (c === 8) k = 'bs';else if (c === 13) k = 'ok';else if (c === 27) {
+              hide();
+              e.preventDefault();
+              return;
+            }
+            if (k === null) return;
+            e.preventDefault();
+            press(k);
           });
           setInterval(function () {
             if (t && !document.body.contains(t)) hide();
